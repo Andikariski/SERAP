@@ -318,18 +318,18 @@ body {
 /* Card dengan list (garis warna di kiri) */
 .card-border {
     position: relative;
-    border-radius: 12px;
+    border-radius: 5px;
     background: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); */
     overflow: hidden;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
 /* Efek hover opsional */
-.card-border:hover {
+/* .card-border:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
+} */
 
 /* Garis di sisi kiri */
 .card-border::before {
@@ -339,7 +339,7 @@ body {
     left: 0;
     width: 6px; /* ketebalan garis */
     height: 100%;
-    border-radius: 6px 0 0 6px;
+    border-radius: 3px 0 0 3px;
     background-color: var(--card-line-color, #3b82f6); /* default biru */
 }
 
@@ -352,7 +352,7 @@ body {
     background-color: #219ebc;
 }
 
-.card-border.hijau::before {
+.card-border.green::before {
     background-color: #4caf50;
 }
 

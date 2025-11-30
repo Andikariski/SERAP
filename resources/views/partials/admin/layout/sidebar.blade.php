@@ -41,7 +41,15 @@
                 </a> --}}
             {{-- </li> --}}
 
-             <li class="nav-item" x-data="{ open: {{ (request()->get('type') === 'rap-opd-bg' || request()->get('type') === 'rap-opd-sg' ||request()->get('type') === 'rap-opd-dti') ? 'true' : 'false' }} }">
+             <li class="nav-item" x-data="{ open: {{ (
+                request()->get('type') === 'rap-opd-bg' || 
+                request()->get('type') === 'rap-opd-sg' || 
+                request()->get('type') === 'rap-opd-dti' ||
+                request()->get('type') === 'rap-opd-riwayat'||
+                request()->get('type') === 'rap-opd-update-bg'||
+                request()->get('type') === 'rap-opd-update-sg'||
+                request()->get('type') === 'rap-opd-update-dti'
+                ) ? 'true' : 'false' }} }">
                 <!-- Parent link (dropdown trigger) -->
                 <a href="#" @click.prevent="open = !open"
                     class="sidebar-nav-link text-dark rounded-1 d-flex align-items-center justify-content-between gap-1 {{ request()->routeIs('opd.rap.*') ? 'bg-primary text-light' : 'bg-white text-dark' }}"
@@ -60,25 +68,25 @@
                     style="display: none;">
                     <li>
                         <a wire:navigate href="{{ route('opd.rap.rapBG', ['type' => 'rap-opd-bg']) }}"
-                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'rap-opd-bg' ? 'fw-bold text-primary' : 'text-dark' }}">
+                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'rap-opd-bg' || request()->get('type') === 'rap-opd-update-bg' ? 'fw-bold text-primary' : 'text-dark' }}">
                             RAP Block Grand
                         </a>
                     </li>
                     <li>
                         <a wire:navigate href="{{ route('opd.rap.rapSG', ['type' => 'rap-opd-sg']) }}"
-                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'rap-opd-sg' ? 'fw-bold text-primary' : 'text-dark' }}">
+                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'rap-opd-sg' || request()->get('type') === 'rap-opd-update-sg' ? 'fw-bold text-primary' : 'text-dark' }}">
                             RAP Spesifik Grand
                         </a>
                     </li>
                     <li>
                         <a wire:navigate href="{{ route('opd.rap.rapDTI', ['type' => 'rap-opd-dti']) }}"
-                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'rap-opd-dti' ? 'fw-bold text-primary' : 'text-dark' }}">
+                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'rap-opd-dti' || request()->get('type') === 'rap-opd-update-dti' ? 'fw-bold text-primary' : 'text-dark' }}">
                             RAP DTI
                         </a>
                     </li>
                     <li>
-                        <a wire:navigate href="{{ route('opd.rap.rapDTI', ['type' => 'rap-opd-dti']) }}"
-                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'rap-opd-dti' ? 'fw-bold text-primary' : 'text-dark' }}">
+                        <a wire:navigate href="{{ route('opd.rap.rapRiwayat', ['type' => 'rap-opd-riwayat']) }}"
+                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'rap-opd-riwayat' ? 'fw-bold text-primary' : 'text-dark' }}">
                             Riwayat RAP
                         </a>
                     </li>
@@ -87,7 +95,7 @@
             @endif
           
             @if (Auth()->user()->is_admin == 1)
-              <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a wire:navigate href="{{ route('subKegiatan') }}"
                     class="sidebar-nav-link text-dark rounded-1 d-flex align-items-center gap-1 {{ request()->routeIs('subKegiatan') ? 'bg-primary text-light' : 'bg-white text-dark' }}"
                     :class="{ 'justify-content-center': sidebarCollapsed }">
@@ -96,6 +104,15 @@
                     <span x-show="!sidebarCollapsed">Sub Kegiatan</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a wire:navigate href="{{ route('aktivitasUtama') }}"
+                    class="sidebar-nav-link text-dark rounded-1 d-flex align-items-center gap-1 {{ request()->routeIs('aktivitasUtama') ? 'bg-primary text-light' : 'bg-white text-dark' }}"
+                    :class="{ 'justify-content-center': sidebarCollapsed }">
+                    <i
+                        class="bi bi-journal-text {{ request()->routeIs('aktivitasUtama') ? 'text-light' : 'text-dark' }}"></i>
+                    <span x-show="!sidebarCollapsed">Aktivitas Utama</span>
+                </a>
+            </li> --}}
             <li class="sidebar-nav-item">
                 <a wire:navigate href="{{ route('superadmin.operator') }}"
                     class="sidebar-nav-link text-dark rounded-1 d-flex align-items-center gap-1 {{ request()->routeIs('superadmin.operator') ? 'bg-primary text-light' : 'bg-white text-dark' }}"
@@ -114,7 +131,7 @@
                     <span x-show="!sidebarCollapsed">Data OPD</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a wire:navigate href="{{ route('superadmin.rap') }}"
                     class="sidebar-nav-link text-dark rounded-1 d-flex align-items-center gap-1 {{ request()->routeIs('superadmin.rap') ? 'bg-primary text-light' : 'bg-white text-dark' }}"
                     :class="{ 'justify-content-center': sidebarCollapsed }">
@@ -123,6 +140,15 @@
                     <span x-show="!sidebarCollapsed">RAP Induk</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a wire:navigate href="{{ route('superadmin.persentase.rap') }}"
+                    class="sidebar-nav-link text-dark rounded-1 d-flex align-items-center gap-1 {{ request()->routeIs('superadmin.persentase.rap') ? 'bg-primary text-light' : 'bg-white text-dark' }}"
+                    :class="{ 'justify-content-center': sidebarCollapsed }">
+                    <i
+                        class="bi bi-wallet {{ request()->routeIs('superadmin.persentase.rap') ? 'text-light' : 'text-dark' }}"></i>
+                    <span x-show="!sidebarCollapsed">RAP Persentase</span>
+                </a>
+            </li> --}}
             <li class="nav-item">
                 <a wire:navigate href="{{ route('superadmin.kontrol') }}"
                     class="sidebar-nav-link text-dark rounded-1 d-flex align-items-center gap-1 {{ request()->routeIs('superadmin.kontrol') ? 'bg-primary text-light' : 'bg-white text-dark' }}"
@@ -158,7 +184,7 @@
                 </a>
 
                 <!-- Dropdown menu -->
-                <ul class="list-unstyled ps-4 mt-1" x-show="open && !sidebarCollapsed" x-transition
+                <ul class="list-unstyled ps-4" x-show="open && !sidebarCollapsed" x-transition
                     style="display: none;">
                     <li>
                         <a wire:navigate href="{{ route('superadmin.pagu.opd', ['type' => 'pagu-opd']) }}"
@@ -174,8 +200,71 @@
                     </li>
                 </ul>
             </li>
-            @endif
 
+            <li class="nav-item" x-data="{ open: {{ (request()->get('type') === 'sub-kegiatan' || request()->get('type') === 'aktivitas-utama') ? 'true' : 'false' }} }">
+                <!-- Parent link (dropdown trigger) -->
+                <a href="#" @click.prevent="open = !open"
+                    class="sidebar-nav-link text-dark rounded-1 d-flex align-items-center justify-content-between gap-1 {{ request()->routeIs('superadmin.masterdata.*') ? 'bg-primary text-light' : 'bg-white text-dark' }}"
+                    :class="{ 'justify-content-center': sidebarCollapsed }">
+                    <div class="d-flex align-items-center gap-1">
+                        <i
+                            class="bi bi-database-gear {{ request()->routeIs('superadmin.masterdata.*') ? 'text-light' : 'text-dark' }}"></i>
+                        <span x-show="!sidebarCollapsed">Master Data</span>
+                    </div>
+                    <i class="bi" :class="open ? 'bi-chevron-up' : 'bi-chevron-down'"
+                        x-show="!sidebarCollapsed"></i>
+                </a>
+
+                <!-- Dropdown menu -->
+                <ul class="list-unstyled ps-4" x-show="open && !sidebarCollapsed" x-transition
+                    style="display: none;">
+                    <li>
+                        <a wire:navigate href="{{ route('superadmin.masterdata.subKegiatan', ['type' => 'sub-kegiatan']) }}"
+                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'sub-kegiatan' ? 'fw-bold text-primary' : 'text-dark' }}">
+                            Sub Kegiatan
+                        </a>
+                    </li>
+                    <li>
+                        <a wire:navigate href="{{ route('superadmin.masterdata.aktivitasUtama', ['type' => 'aktivitas-utama']) }}"
+                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'aktivitas-utama' ? 'fw-bold text-primary' : 'text-dark' }}">
+                            Aktivitas Utama
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item" x-data="{ open: {{ (request()->get('type') === 'rap-induk' || request()->get('type') === 'rap-persentase') ? 'true' : 'false' }} }">
+                <!-- Parent link (dropdown trigger) -->
+                <a href="#" @click.prevent="open = !open"
+                    class="sidebar-nav-link text-dark rounded-1 d-flex align-items-center justify-content-between gap-1 {{ request()->routeIs('superadmin.rap.*') ? 'bg-primary text-light' : 'bg-white text-dark' }}"
+                    :class="{ 'justify-content-center': sidebarCollapsed }">
+                    <div class="d-flex align-items-center gap-1">
+                        <i
+                            class="bi bi-folder-symlink {{ request()->routeIs('superadmin.rap.*') ? 'text-light' : 'text-dark' }}"></i>
+                        <span x-show="!sidebarCollapsed">Rekap RAP</span>
+                    </div>
+                    <i class="bi" :class="open ? 'bi-chevron-up' : 'bi-chevron-down'"
+                        x-show="!sidebarCollapsed"></i>
+                </a>
+
+                <!-- Dropdown menu -->
+                <ul class="list-unstyled ps-4" x-show="open && !sidebarCollapsed" x-transition
+                    style="display: none;">
+                    <li>
+                        <a wire:navigate href="{{ route('superadmin.rap.rapinduk', ['type' => 'rap-induk']) }}"
+                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'rap-induk' ? 'fw-bold text-primary' : 'text-dark' }}">
+                            RAP Induk
+                        </a>
+                    </li>
+                    <li>
+                        <a wire:navigate href="{{ route('superadmin.rap.persentase', ['type' => 'rap-persentase']) }}"
+                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'rap-persentase' ? 'fw-bold text-primary' : 'text-dark' }}">
+                            Persentase RAP
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endif
         </ul>
     </div>
 </div>

@@ -6,7 +6,7 @@
             }
         $breadcrumbs = [
             ['name' => 'Data RAP', 'url' => url()->previous()],
-            ['name' => 'Input RAP', 'url' => route('opd.rap.create')],
+            ['name' => 'Update RAP', 'url' => route('opd.rap.create')],
         ];
     @endphp
     <x-breadcrumb :items="$breadcrumbs" />
@@ -19,14 +19,10 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="form-label"><strong>Sub Kegiatan</strong></label> 
-                        <select wire:ignore id="selectSubKegiatan" class="form-control" data-url="{{ url('api/get-sub-kegiatan') }}">
+                        {{-- <select wire:ignore id="selectSubKegiatan" class="form-control" data-url="{{ url('api/get-sub-kegiatan') }}">
                             <option value="">-- Cari Sub Kegiatan --</option>
-                            {{-- @foreach ($subKegiatans as $kegiatan)
-                                <option value="{{ $kegiatan->id }}">{{ $kegiatan->sub_kegiatan }}</option>
-                            @endforeach --}}
-                        </select>
-                        <input type="hidden" class="form-control" readonly wire:model="sub_kegiatan">
-                        <input type="hidden" class="form-control" readonly wire:model="aktivitas_utama">
+                        </select> --}}
+                        <input type="text" class="form-control" readonly wire:model="sub_kegiatan">       
                     </div>
                     <div class="mb-3">
                         <div class="row">
@@ -85,10 +81,11 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Pagu Tahun Berjalan</strong><span style="color: red;">*</span></label> 
+                         <span class="badge bg-success">Sisa Pagu : {{number_format($sisa_pagu_form, 0, ',', '.')  }}</span>
                         <input type="text" class="form-control format-rupiah @error('pagu_tahun_berjalan') is-invalid @enderror"  wire:model="pagu_tahun_berjalan">
                          @error('pagu_tahun_berjalan')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                             <div class="invalid-feedback">{{ $message }}</div>
+                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Pagu Melanjutkan Kegiatan</strong></label> 
@@ -102,20 +99,39 @@
                         <label class="form-label">Sumber Dana</label>
                         <input type="text" class="form-control" wire:model="sumber_dana" readonly disabled>
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Sinergi Dana Lain</strong><span style="color: red;">*</span></label> 
+                            <select id="subKegiatan" class="form-control select2 @error('sinergi_dana_lain') is-invalid @enderror" wire:model="sinergi_dana_lain">
+                                <option value="">-- Pilih Sinergi Dana Lain --</option>
+                                <option value="Tidak Ada">Tidak Ada</option>
+                                <option value="Otsus 1%">Otsus 1% (BG)</option>
+                                <option value="Otsus 1,25%">Otsus 1,25% (SG)</option>
+                                <option value="Dti">Dana Tambahan Infrastruktur (DTI)</option>
+                            </select>
+                            @error('sinergi_dana_lain')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>PPSB</strong><span style="color: red;">*</span></label> 
+                            <select id="subKegiatan" class="form-control select2 @error('ppsb') is-invalid @enderror" wire:model="ppsb">
+                                <option value="">-- Pilih PPSB --</option>                                 
+                                <option value="ya">Ya</option>
+                                <option value="tidak">Tidak</option>
+                            </select>
+                            @error('ppsb')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                    </div>
                     <label class="" style="color: red;"><span >*</span> <i>Menandakan kolom wajib untuk id isi</i></label>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="form-label"><strong>Aktivitas Utama</strong></label> 
-                            <select wire:ignore id="selectActivitasUtama" class="form-control select2" data-url="{{ url('api/get-aktivitas-utama') }}">
+                            {{-- <select wire:ignore id="selectActivitasUtama" class="form-control select2" data-url="{{ url('api/get-aktivitas-utama') }}">
                                 <option value="">-- Cari Aktivitas Utama --</option>
-                                    {{-- @foreach ($aktivitas as $aktv)
-                                        <option value="{{ $aktv->id }}">{{ $aktv->aktivitas_utama }}</option>
-                                    @endforeach --}}
-                            </select>
-                            {{-- @error('subKegaitan')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror --}}
+                            </select> --}}
+                            <input type="text" class="form-control" readonly wire:model="aktivitas_utama">
                     </div>
                      <div class="mb-3">
                         <label class="form-label"><strong>Tema Pembangunan</strong></label> 
@@ -155,17 +171,6 @@
                             @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label"><strong>PPSB</strong><span style="color: red;">*</span></label> 
-                            <select id="subKegiatan" class="form-control select2 @error('ppsb') is-invalid @enderror" wire:model="ppsb">
-                                <option value="">-- Pilih PPSB --</option>                                 
-                                <option value="ya">Ya</option>
-                                <option value="tidak">Tidak</option>
-                            </select>
-                            @error('ppsb')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                    </div>
-                    <div class="mb-3">
                         <label class="form-label"><strong>Penerima Manfaat</strong><span style="color: red;">*</span></label> 
                             <select id="subKegiatan" class="form-control select2 @error('penerima_manfaat') is-invalid @enderror" wire:model="penerima_manfaat">
                                 <option value="">-- Pilih Penerima Manfaat --</option>                                 
@@ -173,19 +178,6 @@
                                 <option value="Terikat Langsung Ke Penerima Manfaat">Terikat Langsung Ke Penerima Manfaat</option>
                             </select>
                             @error('penerima_manfaat')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label"><strong>Sinergi Dana Lain</strong><span style="color: red;">*</span></label> 
-                            <select id="subKegiatan" class="form-control select2 @error('sinergi_dana_lain') is-invalid @enderror" wire:model="sinergi_dana_lain">
-                                <option value="">-- Pilih Sinergi Dana Lain --</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                                <option value="Otsus 1%">Otsus 1% (BG)</option>
-                                <option value="Otsus 1,25%">Otsus 1,25% (SG)</option>
-                                <option value="Dti">Dana Tambahan Infrastruktur (DTI)</option>
-                            </select>
-                            @error('sinergi_dana_lain')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                     </div>
@@ -218,15 +210,36 @@
                             </div>
                         </div>
                     </div>
+                     <div class="mb-3">
+                        <label class="form-label"><strong>Data Dukung RKA</strong><span style="color: red;">*</span></label> 
+                        <input type="text" class="form-control @error('data_rka') is-invalid @enderror"  wire:model="data_rka">
+                         @error('data_rka')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Data Dukung KAK</strong><span style="color: red;">*</span></label> 
+                        <input type="text" class="form-control @error('data_kak') is-invalid @enderror"  wire:model="data_kak">
+                         @error('data_kak')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Data Dukung Lainya</strong><span style="color: red;">*</span></label> 
+                        <input type="text" class="form-control @error('data_lainya') is-invalid @enderror"  wire:model="data_lainya">
+                         @error('data_lainya')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Deskripsi Keterangan</strong></label> 
-                        <textarea class="form-control" style="min-height: 127px; resize: none;" wire:model="keterangan"></textarea>
+                        <textarea class="form-control" style="min-height: 217px; resize: none;" wire:model="keterangan"></textarea>
                     </div>
                 </div>
             </div>
             <div class="row d-flex justify-content-end mt-3">
                 <div class="col-auto"> 
-                    <button type="button" class="btn btn-danger" > 
+                    <button type="button" class="btn btn-danger me-1"> 
                         <span wire:loading.remove wire:target="reset" wire:click="resetFormAction">
                             <i class="bi bi-arrow-repeat"></i> Reset
                         </span>
@@ -235,18 +248,18 @@
                             Mereset...
                         </span>
                     </button>
-                    <button type="button" class="btn btn-primary"  wire:click="simpan" wire:loading.attr="disabled">
-                        <span wire:loading.remove wire:target="simpan">
-                            <i class="bi bi-save2"></i> Simpan
+                    <button type="button" class="btn btn-primary"  wire:click="update" wire:loading.attr="disabled">
+                        <span wire:loading.remove wire:target="update">
+                            <i class="bi bi-save2"></i> Update
                         </span>
-                        <span wire:loading wire:target="simpan">
+                        <span wire:loading wire:target="update">
                             <span class="spinner-border spinner-border-sm"></span>
-                            Menyimpan...
+                            Mengupdate...
                         </span>
                     </button>
                 </div>
             </div>
-        </form>
+    </form>
         {{-- </div>     --}}
     </div>   
      <div class="mt-4">

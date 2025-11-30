@@ -13,7 +13,7 @@ class Kontrol extends Model
     {
         return match ($tipe) {
             'RAP_Akses' => ['Buka', 'Tutup'],
-            'RAP_Status' => ['RAP Awal', 'RAP Perubahan II', 'RAP Perubahan III'],
+            'RAP_Status' => ['RAP Awal','Rap Penyesuaian', 'RAP Perubahan II', 'RAP Perubahan III'],
             default => [],
         };
     }

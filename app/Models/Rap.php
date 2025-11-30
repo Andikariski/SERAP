@@ -45,7 +45,11 @@ class Rap extends Model
         'aktivitas_utama',
         'tema_pembangunan',
         'program_prioritas',
-        'target_keluaran_strategis'
+        'target_keluaran_strategis',
+        'validasi',
+        'data_rka',
+        'data_kak',
+        'data_lainya',
 
     ];
 
@@ -72,4 +76,5 @@ class Rap extends Model
     {
         return $this->belongsTo(OPD::class, 'fkid_opd');
     }
+
 }

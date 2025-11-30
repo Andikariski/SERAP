@@ -21,6 +21,15 @@ const Swal2 = Swal.mixin({
     buttonsStyling: false,
 });
 
+// document.addEventListener("redirect-with-delay", function (event) {
+//     const url = event.detail.url;
+//     const delay = event.detail.delay ?? 2000;
+
+//     setTimeout(() => {
+//         window.location.href = url;
+//     }, delay);
+// });
+
 document.addEventListener("livewire:init", () => {
     // formatRupiah();
     // 🔁 Reinit Select2 setiap navigasi / morph
@@ -37,6 +46,38 @@ document.addEventListener("livewire:init", () => {
         setTimeout(() => (window.location.href = "/dashboard"), 2000);
     });
 
+    // Redirect or navigasi after update
+    Livewire.on("redirect-with-delay", ({ url, delay }) => {
+        setTimeout(() => {
+            Livewire.navigate(url); // SPA, tanpa reload
+        }, delay || 2000);
+    });
+
+    // Fungsi Download animasi excel
+    // ==============================================
+    // Livewire.on("export-start", () => {
+    //     Swal.fire({
+    //         title: "Sedang memproses...",
+    //         text: "Mohon tunggu",
+    //         allowOutsideClick: false,
+    //         didOpen: () => Swal.showLoading(),
+    //     });
+    // });
+
+    // Livewire.on("export-done", () => {
+    //     Swal.close();
+    // });
+
+    // Livewire.on("download-file", (fileUrl) => {
+    //     const a = document.createElement("a");
+    //     a.href = fileUrl;
+    //     a.download = fileUrl.split("/").pop();
+    //     document.body.appendChild(a);
+    //     a.click();
+    //     a.remove();
+    // });
+    // ==================================================
+
     Livewire.on("success-add-data", (data) =>
         Toast.fire({ icon: "success", title: data.message })
     );
@@ -45,12 +86,21 @@ document.addEventListener("livewire:init", () => {
         Toast.fire({ icon: "success", title: data.message })
     );
 
-    Livewire.on("failed-delete-data", (data) =>
-        Toast.fire({ icon: "error", title: data.message })
-    );
+    Livewire.on("succes-change-data", (data) => {
+        Toast.fire({
+            icon: "success",
+            title: data.message,
+            timer: 2000, // durasi tampil
+            timerProgressBar: true, // optional bar animasi waktu
+        });
+    });
 
     Livewire.on("succes-change", (data) =>
         Toast.fire({ icon: "success", title: data.message })
+    );
+
+    Livewire.on("failed-delete-data", (data) =>
+        Toast.fire({ icon: "error", title: data.message })
     );
 
     Livewire.on("failed-add-data", (data) =>
@@ -63,6 +113,10 @@ document.addEventListener("livewire:init", () => {
             $(this).val(null).trigger("change");
         });
     });
+
+    // Livewire.dispatch("edit-rap", {
+    //     id: data["id"],
+    // });
 
     // === SweetAlert confirmations ===
     const confirmDelete = (title, footer, dispatchEvent, id) => {
@@ -91,7 +145,7 @@ document.addEventListener("livewire:init", () => {
             showCancelButton: true,
             cancelButtonText: "Batal",
             confirmButtonText: "Ya, Hapus Permanen",
-            footer: '<strong class="text-danger">Data OPD yang di hapus tidak akan bisa dikembalikan!</strong>',
+            footer: '<strong class="text-warning">Data OPD yang di hapus tidak akan bisa dikembalikan!</strong>',
         }).then((result) => {
             if (result.isConfirmed) {
                 Livewire.dispatch("delete-data-opd", {
@@ -113,7 +167,7 @@ document.addEventListener("livewire:init", () => {
             showCancelButton: true,
             cancelButtonText: "Batal",
             confirmButtonText: "Ya, Hapus Permanen",
-            footer: '<strong class="text-danger">Data Operator yang di hapus tidak akan bisa dikembalikan!</strong>',
+            footer: '<strong class="text-warning">Data Operator yang di hapus tidak akan bisa dikembalikan!</strong>',
         }).then((result) => {
             if (result.isConfirmed) {
                 Livewire.dispatch("delete-data-operator", {
@@ -134,7 +188,7 @@ document.addEventListener("livewire:init", () => {
             showCancelButton: true,
             cancelButtonText: "Batal",
             confirmButtonText: "Ya, Hapus Permanen",
-            footer: '<strong class="text-danger">Data Pagu yang di hapus tidak akan bisa dikembalikan!</strong>',
+            footer: '<strong class="text-warning">Data Pagu yang di hapus tidak akan bisa dikembalikan!</strong>',
         }).then((result) => {
             if (result.isConfirmed) {
                 Livewire.dispatch("delete-data-paguOPD", {
@@ -155,7 +209,7 @@ document.addEventListener("livewire:init", () => {
             showCancelButton: true,
             cancelButtonText: "Batal",
             confirmButtonText: "Ya, Hapus Permanen",
-            footer: '<strong class="text-danger">Data Pagu yang di hapus tidak akan bisa dikembalikan!</strong>',
+            footer: '<strong class="text-warning">Data Pagu yang di hapus tidak akan bisa dikembalikan!</strong>',
         }).then((result) => {
             if (result.isConfirmed) {
                 Livewire.dispatch("delete-data-paguInduk", {
@@ -176,7 +230,7 @@ document.addEventListener("livewire:init", () => {
             showCancelButton: true,
             cancelButtonText: "Batal",
             confirmButtonText: "Ya, Hapus Permanen",
-            footer: '<strong class="text-danger">Data sub kegiatan yang di hapus tidak akan bisa dikembalikan!</strong>',
+            footer: '<strong class="text-warning">Data sub kegiatan yang di hapus tidak akan bisa dikembalikan!</strong>',
         }).then((result) => {
             if (result.isConfirmed) {
                 Livewire.dispatch("delete-data-subKegiatan", {
@@ -197,7 +251,7 @@ document.addEventListener("livewire:init", () => {
             showCancelButton: true,
             cancelButtonText: "Batal",
             confirmButtonText: "Ya, Hapus Permanen",
-            footer: '<strong class="text-danger">Data RAP yang di hapus tidak akan bisa dikembalikan!</strong>',
+            footer: '<strong class="text-warning">Data RAP yang di hapus tidak akan bisa dikembalikan!</strong>',
         }).then((result) => {
             if (result.isConfirmed) {
                 Livewire.dispatch("delete-data-RAPBG", {
@@ -217,7 +271,7 @@ document.addEventListener("livewire:init", () => {
             showCancelButton: true,
             cancelButtonText: "Batal",
             confirmButtonText: "Ya, Hapus Permanen",
-            footer: '<strong class="text-danger">Data RAP yang di hapus tidak akan bisa dikembalikan!</strong>',
+            footer: '<strong class="text-warning">Data RAP yang di hapus tidak akan bisa dikembalikan!</strong>',
         }).then((result) => {
             if (result.isConfirmed) {
                 Livewire.dispatch("delete-data-RAPSG", {
@@ -237,7 +291,7 @@ document.addEventListener("livewire:init", () => {
             showCancelButton: true,
             cancelButtonText: "Batal",
             confirmButtonText: "Ya, Hapus Permanen",
-            footer: '<strong class="text-danger">Data RAP yang di hapus tidak akan bisa dikembalikan!</strong>',
+            footer: '<strong class="text-warning">Data RAP yang di hapus tidak akan bisa dikembalikan!</strong>',
         }).then((result) => {
             if (result.isConfirmed) {
                 Livewire.dispatch("delete-data-RAPDTI", {

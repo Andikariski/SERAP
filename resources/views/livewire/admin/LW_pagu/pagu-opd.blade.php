@@ -16,7 +16,7 @@
             @if ($paguInduk)
                 <h3 class="fw-bold">{{ number_format($paguInduk->pagu_BG, 0, ',', '.') }}</h3>
                 <p class="mb-0">
-                    Tahun Anggaran Aktif :
+                    Tahun Anggaran :
                     <span class="badge bg-success">{{ $paguInduk->tahun_pagu }}</span>
                 </p>
             @else
@@ -36,13 +36,13 @@
             @if ($paguInduk)
                 <h3 class="fw-bold">{{ number_format($paguInduk->pagu_SG, 0, ',', '.') }}</h3>
                 <p class="mb-0">
-                    Tahun Anggaran Aktif :
+                    Tahun Anggaran :
                     <span class="badge bg-success">{{ $paguInduk->tahun_pagu }}</span>
                 </p>
             @else
                 <span class="badge bg-danger">Belum Input Pagu Induk</span>
                 <p class="mb-0">
-                    Tahun Anggaran Aktif :
+                    Tahun Anggaran :
                     <span class="badge bg-danger">-</span>
                 </p>
             @endif
@@ -56,14 +56,14 @@
             @if ($paguInduk)
                 <h3 class="fw-bold">{{ number_format($paguInduk->pagu_DTI, 0, ',', '.') }}</h3>
                 <p class="mb-0">
-                    Tahun Anggaran Aktif :
+                    Tahun Anggaran :
                     <span class="badge bg-success">{{ $paguInduk->tahun_pagu }}</span>
                 </p>
             @else
-                <span class="badge bg-danger">Belum Input Pagu Induk</span>
+                <span class="badge bg-warning">Belum Input Pagu Induk</span>
                 <p class="mb-0">
-                    Tahun Anggaran Aktif :
-                    <span class="badge bg-danger">-</span>
+                    Tahun Anggaran :
+                    <span class="badge bg-warning">-</span>
                 </p>
             @endif
         </div>
@@ -73,7 +73,7 @@
     <div class="col-3">
         <div class="card-body">
             <h5 class="card-title">Dana SiLPA</h5>
-            <span class="badge bg-danger">-</span>
+            <span class="badge bg-warning">-</span>
             <p class="mb-0">
                 Tahun Anggaran :
                 <span class="badge bg-secondary">
@@ -109,13 +109,13 @@
             <table class="table table-striped align-middle mb-0">
                 <thead class="table-secondary">
                     <tr>
-                        <th class="px-4 py-2 text-dark">No</th>
-                        <th class="px-4 py-2 text-dark">Nama OPD</th>
-                        <th class="px-4 py-2 text-dark">Pagu BG</th>
-                        <th class="px-4 py-2 text-dark">Pagu SG</th>
-                        <th class="px-4 py-2 text-dark">Pagu DTI</th>
-                        <th class="px-4 py-2 text-dark">Tahun</th>
-                        <th class="px-4 py-2 text-dark">Aksi</th>
+                        <th class="px-4 py-2 text-dark">NO</th>
+                        <th class="px-4 py-2 text-dark">NAMA OPD</th>
+                        <th class="px-4 py-2 text-dark">PAGU BG</th>
+                        <th class="px-4 py-2 text-dark">PAGU SG</th>
+                        <th class="px-4 py-2 text-dark">PAGU DTI</th>
+                        <th class="px-4 py-2 text-dark">TAHUN</th>
+                        <th class="px-4 py-2 text-dark">AKSI</th>
                     </tr>
                 </thead>
                 <tbody>

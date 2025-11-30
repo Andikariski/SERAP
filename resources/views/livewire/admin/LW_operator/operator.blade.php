@@ -21,10 +21,10 @@
             <thead class="table-secondary">
                 <tr>
                     <th class="px-4 py-2 text-dark">No</th>
-                    <th class="px-4 py-2 text-dark">Nama Operator</th>
-                    <th class="px-4 py-2 text-dark">Instansi</th>
-                    <th class="px-4 py-2 text-dark">Kontak</th>
-                    <th class="px-4 py-2 text-dark">Aksi</th>
+                    <th class="px-4 py-2 text-dark">NAMA OPERATOR</th>
+                    <th class="px-4 py-2 text-dark">INSTANSI</th>
+                    <th class="px-4 py-2 text-dark">KONTAK</th>
+                    <th class="px-4 py-2 text-dark">AKSI</th>
                 </tr>
             </thead>
             <tbody>

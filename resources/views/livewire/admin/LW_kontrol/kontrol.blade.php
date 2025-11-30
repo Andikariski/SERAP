@@ -10,7 +10,7 @@
  <div class="row g-4 mb-4 mt-3">
     <!-- Card 1: Otsus SG -->
 
-    <div class="col-12 col-md-6 col-lg-6">
+    <div class="col-12 col-md-4 col-lg-5">
         <div class="card shadow-sm border-0 h-100">   
             <!-- 🟦 Card Header -->
             <div class="card-header bg-primary text-white fw-semibold">
@@ -39,17 +39,17 @@
                 <div class="d-flex flex-wrap gap-2">
                     @if ($statusAkses === 'Buka')
                         <button wire:click="toggleStatusAksesRAP" wire:loading.attr="disabled"
-                            class="btn btn-danger d-flex align-items-center">
-                            <i class="bi bi-lock-fill me-2"></i>
-                            <span wire:loading.remove wire:target="toggleStatusAksesRAP">Kunci Akses</span>
-                            <span wire:loading wire:target="toggleStatusAksesRAP">Memproses...</span>
+                            class="btn btn-warning d-flex align-items-center">
+                            <i class="bi bi-lock-fill me-2" style="color:#ffffff"></i>
+                            <span wire:loading.remove wire:target="toggleStatusAksesRAP" style="color:#ffffff">Kunci Akses</span>
+                            <span wire:loading wire:target="toggleStatusAksesRAP" style="color:#ffffff">Memproses...</span>
                         </button>
                     @else
                         <button wire:click="toggleStatusAksesRAP" wire:loading.attr="disabled"
                             class="btn btn-success d-flex align-items-center">
                             <i class="bi bi-unlock-fill me-2"></i>
-                            <span wire:loading.remove wire:target="toggleStatusAksesRAP">Buka Akses</span>
-                            <span wire:loading wire:target="toggleStatusAksesRAP">Memproses...</span>
+                            <span wire:loading.remove wire:target="toggleStatusAksesRAP" style="color:#ffffff">Buka Akses</span>
+                            <span wire:loading wire:target="toggleStatusAksesRAP" style="color:#ffffff">Memproses...</span>
                         </button>
                     @endif
                 </div>
@@ -57,7 +57,7 @@
         </div>
   </div>
 
-<div class="col-12 col-md-6 col-lg-6">
+<div class="col-12 col-md-8 col-lg-7">
     <div class="card shadow-sm border-0 h-100">   
         <!-- 🟦 Card Header -->
         <div class="card-header bg-primary text-white fw-semibold">
@@ -82,14 +82,14 @@
             <hr>
             {{-- 🔹 Tombol Pilihan Status --}}
             <div class="d-flex flex-wrap gap-2">
-                @foreach (['RAP Awal', 'Perubahan II', 'Perubahan III'] as $status)
+                @foreach (['RAP Awal','RAP Penyesuaian', 'RAP Perubahan II', 'RAP Perubahan III'] as $status)
                     <button 
                         wire:click="toggleStatusRAP('{{ $status }}')" 
                         wire:loading.attr="disabled"
                         class="btn d-flex align-items-center 
                             {{ $statusRAP === $status 
                                 ? 'btn-success text-white' 
-                                : 'btn-outline-danger' }}">
+                                : 'btn-outline-warning' }}">
                         {{-- Spinner Loading --}}
                         <span wire:loading wire:target="toggleStatusRAP('{{ $status }}')" class="spinner-border spinner-border-sm me-2"></span>
                         {{-- <span>{{ $status }}</span> --}}

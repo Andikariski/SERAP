@@ -1,123 +1,82 @@
 <div>
      @php
         $breadcrumbs = [
-            ['name' => 'Data RAP Induk', 'url' => route('superadmin.pagu.induk')],
+            ['name' => 'Data Riwayat RAP', 'url' => route('opd.rap.rapBG')],
             // ['name' => 'Artikel', 'url' => route('admin.posts.index')],
         ];
     @endphp
     <x-breadcrumb :items="$breadcrumbs" />
 <div>
-    {{-- <div class="card text-white shadow-sm border-0" style="background: linear-gradient(135deg, #219EBC 0%,  #4f46e5 100%);">
-        <div class="row">
-            <div class="col-3">
-                <div class="card-body">
-                    <h5 class="card-title">Dana Otsus BG</h5>
-                    <h3 class="fw-bold">120.000.000.000</h3>
-                    <p class="mb-0">Tahun Anggaran 2025</p>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card-body">
-                    <h5 class="card-title">Dana Otsus SG</h5>
-                    <h3 class="fw-bold">135.000.000.000</h3>
-                    <p class="mb-0">Tahun Anggaran 2025</p>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card-body">
-                    <h5 class="card-title">Dana DTI</h5>
-                    <h3 class="fw-bold">190.000.000.000</h3>
-                    <p class="mb-0">Tahun Anggaran 2025</p>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card-body">
-                    <h5 class="card-title">Dana SiLPA</h5>
-                    <h3 class="fw-bold">20.000.000.000</h3>
-                    <p class="mb-0">Tahun Anggaran 2025</p>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    <div class="mt-5">
-       <div class="row align-items-center mb-3 mt-4">
+   
+    <div class="row align-items-center mb-3 mt-4">
             <div class="col-md-4">
                 <input type="text" placeholder="Search..." wire:model.live="search" class="form-control rounded-1">
             </div>
             <div class="col-md-2">
                 <select class="form-control" wire:model.live="filterTahun">
-                        <option   option value="">--Pilih OPD--</option>
-                    {{-- @foreach ($tahuns as $tahun)
-                        <option value="{{ $tahun }}">Tahun {{ $tahun }}</option>
-                    @endforeach --}}
+                        <option  value="">--Tahun RAP--</option>
+                    @foreach ($tahuns as $tahun)
+                        <option value="{{ $tahun }}">RAP Tahun {{ $tahun }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-2">
-                <select class="form-control" wire:model.live="filterTahun">
-                        <option   option value="">--Pilih Tahun--</option>
-                    {{-- @foreach ($tahuns as $tahun)
-                        <option value="{{ $tahun }}">Tahun {{ $tahun }}</option>
-                    @endforeach --}}
+                <select class="form-control" wire:model.live="filterSumberDana">
+                    <option value="">--Sumber Dana--</option>
+                    @foreach ($pagus as $pagu)
+                        <option value="{{ $pagu }}">Dana {{ $pagu }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" wire:click="openTambahModal">
-                    <i class="bi bi-file-earmark-excel"></i> Export Data
+                <button class="btn btn-success disabled-link" wire:click="exportExcel">
+                    <i class="bi bi-file-earmark-excel" ></i> Cetak Excel RAP
                 </button>
+                {{-- <a class="btn btn-danger disabled-link">
+                    <i class="bi bi-filetype-pdf"></i> Cetak PDF RAP
+                </a> --}}
+                {{-- <a href="{{ route('rap.export') }}" class="btn btn-success">Export Excel</a> --}}
             </div>
         </div>
-
         <div class="rounded-1 overflow-hidden border p-0 table-responsive" >
             <table class="table table-striped align-middle mb-0">
                 <thead class="table-secondary">
                     <tr>
-                        <th class="px-4 py-2 text-dark">No</th>
+                      <th class="px-4 py-2 text-dark">No</th>
                         <th class="px-4 py-2 text-dark">KODE KLASIFIKASI</th>
                         <th class="px-4 py-2 text-dark">SUB KEGIATAN</th>
                         <th class="px-4 py-2 text-dark">PAGU</th>
                         <th class="px-4 py-2 text-dark">SUMBER DANA</th>
-                        <th class="px-4 py-2 text-dark">OPD</th>
+                        <th class="px-4 py-2 text-dark">TAHUN</th>
                         <th class="px-4 py-2 text-dark">AKSI</th>
                     </tr>
                 </thead>
                 <tbody>
-                {{-- @forelse ($pagus as $pagu) --}}
+                @forelse ($raps as $rap)
                     <tr>
-                        {{-- <td class="px-4 py-1 text-dark">{{ $loop->iteration }}</td>
-                        <td class="px-4 py-1 text-dark">{{ $pagu->tahun_pagu }}</td>
-                        <td class="px-4 py-1 text-dark">{{ number_format($pagu->pagu_BG) }}</td>
-                        <td class="px-4 py-1 text-dark">{{ number_format($pagu->pagu_SG) }}</td>
-                        <td class="px-4 py-1 text-dark">{{ number_format($pagu->pagu_DTI) }}</td> --}}
-
-                         {{-- <td class="px-4 py-1 d-flex gap-2">
-
-                                <button wire:click="openEditModal({{ $pagu->id }})"
-                                    class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-
-                                <button wire:click="openDetailModal({{ $pagu->id }})"
-                                    class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1">
-                                    <i class="bi bi-eye"></i>
-                                </button>
-
-                                <button wire:click="$dispatch('confirm-delete-data-paguOPD', {{ $pagu }})"
-                                    class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1">
-                                    <i class="bi bi-trash3"></i>
-                                </button>
-
-                            </td> --}}
+                        <td class="px-4 py-1 text-dark">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-1 text-dark">{{ $rap->kode_klasifikasi }}</td>
+                        <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($rap->sub_kegiatan), 30)  }}</td>
+                        <td class="px-4 py-1 text-dark">{{ number_format($rap->pagu_tahun_berjalan) }}</td>
+                        <td class="px-4 py-1 text-dark">{{ $rap->sumber_dana }}</td>
+                        <td class="px-4 py-1 text-dark">{{ date('Y', strtotime($rap->jadwal_awal)) }}</td>
+                        <td class="px-4 py-1 d-flex gap-2">
+                            <button wire:click="openDetailModal({{ $rap->id }})"
+                                class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </td>
                     </tr>
-                {{-- @empty --}}
+                @empty
                     <tr>
                         <td colspan="7" class="px-4 py-5 text-center">
                             <div class="d-inline-flex flex-column align-items-center justify-content-center">
                                 <i class="bi bi-emoji-tear text-warning" style="font-size: 60px"></i>
-                                <span class="fs-5 text-dark">RAP Belum diInput!</span>
+                                <span class="fs-5 text-dark">Belum ada RAP!</span>
                             </div>
                         </td>
                     </tr>   
-                {{-- @endforelse --}}
+                @endforelse
             </tbody>
             </table>
             {{-- <select id="kegiatan" class="form-control select2" wire:model="idOpd">
@@ -127,9 +86,8 @@
                    @endforeach
             </select> --}}
         </div>    
-    </div>   
      <div class="mt-4">
-        {{-- {{ $pagus->links('vendor.livewire.bootstrap-pagination') }} --}}
+        {{ $raps->links('vendor.livewire.bootstrap-pagination') }}
     </div>
 </div>
 
@@ -256,12 +214,3 @@
         </x-modal>
     @endif --}}
 </div>
-
-
-<script>
-    $('#kegiatan').select2({
-        width: '50%'
-    })
-</script>
-
-

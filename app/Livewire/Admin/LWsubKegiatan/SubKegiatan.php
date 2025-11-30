@@ -197,27 +197,9 @@ class SubKegiatan extends AdminSuperAdminAuth
     }
 
 
-     #[Layout('components.layouts.admin',['pageTitle' => 'Sub Kegiatan'])]
-   public function render()
+    #[Layout('components.layouts.admin',['pageTitle' => 'Sub Kegiatan'])]
+    public function render()
     {
-        // Ambil status admin & opd dari user login
-       // $isAdmin = Auth::user()->is_admin;
-        //$userOpd = Auth::user()->opd_id;
-
-        // Buat query dasar
-        //$query = ModelsSubKegiatan::query()
-            // ->where(function ($q) {
-            //     $q->where('kode_klasifikasi', 'like', "%{$this->search}%")
-            //     ->orWhere('sub_kegiatan', 'like', "%{$this->search}%");
-            // });
-
-        // Jika user bukan admin (is_admin == 0), filter berdasarkan OPD-nya
-        // if ($isAdmin == 0) {
-        //     $query->where('fkid_opd', $userOpd);
-        // }
-
-        // Urutkan terbaru dan paginasi
-        // $subKegiatans = $query->latest()->paginate(5);
         $pilihSub = ModelsSubKegiatan::all();
         
         $subKegiatans = ModelsSubKegiatan::query()
