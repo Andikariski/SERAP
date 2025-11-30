@@ -31,14 +31,14 @@
             <table class="table table-striped align-middle mb-0">
                 <thead class="table-secondary">
                     <tr>
-                        <th class="px-4 py-2 text-dark" style="width: 3%;">Akses</th>
-                        <th class="px-4 py-2 text-dark" style="width: 15%;" >Tahun Pagu</th>
-                        <th class="px-4 py-2 text-dark">Pagu BG</th>
-                        <th class="px-4 py-2 text-dark">Pagu SG</th>
-                        <th class="px-4 py-2 text-dark">Pagu DTI</th>
+                        <th class="px-4 py-2 text-dark" style="width: 3%;">AKSES</th>
+                        <th class="px-4 py-2 text-dark" style="width: 15%;" >TAHUN PAGU</th>
+                        <th class="px-4 py-2 text-dark">PAGU BG</th>
+                        <th class="px-4 py-2 text-dark">PAGU SG</th>
+                        <th class="px-4 py-2 text-dark">PAGU DTI</th>
                         {{-- <th class="px-4 py-2 text-dark">Total Pagu</th> --}}
-                        <th class="px-4 py-2 text-dark">Status</th>
-                        <th class="px-4 py-2 text-dark" style="width: 3%;">Aksi</th>
+                        <th class="px-4 py-2 text-dark">STATUS</th>
+                        <th class="px-4 py-2 text-dark" style="width: 3%;">AKSI</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin\LWrap;
+namespace App\Livewire\User\LWrap;
 
 use App\Models\Kontrol as ModelKontrol;
 use App\Models\Rap as ModelsRAP;
@@ -70,20 +70,24 @@ class RapOpdSG extends Component
     {
     $opd = Auth::user()->opd_id;
 
-    //  Ambil daftar RAP
-     $raps = ModelsRAP::where('fkid_opd', $opd)
+    // Ambil tahun pagu aktif (bisa null)
+    $getTahunAktif = ModelPaguInduk::where('status', 'Aktif')->first();
+    $tahunAktif = $getTahunAktif->tahun_pagu ?? null;   // Null-safe
+
+    $raps = ModelsRAP::where('fkid_opd', $opd)
         ->where('sumber_dana', 'Otsus 1,25%')
+        ->when($tahunAktif, function ($query) use ($tahunAktif) {
+            $query->whereYear('jadwal_awal', $tahunAktif);
+        })
         ->when($this->search, function ($query) {
-            $query->where(function ($q) {
-                $q->where('kode_klasifikasi', 'like', "%{$this->search}%")
-                ->orWhere('sub_kegiatan', 'like', "%{$this->search}%");
+            $search = $this->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('kode_klasifikasi', 'like', "%{$search}%")
+                  ->orWhere('sub_kegiatan', 'like', "%{$search}%");
             });
         })
         ->latest()
         ->paginate(10);
-
-    // Ambil tahun pagu aktif (bisa null)
-    $getTahunAktif = ModelPaguInduk::where('status', 'Aktif')->first();
 
     // Cek apakah data aktif ada
     $getPaguOPD = null;
@@ -93,6 +97,46 @@ class RapOpdSG extends Component
                                 ->first();
     }
 
-    return view('livewire.admin.LW_rap.rap-opd-SG', compact('raps', 'getPaguOPD', 'getTahunAktif'));
+    $totalPaguTerinput = 0;
+        if ($getTahunAktif) {
+        $totalPaguTerinput = ModelsRAP::where('fkid_opd', $opd)
+            ->where('sumber_dana', 'Otsus 1,25%')
+            ->whereYear('jadwal_awal', $getTahunAktif->tahun_pagu)
+            ->sum('pagu_tahun_berjalan');
+        }
+
+    $paguSisa = 0;
+        if ($getTahunAktif && $getPaguOPD) {
+        $paguSisa = $getPaguOPD->pagu_SG - $totalPaguTerinput;
+        }
+
+    $persentaseInput = 0;
+        if ($getPaguOPD && $getPaguOPD->pagu_SG > 0) {
+            $persentaseInput = number_format(
+                ($totalPaguTerinput / $getPaguOPD->pagu_SG) * 100,
+                0,
+                '.',
+                ''
+            );
+        }
+
+    $totalSubKegiatan = 0;
+        if ($getTahunAktif) {
+        $totalSubKegiatan = ModelsRAP::where('fkid_opd', $opd)
+            ->where('sumber_dana', 'Otsus 1,25%')
+            ->whereYear('jadwal_awal', $getTahunAktif->tahun_pagu)
+            ->count('kode_klasifikasi');
+        }
+        
+    return view('livewire.user.LW_rap.rap-opd-SG',      
+            compact(
+                    'raps', 
+                    'getPaguOPD', 
+                    'tahunAktif',
+                    'totalPaguTerinput',
+                    'paguSisa',
+                    'persentaseInput',
+                    'totalSubKegiatan'));
+    
     }
 }

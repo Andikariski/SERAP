@@ -35,7 +35,7 @@
                 </li>
                 <li>
                     <a class="dropdown-item" href="#">
-                        <i class="bi bi-person me-2"></i>Profile
+                        <i class="bi bi-person me-2"></i>Profile OPD
                     </a>
                 </li>
                 <li>

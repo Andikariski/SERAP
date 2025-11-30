@@ -18,11 +18,11 @@
         <table class="table table-striped align-middle mb-0">
             <thead class="table-secondary">
                 <tr>
-                    <th class="px-4 py-2 text-dark">No</th>
-                    <th class="px-4 py-2 text-dark">Nama OPD</th>
+                    <th class="px-4 py-2 text-dark">NO</th>
+                    <th class="px-4 py-2 text-dark">NAMA OPD</th>
                     {{-- <th class="px-4 py-2 text-dark">Alamat OPD</th> --}}
-                    <th class="px-4 py-2 text-dark">Kode OPD</th>
-                    <th class="px-4 py-2 text-dark">Aksi</th>
+                    <th class="px-4 py-2 text-dark">KODE OPD</th>
+                    <th class="px-4 py-2 text-dark">AKSI</th>
                 </tr>
             </thead>
             <tbody>

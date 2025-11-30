@@ -12,6 +12,7 @@ use Livewire\Attributes\On;
 
 class PaguIndukDefinitif extends AdminSuperAdminAuth
 {
+    
     public $filterTahun = '';
     public $isEdit = false;
     public $existingFotoProfile = null;

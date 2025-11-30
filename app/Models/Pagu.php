@@ -19,4 +19,5 @@ class Pagu extends Model
     {
         return $this->belongsTo(Opd::class, 'fkid_opd');
     }
+
 }

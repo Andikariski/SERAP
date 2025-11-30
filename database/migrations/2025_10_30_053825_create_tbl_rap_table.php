@@ -41,6 +41,10 @@ return new class extends Migration
             $table->date('jadwal_awal')->nullable();
             $table->date('jadwal_akhir')->nullable();
             $table->text('keterangan')->nullable();
+            $table->enum('validasi', ['Menunggu', 'Perbaikan','Disetujui'])->default('Menunggu');
+            $table->string('data_rka')->nullable();
+            $table->string('data_kak')->nullable();
+            $table->string('data_lainya')->nullable();
             
             // Denormalisasi Data Sub Kegiatan
             $table->string('kewenangan')->nullable();

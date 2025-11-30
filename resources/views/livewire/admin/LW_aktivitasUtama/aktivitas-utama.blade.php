@@ -1,7 +1,7 @@
 <div>
      @php
         $breadcrumbs = [
-            ['name' => 'Daftar Sub Kegiatan OPD', 'url' => route('superadmin.masterdata.subKegiatan')],
+            ['name' => 'Daftar Aktivitas Utama', 'url' => route('superadmin.masterdata.aktivitasUtama')],
             // ['name' => 'Artikel', 'url' => route('admin.posts.index')],
         ];
     @endphp
@@ -33,7 +33,7 @@
                     <i class="bi bi-upload"></i> Import Data
                 </button>
                 <button type="button" class="btn btn-primary" wire:click="openTambahModal">
-                    <i class="bi bi-plus-lg"></i> Tambah Sub Kegiatan
+                    <i class="bi bi-plus-lg"></i> Tambah Aktivitas Utama
                 </button>
             </div>
         </div>
@@ -42,35 +42,36 @@
         <table class="table table-striped align-middle mb-0">
             <thead class="table-secondary">
                 <tr>
-                    <th class="px-4 py-2 text-dark">NO</th>
-                    <th class="px-4 py-2 text-dark">KEWENANGAN</th>
-                    <th class="px-4 py-2 text-dark">KODE KLASIFIKASI</th>
-                    <th class="px-4 py-2 text-dark">SUB KEGIATAN</th>
+                    <th class="px-4 py-2 text-dark">No</th>
+                    <th class="px-4 py-2 text-dark">AKTIVITAS UTAMA</th>
+                    <th class="px-4 py-2 text-dark">TEMA PEMBANGUNAN</th>
+                    <th class="px-4 py-2 text-dark">PROGRAM PRIORITAS</th>
                     <th class="px-4 py-2 text-dark">AKSI</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($subKegiatans as $subKegiatan) 
+                @forelse ($aktivitasUtamas as $aktivitasUtama) 
                      <tr>
                         <td class="px-4 py-1 text-dark">{{ $loop->iteration }}</td> <!-- Nomor urut -->
-                        <td class="px-4 py-1 text-dark">{{ $subKegiatan->kewenangan}}</td>
-                        <td class="px-4 py-1 text-dark">{{ $subKegiatan->kode_klasifikasi }}</td>
-                        <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($subKegiatan->sub_kegiatan),50) }}</td>
+                        <td class="px-4 py-1 text-dark">{{ $aktivitasUtama->aktivitas_utama}}</td>
+                        <td class="px-4 py-1 text-dark">{{ $aktivitasUtama->tema_pembangunan }}</td>
+                        <td class="px-4 py-1 text-dark">{{ $aktivitasUtama->program_prioritas }}</td>
+                        {{-- <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($subKegiatan->sub_kegiatan),50) }}</td> --}}
 
                          <td class="px-4 py-1 d-flex gap-2">
                                 <!-- Tombol Edit -->
-                                <button wire:click="openEditModal({{ $subKegiatan->id }})"
+                                <button wire:click="openEditModal({{ $aktivitasUtama->id }})"
                                     class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1">
                                     <i class="bi bi-pencil"></i>
                                 </button>
                                 <!-- Tombol Edit -->
-                                <button wire:click="openDetailModal({{ $subKegiatan->id }})"
+                                <button wire:click="openDetailModal({{ $aktivitasUtama->id }})"
                                     class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1">
                                     <i class="bi bi-eye"></i>
                                 </button>
 
                                 <!-- Tombol Hapus -->
-                                <button wire:click="$dispatch('confirm-delete-data-subKegiatan', {{ $subKegiatan }})"
+                                <button wire:click="$dispatch('confirm-delete-data-subKegiatan', {{ $aktivitasUtama }})"
                                     class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1">
                                     <i class="bi bi-trash3"></i>
                                 </button>
@@ -81,7 +82,7 @@
                         <td colspan="5" class="px-4 py-5 text-center">
                             <div class="d-inline-flex flex-column align-items-center justify-content-center">
                                 <i class="bi bi-emoji-tear text-warning" style="font-size: 60px"></i>
-                                <span class="fs-5 text-dark">Sub kegiatan tidak ditemukan!</span>
+                                <span class="fs-5 text-dark">Sub kegiatan masih kosong!</span>
                             </div>
                         </td>
                     </tr>
@@ -91,7 +92,7 @@
     </div>
 
     <div class="mt-4">
-        {{ $subKegiatans->links('vendor.livewire.bootstrap-pagination') }}
+        {{ $aktivitasUtamas->links('vendor.livewire.bootstrap-pagination') }}
     </div>
 </div>
 
