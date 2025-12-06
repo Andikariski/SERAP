@@ -36,20 +36,23 @@
                          <td class="px-4 py-1 d-flex gap-2">
                                 <!-- Tombol Edit -->
                                 <button wire:click="openEditModal({{ $opd->id }})"
-                                    class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1">
+                                    class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Data">
                                     <i class="bi bi-pencil"></i>
                                     {{-- <span>Edit</span> --}}
                                 </button>
                                 <!-- Tombol Edit -->
                                 <button wire:click="openDetailModal({{ $opd->id }})"
-                                    class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1">
+                                    class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Data">
                                     <i class="bi bi-eye"></i>
                                     {{-- <span>Detail</span> --}}
                                 </button>
 
                                 <!-- Tombol Hapus -->
                                 <button wire:click="$dispatch('confirm-delete-data-opd', {{ $opd }})"
-                                    class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1">
+                                    class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Data">
                                     <i class="bi bi-trash3"></i>
                                     {{-- <span>Hapus</span> --}}
                                 </button>
@@ -59,7 +62,7 @@
                     <tr>
                         <td colspan="5" class="px-4 py-5 text-center">
                             <div class="d-inline-flex flex-column align-items-center justify-content-center">
-                                <i class="bi bi-emoji-tear text-warning" style="font-size: 60px"></i>
+                                <i class="bi bi-database-x text-warning" style="font-size: 60px"></i>
                                 <span class="fs-5 text-dark">OPD masih kosong!</span>
                             </div>
                         </td>
