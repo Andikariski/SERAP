@@ -112,7 +112,7 @@
                     <tr>
                         <td colspan="7" class="px-4 py-5 text-center">
                             <div class="d-inline-flex flex-column align-items-center justify-content-center">
-                                <i class="bi bi-emoji-tear text-warning" style="font-size: 60px"></i>
+                                <i class="bi bi-database-x text-warning" style="font-size: 60px"></i>
                                 <span class="fs-5 text-dark">RAP Belum diInput!</span>
                             </div>
                         </td>
