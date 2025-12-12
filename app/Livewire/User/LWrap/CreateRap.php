@@ -338,7 +338,6 @@ class CreateRap extends Component
             } else {
                 $this->dispatch('failed-add-data', message: "Gagal, Sub kegiatan sudah terinput");
             }
-
         } else {
             $this->dispatch('failed-add-data', message: "Gagal, Status RAP Tutup");
         }

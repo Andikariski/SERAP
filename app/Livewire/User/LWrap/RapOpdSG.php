@@ -15,8 +15,8 @@ use App\Models\PaguInduk as ModelPaguInduk;
 
 class RapOpdSG extends Component
 {
-    public $statusRAP;
-    public $statusAkses;
+    public $statusRAP   = '';
+    public $statusAkses = '';
     public $search = '';
 
     public function mount()
@@ -88,6 +88,8 @@ class RapOpdSG extends Component
         })
         ->latest()
         ->paginate(10);
+
+
 
     // Cek apakah data aktif ada
     $getPaguOPD = null;

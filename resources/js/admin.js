@@ -47,11 +47,18 @@ document.addEventListener("livewire:init", () => {
     });
 
     // Redirect or navigasi after update
-    Livewire.on("redirect-with-delay", ({ url, delay }) => {
+    Livewire.on("redirect-with-delay", ({ url, delay, message }) => {
+        Toast.fire({ icon: "success", title: message });
         setTimeout(() => {
             Livewire.navigate(url); // SPA, tanpa reload
         }, delay || 2000);
     });
+
+    // Livewire.on("redirect-with-delay", ({ url, delay }) => {
+    //     setTimeout(() => {
+    //         window.location.href = url; // fallback universal
+    //     }, delay || 2000);
+    // });
 
     // Fungsi Download animasi excel
     // ==============================================

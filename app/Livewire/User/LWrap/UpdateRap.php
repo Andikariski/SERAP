@@ -287,7 +287,7 @@ class UpdateRap extends Component
         'target_keluaran_strategis' => $this->target_keluaran_strategis,
     ]);
 
-    $this->dispatch('succes-change-data', message: "Berhasil, RAP berhasil diperbarui!");
+    // $this->dispatch('succes-change-data', message: "Berhasil, RAP berhasil diperbarui!");
 
 
     $redirectMap = [
@@ -306,7 +306,8 @@ class UpdateRap extends Component
     $this->dispatch(
         'redirect-with-delay',
         url: $url,
-        delay: 2000
+        delay: 2000,
+        message: "Berhasil, RAP berhasil diperbarui!"
     );
 
 }
