@@ -16,6 +16,14 @@
         $is_disabled = ($persentaseInput >= 100) || (!$getPaguOPD || $getPaguOPD->pagu_BG == 0);
     @endphp
     <x-breadcrumb :items="$breadcrumbs" />
+
+    {{-- @if($getPaguOPD && $tahunAktif)
+        <h5 class="mt-3">Rekapitulasi Pagu OPD Tahun Anggaran {{ $getPaguOPD->tahun_pagu }}</h5>
+    @else
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <i class="bi bi-exclamation-diamond me-1"></i>
+        <div>OPD/Dinas tidak mendapatkan anggaran pada pagu BLOCK GRAND 1%</div>
+    </div> --}}
 <div>
     <div class="card text-white shadow-sm border-0" style="background: linear-gradient(135deg, #219EBC 0%,  #4f46e5 100%);">
         <div class="row">
@@ -209,8 +217,8 @@
                     <tr>
                         <td colspan="7" class="px-4 py-5 text-center">
                             <div class="d-inline-flex flex-column align-items-center justify-content-center">
-                                <i class="bi bi-emoji-tear text-warning" style="font-size: 60px"></i>
-                                <span class="fs-5 text-dark">RAP Belum diInput!</span>
+                               <i class="bi bi-database-x text-warning" style="font-size: 60px"></i>
+                                <span class="fs-5 text-dark">RAP Masih Kosong!</span>
                             </div>
                         </td>
                     </tr>   

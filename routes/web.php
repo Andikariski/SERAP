@@ -16,9 +16,9 @@ use App\Livewire\Admin\SuperAdminAuth;
 use App\Livewire\User\LWrap\CreateRap;
 use App\Livewire\User\LWrap\UpdateRap;
 use App\Livewire\User\LWrap\RapOpdBG;
+use App\Livewire\User\LWrap\RapOpdSG;
 use App\Livewire\User\LWrap\RapOpdDTI;
 use App\Livewire\User\LWrap\RapOpdRiwayat;
-use App\Livewire\User\LWrap\RapOpdSG;
 
 use Illuminate\Support\Facades\Route;
 
