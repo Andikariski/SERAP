@@ -49,9 +49,9 @@ return new class extends Migration
             // Denormalisasi Data Sub Kegiatan
             $table->string('kewenangan')->nullable();
             $table->string('kode_klasifikasi')->nullable();
-            $table->string('sub_kegiatan')->nullable();
-            $table->string('kinerja')->nullable();
-            $table->string('indikator')->nullable();
+            $table->text('sub_kegiatan')->nullable();
+            $table->text('kinerja')->nullable();  
+            $table->text('indikator')->nullable();
             $table->string('satuan')->nullable();
             $table->string('klasifikasi_belanja')->nullable();
 

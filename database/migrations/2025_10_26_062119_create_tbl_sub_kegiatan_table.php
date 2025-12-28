@@ -15,13 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('kewenangan');
             $table->string('kode_klasifikasi');
-            $table->string('sub_kegiatan');
-            $table->string('kinerja');
-            $table->string('indikator');
+            $table->text('sub_kegiatan');   // ⬅️ FIX
+            $table->text('kinerja');        // ⬅️ FIX
+            $table->text('indikator');      // ⬅️ FIX
             $table->string('satuan');
             $table->string('klasifikasi_belanja');
             $table->timestamps();
-
         });
     }
 

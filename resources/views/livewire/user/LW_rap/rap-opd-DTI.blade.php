@@ -15,8 +15,19 @@
         $is_disabled = ($persentaseInput >= 100) || (!$getPaguOPD || $getPaguOPD->pagu_DTI == 0);
     @endphp
     <x-breadcrumb :items="$breadcrumbs" />
-<div>
- <div class="card text-white shadow-sm border-0" style="background: linear-gradient(135deg, #219EBC 0%,  #4f46e5 100%);">
+
+    {{-- @if($getPaguOPD->pagu_DTI == 0)
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+            <div>
+                 <h4 class="alert-heading">
+                    <i class="bi bi-exclamation-diamond" style="font-size: 30px"></i>
+                    Perhatian..!!
+                </h4>
+                Pagu Dana Tambahan Infrastruktur (DTI) Anda sebesar <strong>0</strong>. Silakan hubungi administrator, jika membutuhkan informasi lebih lanjut.
+            </div>
+        </div>
+    @elseif($getPaguOPD->pagu_DTI !=0) --}}
+    <div class="card text-white shadow-sm border-0" style="background: linear-gradient(135deg, #219EBC 0%,  #4f46e5 100%);">
         <div class="row">
             <div class="col-3">
                 <div class="card-body">
@@ -225,129 +236,5 @@
      <div class="mt-4">
         {{ $raps->links('vendor.livewire.bootstrap-pagination') }}
     </div>
+{{-- @endif --}}
 </div>
-
-{{-- @if ($this->showModal)
-        <x-modal :title="$modalTitle" :closeble="true" @click.self="$wire.closeModal()"
-            @keydown.escape.window="$wire.closeModal()">
-            <x-slot name="closeButton">
-                <button type="button" class="btn-close" aria-label="Close" wire:click="closeModal">
-                </button>
-            </x-slot>
-            <hr>
-            <form wire:submit.prevent="simpan">
-                <div class="mb-3">
-                    <label class="form-label"><strong>Instansi OPD</strong></label> 
-                        @if ($modalTitle == 'Edit Data Pagu OPD')
-                            <input type="text" wire:model="idOpd" class="form-control" disabled>
-                        @else
-                        <select id="opd" class="form-control select2" wire:model="idOpd">
-                                <option value="">-- Pilih Instansi --</option>
-                                    @foreach ($opds as $opd)
-                                        <option value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>
-                                    @endforeach
-                        </select>
-                        @error('opd')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    @endif
-                </div>
-                <div class="mb-3">
-                    <label for="paguBG" class="form-label">
-                        <strong>Pagu Block Grand (BG 1%)</strong>
-                    </label>
-                    <input type="number" class="form-control @error('paguBG') is-invalid @enderror" id="pagu_bg"
-                        wire:model="paguBG" placeholder="Masukkan Pagu BG..." maxlength="255">
-                    @error('paguBG')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="paguSG" class="form-label">
-                        <strong>Pagu Spesifik Grand (1,25%)</strong>
-                    </label>
-                    <input type="number" class="form-control @error('paguSG') is-invalid @enderror" id="pagu_sg"
-                        wire:model="paguSG" placeholder="Masukkan Pagu SG..." maxlength="255">
-                    @error('paguSG')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="paguDTI" class="form-label">
-                        <strong>Pagu Dana Tambahan Infrastruktur (DTI)</strong>
-                    </label>
-                    <input type="number" class="form-control @error('paguDTI') is-invalid @enderror" id="pagu_dti"
-                        wire:model="paguDTI" placeholder="Masukkan Pagu DTI..." maxlength="255">
-                    @error('paguDTI')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                
-
-            </form>
-            <x-slot name="footer">
-                <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-danger" wire:click="closeModal">
-                        <span wire:loading.remove wire:target="closeModal">Batal</span>
-                        <span wire:loading wire:target="closeModal">tunggu...</span>
-                    </button>
-                    <button type="button" class="btn btn-primary" wire:click="simpan" wire:loading.attr="disabled">
-                        <span wire:loading.remove wire:target="simpan">
-                            {{ $isEdit ? 'Perbarui' : 'Simpan' }}
-                        </span>
-                        <span wire:loading wire:target="simpan">
-                            <span class="spinner-border spinner-border-sm me-2"></span>
-                            Menyimpan...
-                        </span>
-                    </button>
-                </div>
-            </x-slot>
-        </x-modal>
-    @endif --}}
-
-    {{-- @if ($this->showDetailModal)
-        <x-modal :title="$modalTitle" :closeble="true" @click.self="$wire.closeModal()"
-            @keydown.escape.window="$wire.closeModal()">
-
-            <x-slot name="closeButton">
-                <button type="button" class="btn-close" aria-label="Close" wire:click="closeModal">
-                </button>
-            </x-slot>
-
-            <div class="row">
-                <div class="col-12 col-md-12">
-                    <div class="mb-3">
-                        <small>Nama OPD</small>
-                        <p class="fs-6 fw-bold">{{ $namaOpd }}</p>
-                    </div>
-                    <div class="mb-3">
-                        <small>Pagu Block Grand (1%)</small>
-                        <p class="fs-6 fw-bold">{{ $kodeOpd }}</p>
-                    </div>
-                    <div class="mb-3">
-                        <small>Pagu Spesifik Grand (1,25%)</small>
-                        <p class="fs-6 fw-bold">{{ $kodeOpd }}</p>
-                    </div>
-                    <div class="mb-3">
-                        <small>Pagu DTI (1%)</small>
-                        <p class="fs-6 fw-bold">{{ $kodeOpd }}</p>
-                    </div>
-                    <div class="mb-3">
-                        <small>Tahun Pagu</small>
-                        <p class="fs-6 fw-bold">{{ $alamatOpd }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <x-slot name="footer">
-                <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-danger" wire:click="closeModal">
-                        <span wire:loading.remove wire:target="closeModal">Tutup</span>
-                        <span wire:loading wire:target="closeModal">tunggu...</span>
-                    </button>
-                </div>
-            </x-slot>
-        </x-modal>
-    @endif --}}
-</div>
-

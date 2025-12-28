@@ -9,15 +9,10 @@
     <x-breadcrumb :items="$breadcrumbs" />
     <div class="mt-5">
        <div class="row align-items-center mb-3 mt-4">
-            <div class="col-md-8">
-                {{-- <input type="text" placeholder="Search..." wire:model.live="search" class="form-control rounded-1"> --}}
-                <h6>{{ $detailOpd->nama_opd }}</h6>
+            <div class="col-md-8 d-flex align-items-center gap-1">
+                <i class="bi bi-crosshair" style="font-size: 25px"></i>
+                <h6 class="mb-0"> {{$detailOpd->nama_opd }}</h6>
             </div>
-            {{-- <div class="col-md-8 d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" wire:click="openTambahModal">
-                    <i class="bi bi-plus-lg"></i> Input Pagu OPD
-                </button>
-            </div> --}}
             <div class="col-md-4 d-flex justify-content-end">
                 <button class="btn btn-primary disabled-link" wire:click="exportPdfPersentaseRAP">
                     <i class="bi bi-chevron-double-left"></i> Kembali
@@ -30,7 +25,7 @@
                 <button class="nav-link active" id="bg-tab" data-bs-toggle="tab" data-bs-target="#bg" type="button" role="tab" aria-controls="bg" aria-selected="true"><strong>Otsus Block Grand 1%</strong></button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="sg-tab" data-bs-toggle="tab" data-bs-target="#sg" type="button" role="tab" aria-controls="sg" aria-selected="false"><strong>Otsus Block Grand 1,25%</strong></button>
+                <button class="nav-link" id="sg-tab" data-bs-toggle="tab" data-bs-target="#sg" type="button" role="tab" aria-controls="sg" aria-selected="false"><strong>Otsus Spesifik Grand 1,25%</strong></button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="dti-tab" data-bs-toggle="tab" data-bs-target="#dti" type="button" role="tab" aria-controls="dti" aria-selected="false"><strong>Dana Tambahan Infrastruktur</strong></button>
@@ -133,7 +128,7 @@
                             <tr>
                                 <td colspan="7" class="px-4 py-5 text-center">
                                     <div class="d-inline-flex flex-column align-items-center justify-content-center">
-                                        <i class="bi bi-emoji-tear text-warning" style="font-size: 60px"></i>
+                                        <i class="bi bi-database-x text-warning" style="font-size: 60px"></i>
                                         <span class="fs-5 text-dark">RAP Tidak Ditemukan!</span>
                                     </div>
                                 </td>
@@ -185,8 +180,8 @@
                             <tr>
                                 <td colspan="7" class="px-4 py-5 text-center">
                                     <div class="d-inline-flex flex-column align-items-center justify-content-center">
-                                        <i class="bi bi-emoji-tear text-warning" style="font-size: 60px"></i>
-                                        <span class="fs-5 text-dark">RAP Tidak Ditemukan</span>
+                                        <i class="bi bi-database-x text-warning" style="font-size: 60px"></i>
+                                        <span class="fs-5 text-dark">RAP Tidak Ditemukan!</span>
                                     </div>
                                 </td>
                             </tr>   

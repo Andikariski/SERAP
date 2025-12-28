@@ -147,7 +147,7 @@ document.addEventListener("livewire:init", () => {
             icon: "question",
             title:
                 "Yakin ingin hapus permanen Data OPD <strong class='text-primary'>" +
-                data["nama_opd"] +
+                data["kode_opd"] +
                 "</strong> ?",
             showCancelButton: true,
             cancelButtonText: "Batal",
