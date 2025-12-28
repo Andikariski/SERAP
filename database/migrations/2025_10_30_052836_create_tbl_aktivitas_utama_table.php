@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('tbl_aktivitas_utama', function (Blueprint $table) {
             $table->id();
-            $table->string('aktivitas_utama');
+            $table->text('aktivitas_utama');
             $table->string('tema_pembangunan');
-            $table->string('program_prioritas');
-            $table->string('target_keluaran_strategis');
+            $table->text('program_prioritas');
+            $table->text('target_keluaran_strategis');
             $table->timestamps();
         });
     }

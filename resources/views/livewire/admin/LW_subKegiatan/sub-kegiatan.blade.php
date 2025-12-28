@@ -33,7 +33,7 @@
                     <i class="bi bi-upload"></i> Import Data
                 </button>
                 <button type="button" class="btn btn-primary" wire:click="openTambahModal">
-                    <i class="bi bi-plus-lg"></i> Tambah Sub Kegiatan
+                    <i class="bi bi-plus-lg"></i> Sub Kegiatan
                 </button>
             </div>
         </div>
@@ -56,8 +56,7 @@
                         <td class="px-4 py-1 text-dark">{{ $subKegiatan->kewenangan}}</td>
                         <td class="px-4 py-1 text-dark">{{ $subKegiatan->kode_klasifikasi }}</td>
                         <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($subKegiatan->sub_kegiatan),50) }}</td>
-
-                         <td class="px-4 py-1 d-flex gap-2">
+                        <td class="px-4 py-1 d-flex gap-2">
                                 <!-- Tombol Edit -->
                                 <button wire:click="openEditModal({{ $subKegiatan->id }})"
                                     class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1">

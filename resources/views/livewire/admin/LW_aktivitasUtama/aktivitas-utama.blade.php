@@ -33,7 +33,7 @@
                     <i class="bi bi-upload"></i> Import Data
                 </button>
                 <button type="button" class="btn btn-primary" wire:click="openTambahModal">
-                    <i class="bi bi-plus-lg"></i> Tambah Aktivitas Utama
+                    <i class="bi bi-plus-lg"></i> Aktivitas Utama
                 </button>
             </div>
         </div>
@@ -43,8 +43,8 @@
             <thead class="table-secondary">
                 <tr>
                     <th class="px-4 py-2 text-dark">No</th>
-                    <th class="px-4 py-2 text-dark">AKTIVITAS UTAMA</th>
                     <th class="px-4 py-2 text-dark">TEMA PEMBANGUNAN</th>
+                    <th class="px-4 py-2 text-dark">AKTIVITAS UTAMA</th>
                     <th class="px-4 py-2 text-dark">PROGRAM PRIORITAS</th>
                     <th class="px-4 py-2 text-dark">AKSI</th>
                 </tr>
@@ -53,12 +53,12 @@
                 @forelse ($aktivitasUtamas as $aktivitasUtama) 
                      <tr>
                         <td class="px-4 py-1 text-dark">{{ $loop->iteration }}</td> <!-- Nomor urut -->
-                        <td class="px-4 py-1 text-dark">{{ $aktivitasUtama->aktivitas_utama}}</td>
                         <td class="px-4 py-1 text-dark">{{ $aktivitasUtama->tema_pembangunan }}</td>
-                        <td class="px-4 py-1 text-dark">{{ $aktivitasUtama->program_prioritas }}</td>
+                        <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($aktivitasUtama->aktivitas_utama),30)}}</td>
+                        <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($aktivitasUtama->program_prioritas),30) }}</td>
                         {{-- <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($subKegiatan->sub_kegiatan),50) }}</td> --}}
 
-                         <td class="px-4 py-1 d-flex gap-2">
+                        <td class="px-4 py-1 d-flex gap-2">
                                 <!-- Tombol Edit -->
                                 <button wire:click="openEditModal({{ $aktivitasUtama->id }})"
                                     class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1">
@@ -242,7 +242,7 @@
     @endif --}}
 
     @if ($this->showImportModal)
-    <x-modal title="Import Data Sub Kegiatan" :closeble="true" @click.self="$wire.closeImportModal()"
+    <x-modal title="Import Data Aktivitas Utama" :closeble="true" @click.self="$wire.closeImportModal()"
         @keydown.escape.window="$wire.closeImportModal()">
 
         {{-- Tombol X di pojok kanan --}}

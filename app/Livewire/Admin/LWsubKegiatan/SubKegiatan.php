@@ -82,7 +82,7 @@ class SubKegiatan extends AdminSuperAdminAuth
     {
         $this->resetForm();
         $this->isEdit = false;
-        $this->modalTitle = 'Input Sub Kegiatan';
+        $this->modalTitle = 'Tambah Sub Kegiatan';
         $this->showModal = true;
     }
 
