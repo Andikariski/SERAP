@@ -86,11 +86,11 @@ document.addEventListener("livewire:init", () => {
     // ==================================================
 
     Livewire.on("success-add-data", (data) =>
-        Toast.fire({ icon: "success", title: data.message })
+        Toast.fire({ icon: "success", title: data.message }),
     );
 
     Livewire.on("success-delete-data", (data) =>
-        Toast.fire({ icon: "success", title: data.message })
+        Toast.fire({ icon: "success", title: data.message }),
     );
 
     Livewire.on("succes-change-data", (data) => {
@@ -103,15 +103,15 @@ document.addEventListener("livewire:init", () => {
     });
 
     Livewire.on("succes-change", (data) =>
-        Toast.fire({ icon: "success", title: data.message })
+        Toast.fire({ icon: "success", title: data.message }),
     );
 
     Livewire.on("failed-delete-data", (data) =>
-        Toast.fire({ icon: "error", title: data.message })
+        Toast.fire({ icon: "error", title: data.message }),
     );
 
     Livewire.on("failed-add-data", (data) =>
-        Toast.fire({ icon: "error", title: data.message })
+        Toast.fire({ icon: "error", title: data.message }),
     );
 
     // Event dari Livewire untuk reset Select2
@@ -140,6 +140,50 @@ document.addEventListener("livewire:init", () => {
             }
         });
     };
+
+    //sweetalert Konfirmasi Kosongkan database
+    Livewire.on("confirm-validasi", (data) => {
+        Swal2.fire({
+            icon: "question",
+            title: "Terima Usulan RAP",
+            showCancelButton: true,
+            cancelButtonText: "Batal",
+            confirmButtonText: "Ya, Terima",
+            footer: '<strong class="text-warning">RAP Yang diterima akan menjadi RAP yang valid!</strong>',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.dispatch("terima-usulan-rap");
+            }
+        });
+    });
+
+    //sweetalert Konfirmasi Element maintanance
+    Livewire.on("soon-alert", (data) => {
+        Swal2.fire({
+            icon: "warning",
+            title: "Fitur Sedang Dalam Proses Pengembangan..!",
+            showCancelButton: false,
+            cancelButtonText: "Batal",
+            confirmButtonText: "Tutup",
+            footer: '<strong class="text-warning">Harap menunggu untuk update selanjutnya</strong>',
+        });
+    });
+
+    //sweetalert Konfirmasi Kosongkan database
+    Livewire.on("confirm-empty-database-subKegiatan", (data) => {
+        Swal2.fire({
+            icon: "question",
+            title: "Yakin ingin mengosongkan database <strong class='text-primary'>Sub Kegiatan</strong>",
+            showCancelButton: true,
+            cancelButtonText: "Batal",
+            confirmButtonText: "Ya, Kosongkan",
+            footer: '<strong class="text-warning">Data OPD yang di hapus tidak akan bisa dikembalikan!</strong>',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.dispatch("kosongkan-database-SubKegiatan");
+            }
+        });
+    });
 
     //sweetalert data hapus OPD
     Livewire.on("confirm-delete-data-opd", (data) => {
@@ -247,6 +291,27 @@ document.addEventListener("livewire:init", () => {
         });
     });
 
+    //sweetalert data hapus subKegiatan
+    Livewire.on("confirm-delete-data-aktivitasUtama", (data) => {
+        Swal2.fire({
+            icon: "question",
+            title:
+                "Yakin ingin menghapus aktivitas utama <strong class='text-primary'>" +
+                data["aktivitas_utama"] +
+                "</strong> ?",
+            showCancelButton: true,
+            cancelButtonText: "Batal",
+            confirmButtonText: "Ya, Hapus Permanen",
+            footer: '<strong class="text-warning">Data aktivitas utama yang di hapus tidak akan bisa dikembalikan!</strong>',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.dispatch("delete-data-aktivitasUtama", {
+                    id: data["id"],
+                });
+            }
+        });
+    });
+
     //sweetalert data RAP
     Livewire.on("confirm-delete-data-RAPBG", (data) => {
         Swal2.fire({
@@ -326,13 +391,13 @@ document.addEventListener("livewire:init", () => {
             "#selectSubKegiatan",
             "subKegiatanChanged",
             subKegiatanUrl,
-            "sub_kegiatan"
+            "sub_kegiatan",
         );
         initSelect2(
             "#selectActivitasUtama",
             "activitasUtamaChanged",
             aktivitasUtamaUrl,
-            "aktivitas_utama"
+            "aktivitas_utama",
         );
     }
 
@@ -341,7 +406,7 @@ document.addEventListener("livewire:init", () => {
         selector,
         eventName,
         ajaxUrl = null,
-        textField = null
+        textField = null,
     ) {
         const $select = $(selector);
         if ($select.length === 0) return;

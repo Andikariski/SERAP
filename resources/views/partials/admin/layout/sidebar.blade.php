@@ -169,7 +169,7 @@
             </li> --}}
             
     
-            <li class="nav-item" x-data="{ open: {{ (request()->get('type') === 'pagu-opd' || request()->get('type') === 'pagu-induk') ? 'true' : 'false' }} }">
+            <li class="nav-item" x-data="{ open: {{ (request()->get('type') === 'pagu-opd' || request()->get('type') === 'pagu-induk') || request()->get('type') === 'pagu-grafik' ? 'true' : 'false' }} }">
                 <!-- Parent link (dropdown trigger) -->
                 <a href="#" @click.prevent="open = !open"
                     class="sidebar-nav-link text-dark rounded-1 d-flex align-items-center justify-content-between gap-1 {{ request()->routeIs('superadmin.pagu.*') ? 'bg-primary text-light' : 'bg-white text-dark' }}"
@@ -196,6 +196,12 @@
                         <a wire:navigate href="{{ route('superadmin.pagu.induk', ['type' => 'pagu-induk']) }}"
                             class="d-block py-1 text-decoration-none {{ request()->get('type') === 'pagu-induk' ? 'fw-bold text-primary' : 'text-dark' }}">
                             Pagu Induk Definitif
+                        </a>
+                    </li>
+                    <li>
+                        <a wire:navigate href="{{ route('superadmin.pagu.grafik', ['type' => 'pagu-grafik']) }}"
+                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'pagu-grafik' ? 'fw-bold text-primary' : 'text-dark' }}">
+                            Grafik Pagu
                         </a>
                     </li>
                 </ul>

@@ -9,7 +9,7 @@
     <div class="mt-5">
        <div class="d-flex justify-content-between align-items-center mb-3 mt-4">
             <!-- Kiri -->
-            <input type="text" placeholder="Cari kode atau nama kegiatan.." wire:model.live="search" class="form-control w-25 rounded-1">
+            <input type="text" placeholder="Cari aktivitas utama.." wire:model.live="search" class="form-control w-25 rounded-1">
             <!-- Kanan -->
             <div class="d-flex gap-2">
                 {{-- <button type="button" class="btn btn-danger" wire:click="kosongkanTabel">
@@ -71,7 +71,7 @@
                                 </button>
 
                                 <!-- Tombol Hapus -->
-                                <button wire:click="$dispatch('confirm-delete-data-subKegiatan', {{ $aktivitasUtama }})"
+                                <button wire:click="$dispatch('confirm-delete-data-aktivitasUtama', {{ $aktivitasUtama }})"
                                     class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1">
                                     <i class="bi bi-trash3"></i>
                                 </button>
@@ -82,7 +82,7 @@
                         <td colspan="5" class="px-4 py-5 text-center">
                             <div class="d-inline-flex flex-column align-items-center justify-content-center">
                                 <i class="bi bi-database-x text-warning" style="font-size: 60px"></i>
-                                <span class="fs-5 text-dark">Sub kegiatan masih kosong!</span>
+                                <span class="fs-5 text-dark">Aktivitas utama masih kosong/Tidak Ditemukan!</span>
                             </div>
                         </td>
                     </tr>
@@ -104,84 +104,54 @@
                 <button type="button" class="btn-close" aria-label="Close" wire:click="closeModal">
                 </button>
             </x-slot>
-            <hr>
+            {{-- <hr> --}}
             <form wire:submit.prevent="simpan">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 mt-2">
                     <div class="mb-3">
-                        <label for="opd" class="form-label">Kewenangan</label>
-                            <select id="opd" class="form-control" wire:model="kewenangan">
-                                    <option selected>-- Pilih Kewenangan --</option>                         
-                                    <option value="Prov">Provinsi</option>
-                                    <option value="Kab">Kabupaten</option>
+                        <label for="opd" class="form-label">Tema Pembangunan</label>
+                            <select id="opd" class="form-control" wire:model="temaPembangunan">
+                                    <option selected>-- Tema Pembangunan --</option>                         
+                                    <option value="PAPUA CERDAS">Papua Cerdas</option>
+                                    <option value="PAPUA SEHAT">Papua Sehat</option>
+                                    <option value="PAPUA PRODUKTIF">Papua Produktif</option>
+                                    <option value="KONDISI PERLU">Kondisi Perlu</option>
                             </select>
-                            @error('kewenangan')
+                            @error('temaPembangunan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="nip" class="form-label">
-                            Kode Klasifikasi
+                        <label for="aktivitasUtama" class="form-label">
+                            Aktivitas Utama
                         </label>
-                        <input type="text" class="form-control @error('kodeKlasifikasi') is-invalid @enderror" id="nama_opd"
-                            wire:model="kodeKlasifikasi" placeholder="Masukkan kode klasfikasi..." maxlength="255">
-                        @error('kodeKlasifikasi')
+                        <input type="text" class="form-control @error('aktivitasUtamaValue') is-invalid @enderror" id="aktivitasUtama"
+                            wire:model="aktivitasUtamaValue" placeholder="Masukkan aktivitas utama..." maxlength="255">
+                        @error('aktivitasUtamaValue')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label for="nip" class="form-label">
-                            Sub Kegaitan
+                            Program Prioritas
                         </label>
-                        <input type="text" class="form-control @error('subKegiatan') is-invalid @enderror" id="kode_opd"
-                            wire:model="subKegiatan" placeholder="Masukkan sub kegiatan..." maxlength="255">
-                        @error('subKegiatan')
+                        <input type="text" class="form-control @error('programPrioritas') is-invalid @enderror" id="programPrioritas"
+                            wire:model="programPrioritas" placeholder="Masukkan program prioritas..." maxlength="255">
+                        @error('programPrioritas')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label for="nip" class="form-label">
-                            Kinerja
+                            Target Keluaran Strategis
                         </label>
-                        <input type="text" class="form-control @error('kinerja') is-invalid @enderror" id="kode_opd"
-                            wire:model="kinerja" placeholder="Masukkan Kinerja..." maxlength="255">
-                        @error('kinerja')
+                        <input type="text" class="form-control @error('targetKeluaranStrategis') is-invalid @enderror" id="targetKeluaranStrategis"
+                            wire:model="targetKeluaranStrategis" placeholder="Masukkan Target Keluaran Strategis..." maxlength="255">
+                        @error('targetKeluaranStrategis')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="mb-3">
-                        <label for="nip" class="form-label">
-                            Indikator
-                        </label>
-                        <input type="text" class="form-control @error('indikator') is-invalid @enderror" id="kode_opd"
-                            wire:model="indikator" placeholder="Masukkan Indikator..." maxlength="255">
-                        @error('indikator')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="nip" class="form-label">
-                            Satuan
-                        </label>
-                        <input type="text" class="form-control @error('satuan') is-invalid @enderror" id="kode_opd"
-                            wire:model="satuan" placeholder="Masukkan Satuan..." maxlength="255">
-                        @error('satuan')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="nip" class="form-label">
-                            Klasifikasi Belanja
-                        </label>
-                        <input type="text" class="form-control @error('klasifikasiBelanja') is-invalid @enderror" id="kode_opd"
-                            wire:model="klasifikasiBelanja" placeholder="Masukkan Klasifikasi Belanja..." maxlength="255">
-                        @error('klasifikasiBelanja')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    </div>
                 </div>
             </form>
             <x-slot name="footer">
@@ -204,7 +174,7 @@
         </x-modal>
     @endif
 
-    {{-- @if ($this->showDetailModal)
+    @if ($this->showDetailModal)
         <x-modal :title="$modalTitle" :closeble="true" @click.self="$wire.closeModal()"
             @keydown.escape.window="$wire.closeModal()">
 
@@ -213,19 +183,23 @@
                 </button>
             </x-slot>
 
-            <div class="row">
+         <div class="row">
                 <div class="col-12 col-md-12">
                     <div class="mb-3">
-                        <small>Nama OPD</small>
-                        <p class="fs-6 fw-bold">{{ $namaOpd }}</p>
+                        <small>Tema Pembangunan</small>
+                        <p class="fs-6 fw-bold">{{ $temaPembangunan }}</p>
                     </div>
                     <div class="mb-3">
-                        <small>Kode OPD</small>
-                        <p class="fs-6 fw-bold">{{ $kodeOpd }}</p>
+                        <small>Aktivitas Utama</small>
+                        <p class="fs-6 fw-bold">{{ $aktivitasUtamaValue }}</p>
                     </div>
                     <div class="mb-3">
-                        <small>Alamat OPD</small>
-                        <p class="fs-6 fw-bold">{{ $alamatOpd }}</p>
+                        <small>Program Prioritas</small>
+                        <p class="fs-6 fw-bold">{{ $programPrioritas }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <small>Target Keluaran Strategis</small>
+                        <p class="fs-6 fw-bold">{{ $targetKeluaranStrategis }}</p>
                     </div>
                 </div>
             </div>
@@ -234,12 +208,12 @@
                 <div class="d-flex gap-2">
                     <button type="button" class="btn btn-danger" wire:click="closeModal">
                         <span wire:loading.remove wire:target="closeModal">Tutup</span>
-                        <span wire:loading wire:target="closeModal">tunggu...</span>
+                        <span wire:loading wire:target="closeModal">Tunggu...</span>
                     </button>
                 </div>
             </x-slot>
         </x-modal>
-    @endif --}}
+    @endif
 
     @if ($this->showImportModal)
     <x-modal title="Import Data Aktivitas Utama" :closeble="true" @click.self="$wire.closeImportModal()"

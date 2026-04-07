@@ -77,7 +77,7 @@
                                 <td colspan="7" class="px-4 py-5 text-center">
                                     <div class="d-inline-flex flex-column align-items-center justify-content-center">
                                         <i class="bi bi-database-x text-warning" style="font-size: 60px"></i>
-                                        <span class="fs-5 text-dark">RAP Tidak Ditemukan!</span>
+                                        <span class="fs-5 text-dark">RAP Belum diInput/RAP Tidak Ditemukan!</span>
                                     </div>
                                 </td>
                             </tr>   
@@ -118,8 +118,7 @@
                                     <span class="badge bg-warning m-1">{{ $rapSG->validasi }}</span>
                                 </td>
                                 <td class="px-4 py-2 d-flex gap-2">
-                                        <a href="{{ route('opd.rap.update',['id' => $rapSG->id, 'type' => 'rap-opd-bg']) }}" 
-                                            class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1" wire:navigate>
+                                        <a href="#" wire:click.prevent="btnSoon" class="btn btn-soon btn-sm btn-outline-dark d-flex align-items-center gap-1">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                 </td>
@@ -129,7 +128,7 @@
                                 <td colspan="7" class="px-4 py-5 text-center">
                                     <div class="d-inline-flex flex-column align-items-center justify-content-center">
                                         <i class="bi bi-database-x text-warning" style="font-size: 60px"></i>
-                                        <span class="fs-5 text-dark">RAP Tidak Ditemukan!</span>
+                                       <span class="fs-5 text-dark">RAP Belum diInput/RAP Tidak Ditemukan!</span>
                                     </div>
                                 </td>
                             </tr>   
@@ -170,8 +169,7 @@
                                     <span class="badge bg-warning m-1">{{ $rapdti->validasi }}</span>
                                 </td>
                                 <td class="px-4 py-2 d-flex gap-2">
-                                        <a href="{{ route('opd.rap.update',['id' => $rapdti->id, 'type' => 'rap-opd-bg']) }}" 
-                                            class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1" wire:navigate>
+                                        <a href="#" wire:click.prevent="btnSoon" class="btn btn-soon btn-sm btn-outline-dark d-flex align-items-center gap-1">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                 </td>
@@ -181,7 +179,7 @@
                                 <td colspan="7" class="px-4 py-5 text-center">
                                     <div class="d-inline-flex flex-column align-items-center justify-content-center">
                                         <i class="bi bi-database-x text-warning" style="font-size: 60px"></i>
-                                        <span class="fs-5 text-dark">RAP Tidak Ditemukan!</span>
+                                        <span class="fs-5 text-dark">RAP Belum diInput/RAP Tidak Ditemukan!</span>
                                     </div>
                                 </td>
                             </tr>   
