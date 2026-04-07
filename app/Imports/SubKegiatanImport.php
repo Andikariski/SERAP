@@ -14,13 +14,6 @@ class SubKegiatanImport implements ToModel, WithHeadingRow,SkipsEmptyRows
 {
     public function model(array $row)
     {
-        //  dd($row);
-        // Log::info('Data baris Excel:', $row);
-        // Lewatkan jika baris kosong
-        // if (!isset($row['sub_kegiatan'])) {
-        //     return null;
-        // }
-
         return new SubKegiatan([
             'kewenangan'            => $row['kewenangan'] ?? null,
             'kode_klasifikasi'      => $row['kode_klasifikasi'] ?? null,

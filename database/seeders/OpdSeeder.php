@@ -105,11 +105,6 @@ class OpdSeeder extends Seeder
                 'alamat_opd' => 'Papua Selatan'
             ],
             [
-                'nama_opd' => 'Dinas Kebakaran Dan Penyelematan, Penanggulangan Bencana Dan Satpol', 
-                'kode_opd' => 'DAMKARPP',
-                'alamat_opd' => 'Papua Selatan'
-            ],
-            [
                 'nama_opd' => 'Badan Perencanaan Pembangunan Riset Dan Inovasi Daerah', 
                 'kode_opd' => 'BAPPERIDA',
                 'alamat_opd' => 'Papua Selatan'

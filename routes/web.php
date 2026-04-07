@@ -7,6 +7,7 @@ use App\Livewire\Admin\LWsubKegiatan\SubKegiatan;
 use App\Livewire\Admin\LWopd\Opd;
 use App\Livewire\Admin\LWoperator\Operator;
 use App\Livewire\Admin\LWpagu\PaguOPD;
+use App\Livewire\Admin\LWpagu\PaguGrafik;
 use App\Livewire\Admin\LWpagu\PaguIndukDefinitif;
 use App\Livewire\Admin\LWrap\RapSuperAdmin;
 use App\Livewire\Admin\LWrap\RapSuperAdminDetailOPD;
@@ -16,9 +17,9 @@ use App\Livewire\Admin\SuperAdminAuth;
 use App\Livewire\User\LWrap\CreateRap;
 use App\Livewire\User\LWrap\UpdateRap;
 use App\Livewire\User\LWrap\RapOpdBG;
+use App\Livewire\User\LWrap\RapOpdSG;
 use App\Livewire\User\LWrap\RapOpdDTI;
 use App\Livewire\User\LWrap\RapOpdRiwayat;
-use App\Livewire\User\LWrap\RapOpdSG;
 
 use Illuminate\Support\Facades\Route;
 
@@ -47,10 +48,11 @@ Route::get('/', function () {
     // Route Admin Submenu
     Route::get('/opd', Opd::class)->name('superadmin.opd');
     Route::get('/operator', Operator::class)->name('superadmin.operator');
+    Route::get('/kontrol', Kontrol::class)->name('superadmin.kontrol');
     Route::get('/pagu', PaguOPD::class)->name('superadmin.pagu.opd');
     Route::get('/pagu-induk', PaguIndukDefinitif::class)->name('superadmin.pagu.induk');
-    Route::get('/kontrol', Kontrol::class)->name('superadmin.kontrol');
-    
+    Route::get('/pagu-grafik', PaguGrafik::class)->name('superadmin.pagu.grafik');
+
     // Route RAP Admin
     Route::get('/rap-super-admin', RapSuperAdmin::class)->name('superadmin.rap.rapinduk');
     Route::get('/rap-persentase', RapSuperAdminPersentase::class)->name('superadmin.rap.persentase');

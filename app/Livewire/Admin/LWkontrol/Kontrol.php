@@ -44,13 +44,12 @@ class Kontrol extends AdminSuperAdminAuth
     {
         $kontrol = ModelKontrol::where('tipe', 'RAP_Akses')->first();
         if ($kontrol) {
-            $kontrol->status = $kontrol->status === 'Buka' ? 'Tutup' : 'Buka';
+            $kontrol->status = $kontrol->status == 'Buka' ? 'Tutup' : 'Buka';
             $kontrol->save();
             $this->statusAkses = $kontrol->status; // langsung update tampilan
         }
         // Refresh otomatis komponen agar tampilan ikut berubah
         $this->dispatch('succes-change',message: "Status RAP Telah di {$this->statusAkses}");
-        // $this->dispatch('statusUpdated', $this->status);
     }
 
     public function toggleStatusRAP($status)

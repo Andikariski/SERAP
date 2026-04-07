@@ -22,6 +22,14 @@ class RapSuperAdminDetailOPD extends AdminSuperAdminAuth
     public $searchSG = '';
     public $searchDTI = '';
 
+    public function btnSoon()
+    {
+         $this->dispatch(
+                'soon-alert',
+                message: "Fitur sedang dalam pengembangan"
+            );
+    }
+
     #[Layout('components.layouts.admin',['pageTitle' => 'Detail Input RAP OPD'])]
     public function render()
     {

@@ -16,24 +16,17 @@
                     <i class="bi bi-trash"></i> Kosongkan Database
                 </button>
                  --}}
-                <button type="button" class="btn btn-warning" wire:click="kosongkanTabel" wire:loading.attr="disabled" wire:target="kosongkanTabel">
-                    {{-- Saat tidak loading --}}
-                    <span wire:loading.remove wire:target="kosongkanTabel" style="color:#fff">
-                        <i class="bi bi-trash"></i> Kosongkan Database
-                    </span>
-
-                    {{-- Saat loading --}}
-                    <span wire:loading wire:target="kosongkanTabel" style="display:none;">
-                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-                        Mengosongkan..
-                    </span>
+                <button wire:click="$dispatch('confirm-empty-database-subKegiatan')" class="btn btn-warning">
+                        <span style="color:#fff">
+                            <i class="bi bi-trash"></i> Kosongkan Database
+                        </span>
                 </button>
 
                 <button type="button" class="btn btn-success" wire:click="openImportModal">
                     <i class="bi bi-upload"></i> Import Data
                 </button>
                 <button type="button" class="btn btn-primary" wire:click="openTambahModal">
-                    <i class="bi bi-plus-lg"></i> Tambah Sub Kegiatan
+                    <i class="bi bi-plus-lg"></i> Sub Kegiatan
                 </button>
             </div>
         </div>
@@ -56,8 +49,7 @@
                         <td class="px-4 py-1 text-dark">{{ $subKegiatan->kewenangan}}</td>
                         <td class="px-4 py-1 text-dark">{{ $subKegiatan->kode_klasifikasi }}</td>
                         <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($subKegiatan->sub_kegiatan),50) }}</td>
-
-                         <td class="px-4 py-1 d-flex gap-2">
+                        <td class="px-4 py-1 d-flex gap-2">
                                 <!-- Tombol Edit -->
                                 <button wire:click="openEditModal({{ $subKegiatan->id }})"
                                     class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1">
@@ -81,7 +73,7 @@
                         <td colspan="5" class="px-4 py-5 text-center">
                             <div class="d-inline-flex flex-column align-items-center justify-content-center">
                                 <i class="bi bi-database-x text-warning" style="font-size: 60px"></i>
-                                <span class="fs-5 text-dark">Sub kegiatan tidak ditemukan!</span>
+                                <span class="fs-5 text-dark">Sub kegiatan masih kosong/Tidak Ditemukan!</span>
                             </div>
                         </td>
                     </tr>
@@ -103,18 +95,18 @@
                 <button type="button" class="btn-close" aria-label="Close" wire:click="closeModal">
                 </button>
             </x-slot>
-            <hr>
+            {{-- <hr> --}}
             <form wire:submit.prevent="simpan">
                 <div class="row">
                     <div class="col-6">
                     <div class="mb-3">
-                        <label for="opd" class="form-label">Kewenangan</label>
-                            <select id="opd" class="form-control" wire:model="kewenangan">
+                        <label for="kewenanganValue" class="form-label">Kewenangan</label>
+                            <select id="kewenanganValue" class="form-control" wire:model="kewenanganValue">
                                     <option selected>-- Pilih Kewenangan --</option>                         
                                     <option value="Prov">Provinsi</option>
                                     <option value="Kab">Kabupaten</option>
                             </select>
-                            @error('kewenangan')
+                            @error('kewenanganValue')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                     </div>
@@ -132,9 +124,9 @@
                         <label for="nip" class="form-label">
                             Sub Kegaitan
                         </label>
-                        <input type="text" class="form-control @error('subKegiatan') is-invalid @enderror" id="kode_opd"
-                            wire:model="subKegiatan" placeholder="Masukkan sub kegiatan..." maxlength="255">
-                        @error('subKegiatan')
+                        <input type="text" class="form-control @error('subKegiatanValue') is-invalid @enderror" id="kode_opd"
+                            wire:model="subKegiatanValue" placeholder="Masukkan sub kegiatan..." maxlength="255">
+                        @error('subKegiatanValue')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -203,7 +195,7 @@
         </x-modal>
     @endif
 
-    {{-- @if ($this->showDetailModal)
+    @if ($this->showDetailModal)
         <x-modal :title="$modalTitle" :closeble="true" @click.self="$wire.closeModal()"
             @keydown.escape.window="$wire.closeModal()">
 
@@ -215,16 +207,32 @@
             <div class="row">
                 <div class="col-12 col-md-12">
                     <div class="mb-3">
-                        <small>Nama OPD</small>
-                        <p class="fs-6 fw-bold">{{ $namaOpd }}</p>
+                        <small>Kewenangan</small>
+                        <p class="fs-6 fw-bold">{{ $kewenanganValue }}</p>
                     </div>
                     <div class="mb-3">
-                        <small>Kode OPD</small>
-                        <p class="fs-6 fw-bold">{{ $kodeOpd }}</p>
+                        <small>Kode Klasifikasi</small>
+                        <p class="fs-6 fw-bold">{{ $kodeKlasifikasi }}</p>
                     </div>
                     <div class="mb-3">
-                        <small>Alamat OPD</small>
-                        <p class="fs-6 fw-bold">{{ $alamatOpd }}</p>
+                        <small>Sub Kegiatan</small>
+                        <p class="fs-6 fw-bold">{{ $subKegiatanValue }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <small>Klasifikasi Belanja</small>
+                        <p class="fs-6 fw-bold">{{ $klasifikasiBelanja }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <small>Indikator</small>
+                        <p class="fs-6 fw-bold">{{ $indikator }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <small>Kinerja</small>
+                        <p class="fs-6 fw-bold">{{ $kinerja }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <small>satuan</small>
+                        <p class="fs-6 fw-bold">{{ $satuan }}</p>
                     </div>
                 </div>
             </div>
@@ -233,12 +241,12 @@
                 <div class="d-flex gap-2">
                     <button type="button" class="btn btn-danger" wire:click="closeModal">
                         <span wire:loading.remove wire:target="closeModal">Tutup</span>
-                        <span wire:loading wire:target="closeModal">tunggu...</span>
+                        <span wire:loading wire:target="closeModal">Tunggu...</span>
                     </button>
                 </div>
             </x-slot>
         </x-modal>
-    @endif --}}
+    @endif
 
     @if ($this->showImportModal)
     <x-modal title="Import Data Sub Kegiatan" :closeble="true" @click.self="$wire.closeImportModal()"

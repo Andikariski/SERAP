@@ -122,7 +122,7 @@
                 <div class="d-flex gap-2">
                     <button type="button" class="btn btn-danger" wire:click="closeModal">
                         <span wire:loading.remove wire:target="closeModal">Batal</span>
-                        <span wire:loading wire:target="closeModal">tunggu...</span>
+                        <span wire:loading wire:target="closeModal">Tunggu...</span>
                     </button>
                     <button type="button" class="btn btn-primary" wire:click="simpan" wire:loading.attr="disabled">
                         <span wire:loading.remove wire:target="simpan">
@@ -168,7 +168,7 @@
                 <div class="d-flex gap-2">
                     <button type="button" class="btn btn-danger" wire:click="closeModal">
                         <span wire:loading.remove wire:target="closeModal">Tutup</span>
-                        <span wire:loading wire:target="closeModal">tunggu...</span>
+                        <span wire:loading wire:target="closeModal">Tunggu...</span>
                     </button>
                 </div>
             </x-slot>

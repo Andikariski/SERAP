@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-6 d-flex justify-content-end">
                 <button type="button" class="btn btn-primary" wire:click="openTambahModal">
-                    <i class="bi bi-plus-lg"></i> Input Pagu Induk
+                    <i class="bi bi-plus-lg"></i> Pagu Induk
                 </button>
             </div>
         </div>
@@ -100,8 +100,12 @@
                     <option value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>
                 @endforeach
             </select> --}}
+            
         </div>    
     </div>   
+    <p class="text-danger small fst-italic mt-3">
+        ⚠️ *Aktifkan tahun yang akan ditampilkan pada aplikasi.
+    </p>
      <div class="mt-4">
         {{ $paguInduks->links('vendor.livewire.bootstrap-pagination') }}
     </div>

@@ -87,7 +87,7 @@ class Opd extends AdminSuperAdminAuth
 
     public function openDetailModal($opdiId)
     {
-         $opd = ModelsOpd::find($opdiId);
+        $opd = ModelsOpd::find($opdiId);
 
         if ($opd) {
             $this->opdId = $opd->id;
