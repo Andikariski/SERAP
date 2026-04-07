@@ -32,10 +32,15 @@
                     <tr>
                         <td class="px-4 py-1 text-dark">{{ $loop->iteration }}</td> <!-- Nomor urut -->
                         <td class="px-4 py-1 text-dark">{{ $operator->name }}</td>
-                        <td class="px-4 py-1 text-dark">{{  Str::limit(strip_tags($operator->opd->nama_opd), 100) }}</td>
-                        <td class="px-4 py-1 text-dark">{{ $operator->kontak }}</td>
+                        <td class="px-4 py-1 text-dark">{{  Str::limit(strip_tags($operator->opd->nama_opd), 70) }}</td>
+                        <td class="px-4 py-1 text-dark">
+                              <a href="https://wa.me/{{ $operator->kontak }}" target="_blank" 
+                                    class="btn btn-sm btn-success d-flex align-items-center gap-1">
+                                    <i class="bi bi-whatsapp"></i>WhatsApp
+                                </a>
+                        </td>
 
-                         <td class="px-4 py-1 d-flex gap-2">
+                        <td class="px-4 py-1 d-flex gap-2">
                                 <!-- Tombol Edit -->
                                 <button wire:click="openEditModal({{ $operator->id }})"
                                     class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1">
@@ -129,10 +134,10 @@
                 <div class="mb-3">
                     <label for="opd" class="form-label">Instansi OPD</label>
                         <select id="opd" class="form-control" wire:model="opd">
-                            <option value="">-- Pilih Instansi --</option>
-                            @foreach ($opds as $opd)
-                                <option value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>
-                            @endforeach
+                            <option selected wire:model="opd">-- Pilih Instansi --</option>
+                                @foreach ($opds as $opd)
+                                    <option value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>
+                                @endforeach
                         </select>
                     @error('opd')
                         <div class="invalid-feedback">{{ $message }}</div>

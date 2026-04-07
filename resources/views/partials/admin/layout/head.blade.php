@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link rel="icon" href="{{ asset('assets/img/simdoti.png') }}">
+    <link rel="icon" href="{{ asset('assets/img/LogoOtsus.png') }}">
     <title>SERAP PPS | {{  $pageTitle  }}</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />

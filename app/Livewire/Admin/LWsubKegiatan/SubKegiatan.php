@@ -28,9 +28,10 @@ class SubKegiatan extends AdminSuperAdminAuth
     // Variabel Model Wire Dari Inputan
     // public $fkidOpd;
     public $kodeKlasifikasi;
+    public $kewenanganValue;
     public $klasifikasiBelanja;
     public $subKegiatan;
-    public $kewenangan;
+    public $subKegiatanValue;
     public $kinerja;
     public $indikator;
     public $satuan;
@@ -49,9 +50,9 @@ class SubKegiatan extends AdminSuperAdminAuth
         $rules = [
             // 'idOpd'             => 'required',
             'kodeKlasifikasi'   => 'required',
-            'subKegiatan'       => 'required',
+            'kewenanganValue'   => 'required',
+            'subKegiatanValue'  => 'required',
             'klasifikasiBelanja'=> 'required',
-            'kewenangan'        => 'required',
             'kinerja'           => 'required',
             'indikator'         => 'required',
             'satuan'            => 'required',
@@ -78,6 +79,44 @@ class SubKegiatan extends AdminSuperAdminAuth
 
     }
 
+    public function openEditModal($subKegiatanId)
+    {
+        $subKegiatans = ModelsSubKegiatan::find($subKegiatanId);
+
+        if ($subKegiatans) {
+            $this->subKegiatanId = $subKegiatans->id;
+            $this->kewenanganValue = $subKegiatans->kewenangan;
+            $this->kodeKlasifikasi = $subKegiatans->kode_klasifikasi;
+            $this->subKegiatanValue = $subKegiatans->sub_kegiatan;
+            $this->klasifikasiBelanja = $subKegiatans->klasifikasi_belanja;
+            $this->kinerja = $subKegiatans->kinerja;
+            $this->indikator = $subKegiatans->indikator;
+            $this->satuan = $subKegiatans->satuan;
+            $this->isEdit = true;
+            $this->modalTitle = 'Edit Data Sub Kegiatan';
+            $this->showModal = true;
+        }
+    }
+
+    public function openDetailModal($subKegiatanId)
+    {
+        $subKegiatans = ModelsSubKegiatan::find($subKegiatanId);
+
+        if ($subKegiatans) {
+            $this->subKegiatanId = $subKegiatans->id;
+            $this->kodeKlasifikasi = $subKegiatans->kode_klasifikasi;
+            $this->subKegiatanValue = $subKegiatans->sub_kegiatan;
+            $this->klasifikasiBelanja = $subKegiatans->klasifikasi_belanja;
+            $this->kewenanganValue = $subKegiatans->kewenangan;
+            $this->kinerja = $subKegiatans->kinerja;
+            $this->indikator = $subKegiatans->indikator;
+            $this->satuan = $subKegiatans->satuan;
+            $this->isEdit = true;
+            $this->modalTitle = 'Detail Data Sub Kegiatan';
+            $this->showDetailModal = true;
+        }
+    }
+
     public function openTambahModal()
     {
         $this->resetForm();
@@ -86,7 +125,7 @@ class SubKegiatan extends AdminSuperAdminAuth
         $this->showModal = true;
     }
 
-
+    #[On('kosongkan-database-SubKegiatan')]
     public function kosongkanTabel(){
         ModelsSubKegiatan::query()->forceDelete();
         $this->dispatch('success-delete-data', message: "Database berhasil di kosongkan");
@@ -95,11 +134,11 @@ class SubKegiatan extends AdminSuperAdminAuth
     public function resetForm()
     {
         $this->kodeKlasifikasi = '';
-        $this->subKegiatan = '';
+        $this->subKegiatanValue = '';
         $this->kinerja = '';
         $this->indikator = '';
         $this->klasifikasiBelanja = '';
-        $this->kewenangan = '';
+        $this->kewenanganValue = '';
         $this->satuan = '';
         $this->isEdit = false;
         $this->resetErrorBag();
@@ -131,23 +170,15 @@ class SubKegiatan extends AdminSuperAdminAuth
     {
         // 1. Validasi input
         $this->validate();
-        // Tentukan ID OPD sesuai role user
-
-        // if (Auth::user()->is_admin === 1) {
-        //     $opd = $this->idOpd;
-        // } 
-        // if (Auth::user()->is_admin === 0) {
-        //     $opd = Auth::user()->opd_id;
-        // }
         
         //Tentukan logika edit / tambah
         if ($this->isEdit) {
             // Update data
             $data = ModelsSubKegiatan::findOrFail($this->subKegiatanId);
             $data->update([
-                'kewenangan'            => $this->kewenangan,
+                'kewenangan'            => $this->kewenanganValue,
                 'kode_klasifikasi'      => $this->kodeKlasifikasi,
-                'sub_kegiatan'          => $this->subKegiatan,
+                'sub_kegiatan'          => $this->subKegiatanValue,
                 'kinerja'               => $this->kinerja,
                 'indikator'             => $this->indikator,
                 'satuan'                => $this->satuan,
@@ -158,9 +189,9 @@ class SubKegiatan extends AdminSuperAdminAuth
         } else {
             // Tambah data baru
             ModelsSubKegiatan::create([
-                'kewenangan'            => $this->kewenangan,
+                'kewenangan'            => $this->kewenanganValue,
                 'kode_klasifikasi'      => $this->kodeKlasifikasi,
-                'sub_kegiatan'          => $this->subKegiatan,
+                'sub_kegiatan'          => $this->subKegiatanValue,
                 'kinerja'               => $this->kinerja,
                 'indikator'             => $this->indikator,
                 'satuan'                => $this->satuan,
@@ -173,7 +204,7 @@ class SubKegiatan extends AdminSuperAdminAuth
         $this->closeModal();
     }
 
-    // 🔹 Fungsi untuk memproses file upload & import ke database
+    // Fungsi untuk memproses file upload & import ke database
     public function import()
     {
         $this->validate([
@@ -184,7 +215,7 @@ class SubKegiatan extends AdminSuperAdminAuth
         ]);
 
         try {
-            // Proses import file menggunakan Maatwebsite Excel
+            // Proses import file menggunakan Excel
             Excel::import(new SubKegiatanImport, $this->file->getRealPath());
             $this->dispatch('success-add-data', message: "Sub kegiatan berhasil diimport.");
 

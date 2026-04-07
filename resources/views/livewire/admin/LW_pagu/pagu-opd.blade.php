@@ -8,6 +8,8 @@
     <x-breadcrumb :items="$breadcrumbs" />
 <div>
     <div class="card text-white shadow-sm border-0" style="background: linear-gradient(135deg, #219EBC 0%,  #4f46e5 100%);">
+    {{-- <div class="card text-white shadow-sm border-0" style="background-color: #219EBC;"> --}}
+
         <div class="row">
     {{-- 🟩 Dana Otsus BG --}}
     <div class="col-3">
@@ -100,7 +102,7 @@
             </div> --}}
             <div class="col-md-8 d-flex justify-content-end">
                 <button type="button" class="btn btn-primary" wire:click="openTambahModal">
-                    <i class="bi bi-plus-lg"></i> Input Pagu OPD
+                    <i class="bi bi-plus-lg"></i> Pagu OPD
                 </button>
             </div>
         </div>
