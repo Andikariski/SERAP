@@ -110,8 +110,8 @@ class OpdSeeder extends Seeder
                 'alamat_opd' => 'Papua Selatan'
             ],
             [
-                'nama_opd' => 'Tim Pengelolah Dana Otonomi Khusus dan DTI', 
-                'kode_opd' => 'TIMOTSUSDTI',
+                'nama_opd' => 'Tim Task Force Otsus Papua Selatan', 
+                'kode_opd' => 'TIMTFOTSPPS',
                 'alamat_opd' => 'Provinsi Papua Selatan'
             ],
             ]);
