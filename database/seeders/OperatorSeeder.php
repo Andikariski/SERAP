@@ -19,12 +19,12 @@ class OperatorSeeder extends Seeder
 
         User::insert([
             [
-                'name'              => 'Tim Otsus PPS',
-                'email'             => 'timotsus.pps@gmail.com',
+                'name'              => 'Tim Task Force Otsus PPS',
+                'email'             => 'timtaskforce.otsus@gmail.com',
                 'password'          => bcrypt('otsus@2025'),
                 'kontak'            => '6282399770016',
                 'is_admin'          => 1,
-                'opd_id'            => 21,
+                'opd_id'            => 20,
                 'email_verified_at' => $now, // Disarankan
                 'created_at'        => $now, // Disarankan
                 'updated_at'        => $now, // Disarankan
@@ -189,7 +189,7 @@ class OperatorSeeder extends Seeder
                 'password'          => bcrypt('Papuaselatan@25#'),
                 'kontak'            => '6281228071995',
                 'is_admin'          => 0,
-                'opd_id'            => 20,
+                'opd_id'            => 19,
                 'email_verified_at' => $now, // Disarankan
                 'created_at'        => $now, // Disarankan
                 'updated_at'        => $now, // Disarankan
