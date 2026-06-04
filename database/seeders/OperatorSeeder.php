@@ -21,7 +21,7 @@ class OperatorSeeder extends Seeder
             [
                 'name'              => 'Tim Task Force Otsus PPS',
                 'email'             => 'timtaskforce.otsus@gmail.com',
-                'password'          => bcrypt('otsus@2025'),
+                'password'          => bcrypt('Taskforceotsus.pps@2026#'),
                 'kontak'            => '6282399770016',
                 'is_admin'          => 1,
                 'opd_id'            => 20,
