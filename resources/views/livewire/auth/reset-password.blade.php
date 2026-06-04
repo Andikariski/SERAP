@@ -17,35 +17,25 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public string $password = '';
     public string $password_confirmation = '';
 
-    /**
-     * Mount the component.
-     */
     public function mount(string $token): void
     {
         $this->token = $token;
-
         $this->email = request()->string('email');
     }
 
-    /**
-     * Reset the password for the given user.
-     */
     public function resetPassword(): void
     {
         $this->validate([
-            'token' => ['required'],
-            'email' => ['required', 'string', 'email'],
+            'token'    => ['required'],
+            'email'    => ['required', 'string', 'email'],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // Here we will attempt to reset the user's password. If it is successful we
-        // will update the password on an actual user model and persist it to the
-        // database. Otherwise we will parse the error and return the response.
         $status = Password::reset(
             $this->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) {
                 $user->forceFill([
-                    'password' => Hash::make($this->password),
+                    'password'       => Hash::make($this->password),
                     'remember_token' => Str::random(60),
                 ])->save();
 
@@ -53,63 +43,124 @@ new #[Layout('components.layouts.auth')] class extends Component {
             }
         );
 
-        // If the password was successfully reset, we will redirect the user back to
-        // the application's home authenticated view. If there is an error we can
-        // redirect them back to where they came from with their error message.
-        if ($status != Password::PasswordReset) {
+        if ($status != Password::PASSWORD_RESET) {
             $this->addError('email', __($status));
-
             return;
         }
 
         Session::flash('status', __($status));
-
         $this->redirectRoute('login', navigate: true);
     }
 }; ?>
 
-<div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Reset password')" :description="__('Please enter your new password below')" />
+<div class="card shadow-lg border-0 overflow-hidden" style="width: 100%; max-width: 100%; border-radius: 1rem;">
+    <div class="row g-0">
 
-    <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
-
-    <form method="POST" wire:submit="resetPassword" class="flex flex-col gap-6">
-        <!-- Email Address -->
-        <flux:input
-            wire:model="email"
-            :label="__('Email')"
-            type="email"
-            required
-            autocomplete="email"
-        />
-
-        <!-- Password -->
-        <flux:input
-            wire:model="password"
-            :label="__('Password')"
-            type="password"
-            required
-            autocomplete="new-password"
-            :placeholder="__('Password')"
-            viewable
-        />
-
-        <!-- Confirm Password -->
-        <flux:input
-            wire:model="password_confirmation"
-            :label="__('Confirm password')"
-            type="password"
-            required
-            autocomplete="new-password"
-            :placeholder="__('Confirm password')"
-            viewable
-        />
-
-        <div class="flex items-center justify-end">
-            <flux:button type="submit" variant="primary" class="w-full" data-test="reset-password-button">
-                {{ __('Reset password') }}
-            </flux:button>
+        {{-- Kolom Kiri --}}
+        <div class="col-md-5 login-left d-none d-md-flex align-items-center justify-content-center text-white p-4"
+            style="background: linear-gradient(135deg, #04a2dc, #002ddf);">
+            <div class="text-center">
+                <img src="{{ asset('assets/img/SerapLogin.png') }}" alt="Logo SIMDOTIPPS"
+                    class="img-fluid logo-simdoti" style="max-width: 250px;">
+            </div>
         </div>
-    </form>
+
+        {{-- Kolom Kanan --}}
+        <div class="col-md-7 p-5 d-flex flex-column justify-content-center">
+            <div class="text-center mb-4">
+                <h3 class="fw-bold display-6">Reset Password</h3>
+                <p class="text-muted">Masukkan password baru Anda di bawah ini.</p>
+            </div>
+
+            @if (session('status'))
+                <div class="alert alert-success text-center small">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            <form wire:submit.prevent="resetPassword">
+
+                {{-- Email --}}
+                <div class="mb-3">
+                    <label class="form-label visually-hidden">Alamat Email</label>
+                    <input type="email" wire:model="email"
+                        class="form-control form-control-lg"
+                        placeholder="Alamat Email" required disabled>
+                    @error('email')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Password Baru --}}
+                <div class="mb-3">
+                    <label class="form-label visually-hidden">Kata Sandi Baru</label>
+                    <div class="input-group">
+                        <input type="password" wire:model="password"
+                            id="passwordInput"
+                            class="form-control form-control-lg"
+                            placeholder="Kata Sandi Baru" required
+                            style="border-radius: 0.5rem 0 0 0.5rem !important;">
+                        <button class="btn btn-outline-secondary" type="button"
+                            onclick="togglePassword('passwordInput', 'eyeIcon1')"
+                            tabindex="-1"
+                            style="border-radius: 0 0.5rem 0.5rem 0 !important;">
+                            <i class="bi bi-eye" id="eyeIcon1"></i>
+                        </button>
+                    </div>
+                    @error('password')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Konfirmasi Password --}}
+                <div class="mb-4">
+                    <label class="form-label visually-hidden">Konfirmasi Kata Sandi</label>
+                    <div class="input-group">
+                        <input type="password" wire:model="password_confirmation"
+                            id="passwordConfirmInput"
+                            class="form-control form-control-lg"
+                            placeholder="Konfirmasi Kata Sandi" required
+                            style="border-radius: 0.5rem 0 0 0.5rem !important;">
+                        <button class="btn btn-outline-secondary" type="button"
+                            onclick="togglePassword('passwordConfirmInput', 'eyeIcon2')"
+                            tabindex="-1"
+                            style="border-radius: 0 0.5rem 0.5rem 0 !important;">
+                            <i class="bi bi-eye" id="eyeIcon2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                {{-- Submit --}}
+                <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold"
+                    wire:loading.attr="disabled" wire:target="resetPassword">
+                    <span wire:loading.remove wire:target="resetPassword">Reset Password</span>
+                    <span wire:loading wire:target="resetPassword" style="display:none;">
+                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                        Memproses...
+                    </span>
+                </button>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="{{ route('login') }}" class="text-decoration-none text-muted small">
+                    ← Kembali ke Login
+                </a>
+            </div>
+        </div>
+
+    </div>
 </div>
+
+<script>
+    function togglePassword(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon  = document.getElementById(iconId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.replace('bi-eye', 'bi-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.replace('bi-eye-slash', 'bi-eye');
+        }
+    }
+</script>

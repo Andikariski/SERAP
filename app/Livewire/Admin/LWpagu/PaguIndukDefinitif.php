@@ -22,6 +22,8 @@ class PaguIndukDefinitif extends AdminSuperAdminAuth
     public $paguBG;
     public $paguSG;
     public $paguDTI;
+    public $paguSiLPAMelanjutkan;
+    public $paguSiLPAEfisiensi;
     public $tahunPagu;
     public $paguInduk;
 
@@ -79,6 +81,8 @@ class PaguIndukDefinitif extends AdminSuperAdminAuth
         $this->paguBG = '';
         $this->paguSG = '';
         $this->paguDTI = '';
+        $this->paguSiLPAMelanjutkan = '';
+        $this->paguSiLPAEfisiensi = '';
         $this->isEdit = false;
         $this->resetErrorBag();
     }
@@ -99,6 +103,8 @@ class PaguIndukDefinitif extends AdminSuperAdminAuth
             $this->paguSG = $paguInduk->pagu_SG;
             $this->paguBG = $paguInduk->pagu_BG;
             $this->paguDTI = $paguInduk->pagu_DTI;
+            $this->paguSiLPAMelanjutkan = $paguInduk->pagu_SiLPA_Melanjutkan;
+            $this->paguSiLPAEfisiensi = $paguInduk->pagu_SiLPA_Efisiensi;
             $this->tahunPagu = $paguInduk->tahun_pagu;
             $this->modalTitle = 'Edit Data Pagu Induk';
             $this->showModal = true;
@@ -157,6 +163,8 @@ class PaguIndukDefinitif extends AdminSuperAdminAuth
                     'pagu_SG'       => $this->paguSG,
                     'pagu_BG'       => $this->paguBG ,
                     'pagu_DTI'      => $this->paguDTI,
+                    'pagu_SiLPA_Melanjutkan' => $this->paguSiLPAMelanjutkan,
+                    'pagu_SiLPA_Efisiensi' => $this->paguSiLPAEfisiensi,
                     // 'tahun_pagu'    =>  $this->tahunPagu = date('Y')
                     'tahun_pagu'    =>  $this->tahunPagu
                 ]);
@@ -169,7 +177,8 @@ class PaguIndukDefinitif extends AdminSuperAdminAuth
                     'pagu_SG'       => $this->paguSG,
                     'pagu_BG'       => $this->paguBG ,
                     'pagu_DTI'      => $this->paguDTI,
-                    // 'tahun_pagu'    =>  $this->tahunPagu = date('Y')
+                    'pagu_SiLPA_Melanjutkan' => $this->paguSiLPAMelanjutkan,
+                    'pagu_SiLPA_Efisiensi' => $this->paguSiLPAEfisiensi,
                     'tahun_pagu'    =>  $this->tahunPagu 
                     ]);
                     $this->dispatch('success-add-data',message: "Berhasil, Pagu Definitif {$this->tahunPagu} telah ditambahkan.");

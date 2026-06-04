@@ -21,15 +21,6 @@ const Swal2 = Swal.mixin({
     buttonsStyling: false,
 });
 
-// document.addEventListener("redirect-with-delay", function (event) {
-//     const url = event.detail.url;
-//     const delay = event.detail.delay ?? 2000;
-
-//     setTimeout(() => {
-//         window.location.href = url;
-//     }, delay);
-// });
-
 document.addEventListener("livewire:init", () => {
     // formatRupiah();
     // 🔁 Reinit Select2 setiap navigasi / morph
@@ -111,6 +102,10 @@ document.addEventListener("livewire:init", () => {
     );
 
     Livewire.on("failed-add-data", (data) =>
+        Toast.fire({ icon: "error", title: data.message }),
+    );
+
+    Livewire.on("export-failed", (data) =>
         Toast.fire({ icon: "error", title: data.message }),
     );
 

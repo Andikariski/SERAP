@@ -99,7 +99,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 <div class="mb-3">
                     <label for="email" class="form-label visually-hidden">Alamat Email</label>
                     <input type="email" wire:model="email" class="form-control form-control-lg"
-                        placeholder="Alamat Email" required>
+                        placeholder="Alamat Email" required
+                        style="border-radius: 0.5rem 0.5rem 0.5rem 0.5rem !important;">
                     @error('email')
                         <div class="text-danger small mt-1">{{ $message }}</div>
                     @enderror
@@ -107,8 +108,24 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
                 <div class="mb-4">
                     <label for="password" class="form-label visually-hidden">Kata Sandi</label>
-                    <input type="password" wire:model="password" class="form-control form-control-lg"
-                        placeholder="Kata Sandi" required>
+                    <div class="input-group">
+                        <input 
+                            type="password" 
+                            wire:model="password" 
+                            class="form-control form-control-lg" 
+                            placeholder="Kata Sandi" 
+                            id="passwordInput"
+                            required
+                            style="border-radius: 0.5rem 0 0 0.5rem !important;">
+                        <button 
+                            class="btn btn-outline-secondary" 
+                            type="button" 
+                            id="togglePassword"
+                            onclick="togglePasswordVisibility()"
+                            tabindex="-1">
+                            <i class="bi bi-eye" id="eyeIcon"></i>
+                        </button>
+                    </div>
                     @error('password')
                         <div class="text-danger small mt-1">{{ $message }}</div>
                     @enderror
@@ -123,7 +140,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold" data-test="login-button" wire:loading.attr="disabled" wire:target="login">
+                <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold" data-test="login-button" wire:loading.attr="disabled" wire:target="login"
+                style="border-radius: 0.5rem 0.5rem 0.5rem 0.5rem !important;">
                     {{-- Saat tidak loading --}}
                     <span wire:loading.remove wire:target="login">
                         Login
@@ -138,8 +156,25 @@ new #[Layout('components.layouts.auth')] class extends Component {
             </form>
 
             <div class="text-center mt-3">
-                <a href="#" class="text-decoration-none text-muted small">Lupa Kata Sandi?</a>
+                {{-- <a href="#" class="text-decoration-none text-muted small">Lupa Kata Sandi?</a> --}}
+                <a href="{{route('password.request')}}" class="text-decoration-none text-muted small">Lupa Kata Sandi?</a>
             </div>
         </div>
     </div>
 </div>
+
+
+<script>
+    function togglePasswordVisibility() {
+        const input = document.getElementById('passwordInput');
+        const icon  = document.getElementById('eyeIcon');
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.replace('bi-eye', 'bi-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.replace('bi-eye-slash', 'bi-eye');
+        }
+    }
+</script>

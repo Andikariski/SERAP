@@ -21,8 +21,12 @@
             </select>
             </div>
             <div class="col-md-6 d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" wire:click="openTambahModal">
+                <button type="button" class="btn btn-primary me-1" wire:click="openTambahModal">
                     <i class="bi bi-plus-lg"></i> Pagu Induk
+                </button>
+
+                <button class="btn btn-success disabled-link" wire:click="exportExcel">
+                    <i class="bi bi-file-earmark-excel" ></i> Cetak Pagu Induk
                 </button>
             </div>
         </div>
@@ -33,10 +37,8 @@
                     <tr>
                         <th class="px-4 py-2 text-dark" style="width: 3%;">AKSES</th>
                         <th class="px-4 py-2 text-dark" style="width: 15%;" >TAHUN PAGU</th>
-                        <th class="px-4 py-2 text-dark">PAGU BG</th>
-                        <th class="px-4 py-2 text-dark">PAGU SG</th>
-                        <th class="px-4 py-2 text-dark">PAGU DTI</th>
-                        {{-- <th class="px-4 py-2 text-dark">Total Pagu</th> --}}
+                        <th class="px-4 py-2 text-dark">TOTAL PAGU OTSUS</th>
+                        <th class="px-4 py-2 text-dark">TOTAL SiLPA</th>
                         <th class="px-4 py-2 text-dark">STATUS</th>
                         <th class="px-4 py-2 text-dark" style="width: 3%;">AKSI</th>
                     </tr>
@@ -58,9 +60,10 @@
                             @endif
                         </td>
                         <td class="px-4 py-1 text-dark">{{ $paguInduk->tahun_pagu }}</td>
+                        <td class="px-4 py-1 text-dark">{{ number_format($paguInduk->pagu_BG + $paguInduk->pagu_SG + $paguInduk->pagu_DTI) }}</td>
                         <td class="px-4 py-1 text-dark">{{ number_format($paguInduk->pagu_BG) }}</td>
-                        <td class="px-4 py-1 text-dark">{{ number_format($paguInduk->pagu_SG) }}</td>
-                        <td class="px-4 py-1 text-dark">{{ number_format($paguInduk->pagu_DTI) }}</td>
+
+
                         <td class="px-4 py-1 text-dark">
                             <span class="badge {{ $paguInduk->status === 'Aktif' ? 'bg-success' : 'bg-danger' }}">{{ $paguInduk->status }}</span>
                         </td>
@@ -71,10 +74,10 @@
                                     <i class="bi bi-pencil"></i>
                                 </button>
 
-                                {{-- <button wire:click="openDetailModal({{ $paguInduk->id }})"
+                                <button wire:click="openDetailModal({{ $paguInduk->id }})"
                                     class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1">
                                     <i class="bi bi-eye"></i>
-                                </button> --}}
+                                </button>
 
                                 <button wire:click="$dispatch('confirm-delete-data-paguInduk', {{ $paguInduk }})"
                                     class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1">
@@ -103,9 +106,18 @@
             
         </div>    
     </div>   
-    <p class="text-danger small fst-italic mt-3">
-        ⚠️ *Aktifkan tahun yang akan ditampilkan pada aplikasi.
-    </p>
+     <div class="card border-info mt-4">
+                <div class="card-body">
+                    <h6 class="card-title">
+                        <i class="bi bi-info-circle text-info"></i> Informasi
+                    </h6>
+                    <ul class="mb-0 small">
+                        <li>Aktifkan tahun yang akan ditampilkan pada aplikasi.</li>
+                        <li>Tahun yang aktif akan menjadi data utama aplikasi Serap.</li>
+                        <li>Tahun yang aktif tidak dapat di non-aktifkan.</li>
+                    </ul>
+                </div>
+    </div>
      <div class="mt-4">
         {{ $paguInduks->links('vendor.livewire.bootstrap-pagination') }}
     </div>
@@ -156,6 +168,26 @@
                     <input type="text" class="form-control format-rupiah @error('paguDTI') is-invalid @enderror" id="pagu_dti"
                         wire:model="paguDTI" placeholder="Masukkan Pagu DTI..." maxlength="255">
                     @error('paguDTI')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="paguSiLPAmelanjutkan" class="form-label">
+                        <strong>Pagu Dana SiLPA Melanjutkan</strong>
+                    </label>
+                    <input type="text" class="form-control format-rupiah @error('paguSiLPAMelanjutkan') is-invalid @enderror" id="pagu_silpa_melanjutkan"
+                        wire:model="paguSiLPAMelanjutkan" placeholder="Masukkan Pagu SiLPA Melanjutkan..." maxlength="255">
+                    @error('paguSiLPAMelanjutkan')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="paguSiLPAefisiensi" class="form-label">
+                        <strong>Pagu Dana SiLPA Efisiensi</strong>
+                    </label>
+                    <input type="text" class="form-control format-rupiah @error('paguSiLPAEfisiensi') is-invalid @enderror" id="pagu_silpa_efisiensi"
+                        wire:model="paguSiLPAEfisiensi" placeholder="Masukkan Pagu SiLPA Efisiensi..." maxlength="255">
+                    @error('paguSiLPAEfisiensi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
