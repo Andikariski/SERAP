@@ -37,6 +37,7 @@ public function getFilteredData()
         ->when($this->filterSumberDana, fn($q) =>
             $q->where('sumber_dana', $this->filterSumberDana)
         )
+        ->where('tbl_rap.fkid_opd', Auth::user()->opd_id) // ✅ filter OPD login
         ->leftJoin('tbl_opd', 'tbl_opd.id', '=', 'tbl_rap.fkid_opd') // JOIN relasi OPD
         ->select(
             'tbl_rap.kewenangan',
@@ -85,6 +86,11 @@ public function getFilteredData()
         $namaOpd = Auth::user()->opd->kode_opd;
         $this->dispatch('export-start');
         $data = $this->getFilteredData();
+         // ✅ cek jika data kosong
+        if ($data->isEmpty()) {
+            $this->dispatch('export-failed',message: 'Sumber dana '.$this->filterSumberDana.' Tidak tersedia untuk di export');
+            return;
+        }
         // Jika filter kosong, isi dengan teks default
         $opd = Auth::user()->opd_id;
         $sumber = $this->filterSumberDana ?: 'Semua Sumber Dana';

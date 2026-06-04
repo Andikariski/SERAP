@@ -1,7 +1,7 @@
 <div>
      @php
         $breadcrumbs = [
-            ['name' => 'Data RAP', 'url' => route('opd.rap.rapBG')],
+            ['name' => 'Data RAP Tahun ' . ($tahunAktif ?? '-'), 'url' => route('opd.rap.rapBG')],
             // ['name' => 'Artikel', 'url' => route('admin.posts.index')],
         ];
 
@@ -185,13 +185,21 @@
                 </thead>
                 <tbody>
                 @forelse ($raps as $rap)
+                        @php
+                            $badgeClass = match($rap->validasi) {
+                                'Disetujui' => 'bg-success',
+                                'Menunggu'  => 'bg-secondary',
+                                'Perbaikan' => 'bg-warning',
+                                'Ditolak'   => 'bg-danger',
+                            };
+                        @endphp
                     <tr>
                         <td class="px-4 py-1 text-dark">{{ $loop->iteration }}</td>
                         <td class="px-4 py-1 text-dark">{{ $rap->kode_klasifikasi }}</td>
                         <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($rap->sub_kegiatan), 30)  }}</td>
                         <td class="px-4 py-1 text-dark">{{ number_format($rap->pagu_tahun_berjalan) }}</td>
                         <td class="text-dark">
-                             <span class="badge bg-warning m-1">{{ $rap->validasi }}</span>
+                             <span class="badge {{ $badgeClass }} m-1">{{ $rap->validasi }}</span>
                         </td>
                         <td class="px-4 py-2 d-flex gap-2">
                             @if($statusAkses === 'Buka')
@@ -229,6 +237,18 @@
             </tbody>
             </table>
         </div>    
+         <div class="card border-info mt-4">
+            <div class="card-body">
+                <h6 class="card-title">
+                    <i class="bi bi-info-circle text-info"></i> Informasi
+                </h6>
+                <ul class="mb-0 small">
+                    <li>Perhatikan status Akses & RAP sebelum melakukan pengisian RAP.</li>
+                    <li>Perhatikan status Button tambah RAP, akan terkunci sesuai keadaan.</li>
+                    <li>Notifikasi status input RAP akan berubah sesuai level persentase penginputan.</li>
+                </ul>
+            </div>
+        </div>
      <div class="mt-4">
         {{ $raps->links('vendor.livewire.bootstrap-pagination') }}
     </div>

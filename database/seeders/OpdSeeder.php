@@ -16,7 +16,7 @@ class OpdSeeder extends Seeder
                 // Seeder Data OPD
         Opd::insert([
             [   'nama_opd' => 'Inspektorat Daerah', 
-                'kode_opd' => 'INSKEPTORAT',
+                'kode_opd' => 'INSPEKTORAT',
                 'alamat_opd' => 'Papua Selatan'
             ],
             [

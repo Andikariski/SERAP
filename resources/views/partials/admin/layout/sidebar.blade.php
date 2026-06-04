@@ -69,13 +69,13 @@
                     <li>
                         <a wire:navigate href="{{ route('opd.rap.rapBG', ['type' => 'rap-opd-bg']) }}"
                             class="d-block py-1 text-decoration-none {{ request()->get('type') === 'rap-opd-bg' || request()->get('type') === 'rap-opd-update-bg' ? 'fw-bold text-primary' : 'text-dark' }}">
-                            RAP Block Grand
+                            RAP Block Grant
                         </a>
                     </li>
                     <li>
                         <a wire:navigate href="{{ route('opd.rap.rapSG', ['type' => 'rap-opd-sg']) }}"
                             class="d-block py-1 text-decoration-none {{ request()->get('type') === 'rap-opd-sg' || request()->get('type') === 'rap-opd-update-sg' ? 'fw-bold text-primary' : 'text-dark' }}">
-                            RAP Spesifik Grand
+                            RAP Spesifik Grant
                         </a>
                     </li>
                     <li>
@@ -169,7 +169,7 @@
             </li> --}}
             
     
-            <li class="nav-item" x-data="{ open: {{ (request()->get('type') === 'pagu-opd' || request()->get('type') === 'pagu-induk') || request()->get('type') === 'pagu-grafik' ? 'true' : 'false' }} }">
+            <li class="nav-item" x-data="{ open: {{ (request()->get('type') === 'pagu-opd' || request()->get('type') === 'pagu-induk') || request()->get('type') === 'pagu-detail' || request()->get('type') === 'pagu-grafik' ? 'true' : 'false' }} }">
                 <!-- Parent link (dropdown trigger) -->
                 <a href="#" @click.prevent="open = !open"
                     class="sidebar-nav-link text-dark rounded-1 d-flex align-items-center justify-content-between gap-1 {{ request()->routeIs('superadmin.pagu.*') ? 'bg-primary text-light' : 'bg-white text-dark' }}"
@@ -196,6 +196,12 @@
                         <a wire:navigate href="{{ route('superadmin.pagu.induk', ['type' => 'pagu-induk']) }}"
                             class="d-block py-1 text-decoration-none {{ request()->get('type') === 'pagu-induk' ? 'fw-bold text-primary' : 'text-dark' }}">
                             Pagu Induk Definitif
+                        </a>
+                    </li>
+                    <li>
+                        <a wire:navigate href="{{ route('superadmin.pagu.detail', ['type' => 'pagu-detail']) }}"
+                            class="d-block py-1 text-decoration-none {{ request()->get('type') === 'pagu-detail' ? 'fw-bold text-primary' : 'text-dark' }}">
+                            Detail Pagu
                         </a>
                     </li>
                     <li>

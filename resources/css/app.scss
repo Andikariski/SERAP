@@ -12,8 +12,7 @@ $spacers: (
     // 1.875rem
     5: $spacer * 2.5,
     // 3.125rem
-    6: $spacer * 4,
-    // 5rem, buat section besar
+    6: $spacer * 4, // 5rem, buat section besar
 );
 // border radius
 $border-radius: 0.4rem !default; // Default radius lebih besar
@@ -49,6 +48,7 @@ $theme-colors: (
 // import bootstrap dan bootstrap icon
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons.css";
+@import "custome-admin.css";
 
 // warna teks tombol terang
 .btn-primary,

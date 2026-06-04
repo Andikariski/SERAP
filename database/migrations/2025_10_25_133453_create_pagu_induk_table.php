@@ -17,6 +17,8 @@ return new class extends Migration
             $table->bigInteger('pagu_SG')->default(0);
             $table->bigInteger('pagu_BG')->default(0);
             $table->bigInteger('pagu_DTI')->default(0);
+             $table->bigInteger('pagu_SiLPA_Melanjutkan')->default(0);
+            $table->bigInteger('pagu_SiLPA_Efisiensi')->default(0);
             $table->enum('status', ['Aktif', 'Nonaktif'])->default('Nonaktif');
             $table->timestamps();
         });

@@ -12,6 +12,8 @@ class PaguInduk extends Model
         'pagu_SG',
         'pagu_BG',
         'pagu_DTI',
+        'pagu_SiLPA_Melanjutkan',
+        'pagu_SiLPA_Efisiensi',
         'tahun_pagu',
         'status'
     ];
