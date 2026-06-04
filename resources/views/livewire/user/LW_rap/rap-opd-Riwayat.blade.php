@@ -20,15 +20,15 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <select class="form-control" wire:model.live="filterSumberDana">
-                    <option value="">--Sumber Dana--</option>
+                    <option value="">--Semua Sumber Dana--</option>
                     @foreach ($pagus as $pagu)
                         <option value="{{ $pagu }}">Dana {{ $pagu }}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-4 d-flex justify-content-end">
+            <div class="col-md-3 d-flex justify-content-end">
                 <button class="btn btn-success disabled-link" wire:click="exportExcel">
                     <i class="bi bi-file-earmark-excel" ></i> Cetak Excel RAP
                 </button>
@@ -61,10 +61,10 @@
                         <td class="px-4 py-1 text-dark">{{ $rap->sumber_dana }}</td>
                         <td class="px-4 py-1 text-dark">{{ date('Y', strtotime($rap->jadwal_awal)) }}</td>
                         <td class="px-4 py-1 d-flex gap-2">
-                            <button wire:click="openDetailModal({{ $rap->id }})"
-                                class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1">
-                                <i class="bi bi-eye"></i>
-                            </button>
+                              <a href="{{ route('opd.rap.detail',['id' => $rap->id, 'type' => 'rap-opd-riwayat']) }}" 
+                                    class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1" wire:navigate>
+                                    <i class="bi bi-eye"></i>
+                                </a>
                         </td>
                     </tr>
                 @empty

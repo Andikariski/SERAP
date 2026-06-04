@@ -1,67 +1,44 @@
 <div>
      @php
         $breadcrumbs = [
-            ['name' => 'Data RAP Induk', 'url' => route('superadmin.pagu.induk')],
+            ['name' => 'Data RAP Induk Tahun ' . ($getTahunAktif->tahun_pagu ?? '-'), 'url' => route('superadmin.pagu.induk')],
             // ['name' => 'Artikel', 'url' => route('admin.posts.index')],
         ];
     @endphp
     <x-breadcrumb :items="$breadcrumbs" />
 <div>
-    {{-- <div class="card text-white shadow-sm border-0" style="background: linear-gradient(135deg, #219EBC 0%,  #4f46e5 100%);">
-        <div class="row">
-            <div class="col-3">
-                <div class="card-body">
-                    <h5 class="card-title">Dana Otsus BG</h5>
-                    <h3 class="fw-bold">120.000.000.000</h3>
-                    <p class="mb-0">Tahun Anggaran 2025</p>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card-body">
-                    <h5 class="card-title">Dana Otsus SG</h5>
-                    <h3 class="fw-bold">135.000.000.000</h3>
-                    <p class="mb-0">Tahun Anggaran 2025</p>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card-body">
-                    <h5 class="card-title">Dana DTI</h5>
-                    <h3 class="fw-bold">190.000.000.000</h3>
-                    <p class="mb-0">Tahun Anggaran 2025</p>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card-body">
-                    <h5 class="card-title">Dana SiLPA</h5>
-                    <h3 class="fw-bold">20.000.000.000</h3>
-                    <p class="mb-0">Tahun Anggaran 2025</p>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+   
     <div class="mt-5">
        <div class="row align-items-center mb-3 mt-4">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <input type="text" placeholder="Search..." wire:model.live="search" class="form-control rounded-1">
             </div>
             <div class="col-md-2">
-                <select class="form-control" wire:model.live="filterTahun">
-                        <option   option value="">--Pilih OPD--</option>
-                    {{-- @foreach ($tahuns as $tahun)
-                        <option value="{{ $tahun }}">Tahun {{ $tahun }}</option>
-                    @endforeach --}}
+                <select class="form-control" wire:model.live="filterOpd">
+                        <option   option value="">--Semua OPD--</option>
+                    @foreach ($opds as $opd)
+                        <option value="{{ $opd->fkid_opd }}">{{ $opd->opd->kode_opd ?? 'N/A' }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-2">
                 <select class="form-control" wire:model.live="filterTahun">
-                        <option   option value="">--Pilih Tahun--</option>
-                    {{-- @foreach ($tahuns as $tahun)
+                        <option   option value="">--Semua Tahun--</option>
+                    @foreach ($tahuns as $tahun)
                         <option value="{{ $tahun }}">Tahun {{ $tahun }}</option>
-                    @endforeach --}}
+                    @endforeach
                 </select>
             </div>
-            <div class="col-md-4 d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" wire:click="openTambahModal">
+            <div class="col-md-3">
+                <select class="form-control" wire:model.live="filterSumberDana">
+                        <option   option value="">--Semua Sumber Dana--</option>
+                    @foreach ($pagus as $pagu)
+                        <option value="{{ $pagu }}">Dana {{ $pagu }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-2 d-flex justify-content-end">
+                <button type="button" class="btn btn-success" wire:click="exportExcel">
                     <i class="bi bi-file-earmark-excel"></i> Export Data
                 </button>
             </div>
@@ -81,34 +58,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                {{-- @forelse ($pagus as $pagu) --}}
+                 @forelse ($raps as $rap)
                     <tr>
-                        {{-- <td class="px-4 py-1 text-dark">{{ $loop->iteration }}</td>
-                        <td class="px-4 py-1 text-dark">{{ $pagu->tahun_pagu }}</td>
-                        <td class="px-4 py-1 text-dark">{{ number_format($pagu->pagu_BG) }}</td>
-                        <td class="px-4 py-1 text-dark">{{ number_format($pagu->pagu_SG) }}</td>
-                        <td class="px-4 py-1 text-dark">{{ number_format($pagu->pagu_DTI) }}</td> --}}
+                        <td class="px-4 py-1 text-dark">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-1 text-dark">{{ $rap->kode_klasifikasi }}</td>
+                        <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($rap->sub_kegiatan), 40) }}</td>
+                        <td class="px-4 py-1 text-dark">{{ number_format($rap->pagu_tahun_berjalan) }}</td>
+                        <td class="px-4 py-1 text-dark">{{ $rap->sumber_dana }}</td>
+                        <td class="px-4 py-1 text-dark">{{ $rap->opd->kode_opd ?? 'N/A' }}</td>
+                        <td class="px-4 py-1 d-flex gap-2">
 
-                         {{-- <td class="px-4 py-1 d-flex gap-2">
-
-                                <button wire:click="openEditModal({{ $pagu->id }})"
+                                {{-- <button wire:click="openEditModal({{ $pagu->id }})"
                                     class="btn btn-sm btn-outline-dark d-flex align-items-center gap-1">
                                     <i class="bi bi-pencil"></i>
-                                </button>
+                                </button> --}}
 
-                                <button wire:click="openDetailModal({{ $pagu->id }})"
+                                <button wire:click="openDetailModal({{ $rap->id }})"
                                     class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1">
                                     <i class="bi bi-eye"></i>
                                 </button>
-
+{{-- 
                                 <button wire:click="$dispatch('confirm-delete-data-paguOPD', {{ $pagu }})"
                                     class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1">
                                     <i class="bi bi-trash3"></i>
-                                </button>
-
-                            </td> --}}
+                                </button> --}}
+                            </td> 
                     </tr>
-                {{-- @empty --}}
+                 @empty 
                     <tr>
                         <td colspan="7" class="px-4 py-5 text-center">
                             <div class="d-inline-flex flex-column align-items-center justify-content-center">
@@ -117,7 +93,7 @@
                             </div>
                         </td>
                     </tr>   
-                {{-- @endforelse --}}
+                 @endforelse 
             </tbody>
             </table>
             {{-- <select id="kegiatan" class="form-control select2" wire:model="idOpd">
@@ -128,136 +104,25 @@
             </select> --}}
         </div>    
     </div>   
+    <div class="card border-info mt-4">
+            <div class="card-body">
+                <h6 class="card-title">
+                    <i class="bi bi-info-circle text-info"></i> Informasi
+                </h6>
+                <ul class="mb-0 small">
+                    <li>Sebelum melakukan Export Data RAP, pastikan beberapa hal berikut.</li>
+                    <li>Jika tidak memilih OPD terlebih dahulu, maka data tidak akan dapat dieksport.</li>
+                    <li>Pilih OPD yang akan di Export terlebih dahulu.</li>
+                    <li>Pilih Tahun Anggaran yang akan di Export.</li>
+                    <li>Pilih Sumber Dana yang akan di Export.</li>
+                </ul>
+            </div>
+        </div>
      <div class="mt-4">
         {{-- {{ $pagus->links('vendor.livewire.bootstrap-pagination') }} --}}
     </div>
 </div>
-
-{{-- @if ($this->showModal)
-        <x-modal :title="$modalTitle" :closeble="true" @click.self="$wire.closeModal()"
-            @keydown.escape.window="$wire.closeModal()">
-            <x-slot name="closeButton">
-                <button type="button" class="btn-close" aria-label="Close" wire:click="closeModal">
-                </button>
-            </x-slot>
-            <hr>
-            <form wire:submit.prevent="simpan">
-                <div class="mb-3">
-                    <label class="form-label"><strong>Instansi OPD</strong></label> 
-                        @if ($modalTitle == 'Edit Data Pagu OPD')
-                            <input type="text" wire:model="idOpd" class="form-control" disabled>
-                        @else
-                        <select id="opd" class="form-control select2" wire:model="idOpd">
-                                <option value="">-- Pilih Instansi --</option>
-                                    @foreach ($opds as $opd)
-                                        <option value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>
-                                    @endforeach
-                        </select>
-                        @error('opd')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    @endif
-                </div>
-                <div class="mb-3">
-                    <label for="paguBG" class="form-label">
-                        <strong>Pagu Block Grand (BG 1%)</strong>
-                    </label>
-                    <input type="number" class="form-control @error('paguBG') is-invalid @enderror" id="pagu_bg"
-                        wire:model="paguBG" placeholder="Masukkan Pagu BG..." maxlength="255">
-                    @error('paguBG')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="paguSG" class="form-label">
-                        <strong>Pagu Spesifik Grand (1,25%)</strong>
-                    </label>
-                    <input type="number" class="form-control @error('paguSG') is-invalid @enderror" id="pagu_sg"
-                        wire:model="paguSG" placeholder="Masukkan Pagu SG..." maxlength="255">
-                    @error('paguSG')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="paguDTI" class="form-label">
-                        <strong>Pagu Dana Tambahan Infrastruktur (DTI)</strong>
-                    </label>
-                    <input type="number" class="form-control @error('paguDTI') is-invalid @enderror" id="pagu_dti"
-                        wire:model="paguDTI" placeholder="Masukkan Pagu DTI..." maxlength="255">
-                    @error('paguDTI')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                
-
-            </form>
-            <x-slot name="footer">
-                <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-danger" wire:click="closeModal">
-                        <span wire:loading.remove wire:target="closeModal">Batal</span>
-                        <span wire:loading wire:target="closeModal">tunggu...</span>
-                    </button>
-                    <button type="button" class="btn btn-primary" wire:click="simpan" wire:loading.attr="disabled">
-                        <span wire:loading.remove wire:target="simpan">
-                            {{ $isEdit ? 'Perbarui' : 'Simpan' }}
-                        </span>
-                        <span wire:loading wire:target="simpan">
-                            <span class="spinner-border spinner-border-sm me-2"></span>
-                            Menyimpan...
-                        </span>
-                    </button>
-                </div>
-            </x-slot>
-        </x-modal>
-    @endif --}}
-
-    {{-- @if ($this->showDetailModal)
-        <x-modal :title="$modalTitle" :closeble="true" @click.self="$wire.closeModal()"
-            @keydown.escape.window="$wire.closeModal()">
-
-            <x-slot name="closeButton">
-                <button type="button" class="btn-close" aria-label="Close" wire:click="closeModal">
-                </button>
-            </x-slot>
-
-            <div class="row">
-                <div class="col-12 col-md-12">
-                    <div class="mb-3">
-                        <small>Nama OPD</small>
-                        <p class="fs-6 fw-bold">{{ $namaOpd }}</p>
-                    </div>
-                    <div class="mb-3">
-                        <small>Pagu Block Grand (1%)</small>
-                        <p class="fs-6 fw-bold">{{ $kodeOpd }}</p>
-                    </div>
-                    <div class="mb-3">
-                        <small>Pagu Spesifik Grand (1,25%)</small>
-                        <p class="fs-6 fw-bold">{{ $kodeOpd }}</p>
-                    </div>
-                    <div class="mb-3">
-                        <small>Pagu DTI (1%)</small>
-                        <p class="fs-6 fw-bold">{{ $kodeOpd }}</p>
-                    </div>
-                    <div class="mb-3">
-                        <small>Tahun Pagu</small>
-                        <p class="fs-6 fw-bold">{{ $alamatOpd }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <x-slot name="footer">
-                <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-danger" wire:click="closeModal">
-                        <span wire:loading.remove wire:target="closeModal">Tutup</span>
-                        <span wire:loading wire:target="closeModal">tunggu...</span>
-                    </button>
-                </div>
-            </x-slot>
-        </x-modal>
-    @endif --}}
 </div>
-
-
 <script>
     $('#kegiatan').select2({
         width: '50%'

@@ -138,7 +138,7 @@
         </x-modal>
     @endif
 
-    @if ($this->showDetailModal)
+    {{-- @if ($this->showDetailModal)
         <x-modal :title="$modalTitle" :closeble="true" @click.self="$wire.closeModal()"
             @keydown.escape.window="$wire.closeModal()">
 
@@ -173,6 +173,72 @@
                 </div>
             </x-slot>
         </x-modal>
-    @endif
+    @endif --}}
+
+    @if ($this->showDetailModal)
+    {{-- Backdrop --}}
+    <div class="modal-backdrop fade show" style="z-index: 1040;"></div>
+
+    {{-- Modal --}}
+    <div class="modal fade show d-block" tabindex="-1" style="z-index: 1045;"
+        @keydown.escape.window="$wire.closeModal()">
+        <div class="modal-dialog modal-dialog-centered"
+            style="animation: slideDown 0.2s ease;">
+            <div class="modal-content border-0 shadow-lg rounded-2">
+
+                {{-- Header --}}
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold">{{ $modalTitle }}</h5>
+                    <button type="button" class="btn-close" wire:click="closeModal"></button>
+                </div>
+
+                {{-- Body --}}
+                <div class="modal-body pt-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <small class="text-muted">Nama OPD</small>
+                                <p class="fs-6 fw-bold mb-0">{{ $namaOpd }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <small class="text-muted">Kode OPD</small>
+                                <p class="fs-6 fw-bold mb-0">{{ $kodeOpd }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <small class="text-muted">Alamat OPD</small>
+                                <p class="fs-6 fw-bold mb-0">{{ $alamatOpd }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Footer --}}
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-danger" wire:click="closeModal">
+                        <span wire:loading.remove wire:target="closeModal">Tutup</span>
+                        <span wire:loading wire:target="closeModal">
+                            <span class="spinner-border spinner-border-sm me-1"></span>
+                            Tunggu...
+                        </span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+@endif
+
+<style>
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
 </div>
 

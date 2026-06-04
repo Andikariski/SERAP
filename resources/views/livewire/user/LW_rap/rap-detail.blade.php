@@ -5,8 +5,8 @@
                 $previous = route('opd.rap.rapBG'); // default fallback
             }
         $breadcrumbs = [
-            ['name' => 'Data RAP', 'url' => url()->previous()],
-            ['name' => 'Update RAP', 'url' => route('opd.rap.create')],
+            ['name' => 'Data Riwayat RAP', 'url' => url()->previous()],
+            ['name' => 'Detail RAP', 'url' => route('opd.rap.create')],
         ];
     @endphp
     <x-breadcrumb :items="$breadcrumbs" />
@@ -22,7 +22,8 @@
                         {{-- <select wire:ignore id="selectSubKegiatan" class="form-control" data-url="{{ url('api/get-sub-kegiatan') }}">
                             <option value="">-- Cari Sub Kegiatan --</option>
                         </select> --}}
-                        <input type="text" class="form-control" readonly wire:model="sub_kegiatan">       
+                        <input type="text" class="form-control" readonly wire:model="sub_kegiatan" disabled>    
+                        <h5 wire:model="sub_kegiatan"></h5>   
                     </div>
                     <div class="mb-3">
                         <div class="row">
@@ -43,7 +44,7 @@
 
                     <div class="mb-3">
                         <label class="form-label"><strong>Jenis Kegiatan</strong><span style="color: red;">*</span></label> 
-                            <select class="form-control select2 @error('jenis_kegiatan') is-invalid @enderror" wire:model="jenis_kegiatan">
+                            <select class="form-control select2 @error('jenis_kegiatan') is-invalid @enderror" wire:model="jenis_kegiatan" disabled>
                                 <option value="">-- Pilih Jenis Kegiatan --</option>
                                 <option value="fiskik">Kegiatan Fisik</option>
                                 <option value="nonfiskik">Kegiatan Non-Fisik</option>
@@ -54,54 +55,54 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Volume Tahun Berjalan</strong><span style="color: red;">*</span></label> 
-                        <input type="number" class="form-control @error('volume_tahun_berjalan') is-invalid @enderror" wire:model="volume_tahun_berjalan">
+                        <input disabled type="number" class="form-control @error('volume_tahun_berjalan') is-invalid @enderror" wire:model="volume_tahun_berjalan">
                         @error('volume_tahun_berjalan')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label"><strong>Volume SiLPA Melanjutkan Kegiatan</strong></label> 
-                        <input type="number" class="form-control"  wire:model="volume_silpa_melanjutkan">
+                        <label class="form-label"><strong>Volume SiLPA Melanjutkan</strong></label> 
+                        <input disabled type="number" class="form-control"  wire:model="volume_silpa_melanjutkan">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label"><strong>Volume SiLPA Efisiensi Tahun Lalu</strong></label> 
-                        <input type="number" class="form-control"  wire:model="volume_silpa_efisiensi">
+                        <label class="form-label"><strong>Volume SiLPA Efisiensi</strong></label> 
+                        <input disabled type="number" class="form-control"  wire:model="volume_silpa_efisiensi">
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Satuan</strong></label> 
-                        <input type="text" class="form-control" disabled wire:model="satuan">
+                        <input disabled type="text" class="form-control" disabled wire:model="satuan">
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Indikator</strong></label> 
-                        <input type="text" class="form-control" disabled wire:model="indikator">
+                        <input disabled type="text" class="form-control" disabled wire:model="indikator">
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Output Kinerja</strong></label> 
-                        <input type="text" class="form-control" disabled wire:model="kinerja">
+                        <input disabled type="text" class="form-control" disabled wire:model="kinerja">
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Pagu Tahun Berjalan</strong><span style="color: red;">*</span></label> 
                          <span class="badge bg-success">Sisa Pagu : {{number_format($sisa_pagu_form, 0, ',', '.')  }}</span>
-                        <input type="text" class="form-control format-rupiah @error('pagu_tahun_berjalan') is-invalid @enderror"  wire:model="pagu_tahun_berjalan">
+                        <input disabled type="text" class="form-control format-rupiah @error('pagu_tahun_berjalan') is-invalid @enderror"  wire:model="pagu_tahun_berjalan">
                          @error('pagu_tahun_berjalan')
                              <div class="invalid-feedback">{{ $message }}</div>
                          @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label"><strong>Pagu Melanjutkan Kegiatan</strong></label> 
-                        <input type="text" class="form-control format-rupiah"  wire:model="pagu_silpa_melanjutkan">
+                        <label class="form-label"><strong>Pagu SiLPA Melanjutkan</strong></label> 
+                        <input disabled type="text" class="form-control format-rupiah"  wire:model="pagu_silpa_melanjutkan">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label"><strong>Pagu Efisiensi Tahun Lalu</strong></label> 
-                        <input type="text" class="form-control format-rupiah"  wire:model="pagu_silpa_efisiensi">
+                        <label class="form-label"><strong>Pagu SiLPA Efisiensi</strong></label> 
+                        <input disabled type="text" class="form-control format-rupiah"  wire:model="pagu_silpa_efisiensi">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Sumber Dana</label>
-                        <input type="text" class="form-control" wire:model="sumber_dana" readonly disabled>
+                        <input disabled type="text" class="form-control" wire:model="sumber_dana" readonly disabled>
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Sinergi Dana Lain</strong><span style="color: red;">*</span></label> 
-                            <select id="subKegiatan" class="form-control select2 @error('sinergi_dana_lain') is-invalid @enderror" wire:model="sinergi_dana_lain">
+                            <select id="subKegiatan" class="form-control select2 @error('sinergi_dana_lain') is-invalid @enderror" wire:model="sinergi_dana_lain" disabled>
                                 <option value="">-- Pilih Sinergi Dana Lain --</option>
                                 <option value="Tidak Ada">Tidak Ada</option>
                                 <option value="Otsus 1%">Otsus 1% (BG)</option>
@@ -114,7 +115,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>PPSB</strong><span style="color: red;">*</span></label> 
-                            <select id="subKegiatan" class="form-control select2 @error('ppsb') is-invalid @enderror" wire:model="ppsb">
+                            <select id="subKegiatan" class="form-control select2 @error('ppsb') is-invalid @enderror" wire:model="ppsb" disabled>
                                 <option value="">-- Pilih PPSB --</option>                                 
                                 <option value="ya">Ya</option>
                                 <option value="tidak">Tidak</option>
@@ -123,7 +124,6 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                     </div>
-                    <label class="" style="color: red;"><span >*</span> <i>Menandakan kolom wajib untuk id isi</i></label>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
@@ -131,37 +131,37 @@
                             {{-- <select wire:ignore id="selectActivitasUtama" class="form-control select2" data-url="{{ url('api/get-aktivitas-utama') }}">
                                 <option value="">-- Cari Aktivitas Utama --</option>
                             </select> --}}
-                            <input type="text" class="form-control" readonly wire:model="aktivitas_utama">
+                            <input disabled type="text" class="form-control" readonly wire:model="aktivitas_utama">
                     </div>
                      <div class="mb-3">
                         <label class="form-label"><strong>Tema Pembangunan</strong></label> 
-                        <input type="text" class="form-control" disabled wire:model="tema_pembangunan">
+                        <input disabled type="text" class="form-control" disabled wire:model="tema_pembangunan">
                     </div>
                      <div class="mb-3">
                         <label class="form-label"><strong>Program Prioritas</strong></label> 
-                        <input type="text" class="form-control" disabled wire:model="program_prioritas">
+                        <input disabled type="text" class="form-control" disabled wire:model="program_prioritas">
                     </div>
                      <div class="mb-3">
                         <label class="form-label"><strong>Target Keluaran Strategis</strong></label> 
-                        <input type="text" class="form-control" disabled wire:model="target_keluaran_strategis">
+                        <input disabled type="text" class="form-control" disabled wire:model="target_keluaran_strategis">
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Lokus</strong><span style="color: red;">*</span></label> 
-                        <input type="text" class="form-control @error('lokasi') is-invalid @enderror"  wire:model="lokasi">
+                        <input disabled type="text" class="form-control @error('lokasi') is-invalid @enderror"  wire:model="lokasi">
                          @error('lokasi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Titik Lokus</strong></span></label> 
-                        <input type="text" class="form-control @error('titik_lokasi') is-invalid @enderror"  wire:model="titik_lokasi">
+                        <input disabled type="text" class="form-control @error('titik_lokasi') is-invalid @enderror"  wire:model="titik_lokasi">
                          @error('titik_lokasi')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Sasaran Penerima</strong><span style="color: red;">*</span></label> 
-                            <select id="subKegiatan" class="form-control select2 @error('sasaran') is-invalid @enderror" wire:model="sasaran">
+                            <select id="subKegiatan" class="form-control select2 @error('sasaran') is-invalid @enderror" wire:model="sasaran" disabled>
                                 <option value="">-- Pilih Sasaran Penerima --</option>                                 
                                 <option value="Oap">Orang Asli Papua (OAP)</option>
                                 <option value="Umum">Masyarakat Umum</option>
@@ -172,7 +172,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Penerima Manfaat</strong><span style="color: red;">*</span></label> 
-                            <select id="subKegiatan" class="form-control select2 @error('penerima_manfaat') is-invalid @enderror" wire:model="penerima_manfaat">
+                            <select id="subKegiatan" class="form-control select2 @error('penerima_manfaat') is-invalid @enderror" wire:model="penerima_manfaat" disabled>
                                 <option value="">-- Pilih Penerima Manfaat --</option>                                 
                                 <option value="Sub Kegaitan Pendukung">Sub Kegiatan Pendukung</option>
                                 <option value="Terikat Langsung Ke Penerima Manfaat">Terikat Langsung Ke Penerima Manfaat</option>
@@ -183,7 +183,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Multiyears</strong><span style="color: red;">*</span></label> 
-                            <select id="subKegiatan" class="form-control select2 @error('multiyears') is-invalid @enderror" wire:model="multiyears">
+                            <select id="subKegiatan" class="form-control select2 @error('multiyears') is-invalid @enderror" wire:model="multiyears" disabled>
                                 <option value="">-- Pilih Multiyears --</option>                                 
                                 <option value="ya">Ya</option>
                                 <option value="tidak">Tidak</option>
@@ -196,14 +196,14 @@
                         <div class="row">
                             <div class="col">
                                 <label class="form-label"><strong>Jadwal Mulai</strong><span style="color: red;">*</span></label> 
-                                <input type="date" class="form-control @error('jadwal_awal') is-invalid @enderror" wire:model="jadwal_awal">
+                                <input disabled type="date" class="form-control @error('jadwal_awal') is-invalid @enderror" wire:model="jadwal_awal">
                                 @error('jadwal_awal')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col">
                                 <label class="form-label"><strong>Jadwal Selesai</strong><span style="color: red;">*</span></label> 
-                                <input type="date" class="form-control @error('jadwal_akhir') is-invalid @enderror" wire:model="jadwal_akhir">
+                                <input disabled type="date" class="form-control @error('jadwal_akhir') is-invalid @enderror" wire:model="jadwal_akhir">
                                 @error('jadwal_akhir')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -212,65 +212,38 @@
                     </div>
                      <div class="mb-3">
                         <label class="form-label"><strong>Data Dukung RKA</strong><span style="color: red;">*</span></label> 
-                        <input type="text" class="form-control @error('data_rka') is-invalid @enderror"  wire:model="data_rka">
+                        <input disabled type="text" class="form-control @error('data_rka') is-invalid @enderror"  wire:model="data_rka">
                          @error('data_rka')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Data Dukung KAK</strong><span style="color: red;">*</span></label> 
-                        <input type="text" class="form-control @error('data_kak') is-invalid @enderror"  wire:model="data_kak">
+                        <input disabled type="text" class="form-control @error('data_kak') is-invalid @enderror"  wire:model="data_kak">
                          @error('data_kak')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Data Dukung Lainya</strong><span style="color: red;">*</span></label> 
-                        <input type="text" class="form-control @error('data_lainya') is-invalid @enderror"  wire:model="data_lainya">
+                        <input disabled type="text" class="form-control @error('data_lainya') is-invalid @enderror"  wire:model="data_lainya">
                          @error('data_lainya')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><strong>Deskripsi Keterangan</strong></label> 
-                        <textarea class="form-control" style="min-height: 217px; resize: none;" wire:model="keterangan"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-9"> 
-                    <div class="card border-info mt-4">
-                        <div class="card-body">
-                        <h6 class="card-title">
-                            <i class="bi bi-info-circle text-info"></i> Informasi
-                                </h6>
-                                    <ul class="mb-0 small">
-                                        <li>Pastikan data yang dimasukkan sudah benar dan lengkap.</li>
-                                        <li>Perhatikan batasan pagu tahun berjalan yang ditampilkan untuk menghindari pengajuan melebihi batas yang tersedia.</li>
-                                    </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="row justify-content-end">
-                        <div class="col-md-12 d-flex justify-content-end">
-                            <button type="button" class="btn btn-primary mt-4 me-1"  wire:click="update" wire:loading.attr="disabled">
-                                <span wire:loading.remove wire:target="update">
-                                    <i class="bi bi-save2"></i> Update
-                                </span>
-                                <span wire:loading wire:target="update">
-                                    <span class="spinner-border spinner-border-sm"></span>
-                                    Mengupdate...
-                                </span>
-                            </button>
-                        </div>
+                        <textarea class="form-control" style="min-height: 217px; resize: none;" wire:model="keterangan" disabled></textarea> 
                     </div>
                 </div>
             </div>
     </form>
+        {{-- </div>     --}}
     </div>   
-    </div>   
-
+     <div class="mt-4">
+        {{-- {{ $pagus->links('vendor.livewire.bootstrap-pagination') }} --}}
+    </div>
+</div>
 </div>
 
 <script>

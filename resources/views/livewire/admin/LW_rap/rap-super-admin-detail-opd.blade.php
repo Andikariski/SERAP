@@ -57,13 +57,21 @@
                         </thead>
                         <tbody>
                         @forelse ($rapsBG as $rapBG)
+                            @php
+                                $badgeClass = match($rapBG->validasi) {
+                                    'Disetujui' => 'bg-success',
+                                    'Menunggu'  => 'bg-secondary',
+                                    'Perbaikan' => 'bg-warning',
+                                    'Ditolak'   => 'bg-danger',
+                                };
+                            @endphp
                             <tr>
                                 <td class="px-4 py-1 text-dark">{{ $loop->iteration }}</td>
                                 <td class="px-4 py-1 text-dark">{{ $rapBG->kode_klasifikasi }}</td>
                                 <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($rapBG->sub_kegiatan), 30)  }}</td>
                                 <td class="px-4 py-1 text-dark">{{ number_format($rapBG->pagu_tahun_berjalan) }}</td>
                                 <td class="text-dark">
-                                    <span class="badge bg-warning m-1">{{ $rapBG->validasi }}</span>
+                                    <span class="badge {{ $badgeClass }} m-1">{{ $rapBG->validasi }}</span>
                                 </td>
                                 <td class="px-4 py-2 d-flex gap-2">
                                         <a href="{{ route('opd.rap.update',['id' => $rapBG->id, 'type' => 'rap-opd-bg']) }}" 
@@ -109,13 +117,21 @@
                         </thead>
                         <tbody>
                         @forelse ($rapsSG as $rapSG)
+                          @php
+                                $badgeClass = match($rapSG->validasi) {
+                                    'Disetujui' => 'bg-success',
+                                    'Menunggu'  => 'bg-secondary',
+                                    'Perbaikan' => 'bg-warning',
+                                    'Ditolak'   => 'bg-danger',
+                                };
+                            @endphp
                             <tr>
                                 <td class="px-4 py-1 text-dark">{{ $loop->iteration }}</td>
                                 <td class="px-4 py-1 text-dark">{{ $rapSG->kode_klasifikasi }}</td>
                                 <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($rapSG->sub_kegiatan), 30)  }}</td>
                                 <td class="px-4 py-1 text-dark">{{ number_format($rapSG->pagu_tahun_berjalan) }}</td>
                                 <td class="text-dark">
-                                    <span class="badge bg-warning m-1">{{ $rapSG->validasi }}</span>
+                                     <span class="badge {{ $badgeClass }} m-1">{{ $rapSG->validasi }}</span>
                                 </td>
                                 <td class="px-4 py-2 d-flex gap-2">
                                         <a href="#" wire:click.prevent="btnSoon" class="btn btn-soon btn-sm btn-outline-dark d-flex align-items-center gap-1">
@@ -160,13 +176,21 @@
                         </thead>
                         <tbody>
                         @forelse ($rapsDTI as $rapdti)
+                            @php
+                                $badgeClass = match($rapdti->validasi) {
+                                    'Disetujui' => 'bg-success',
+                                    'Menunggu'  => 'bg-secondary',
+                                    'Perbaikan' => 'bg-warning',
+                                    'Ditolak'   => 'bg-danger',
+                                };
+                            @endphp
                             <tr>
                                 <td class="px-4 py-1 text-dark">{{ $loop->iteration }}</td>
                                 <td class="px-4 py-1 text-dark">{{ $rapdti->kode_klasifikasi }}</td>
                                 <td class="px-4 py-1 text-dark">{{ Str::limit(strip_tags($rapdti->sub_kegiatan), 30)  }}</td>
                                 <td class="px-4 py-1 text-dark">{{ number_format($rapdti->pagu_tahun_berjalan) }}</td>
                                 <td class="text-dark">
-                                    <span class="badge bg-warning m-1">{{ $rapdti->validasi }}</span>
+                                    <span class="badge {{ $badgeClass }} m-1">{{ $rapdti->validasi }}</span>
                                 </td>
                                 <td class="px-4 py-2 d-flex gap-2">
                                         <a href="#" wire:click.prevent="btnSoon" class="btn btn-soon btn-sm btn-outline-dark d-flex align-items-center gap-1">

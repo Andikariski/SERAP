@@ -19,7 +19,7 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="form-label"><strong>Sub Kegiatan</strong></label> 
-                        <select wire:ignore id="selectSubKegiatan" class="form-control" data-url="{{ url('api/get-sub-kegiatan') }}">
+                        <select wire:ignore id="selectSubKegiatan" class="form-control select2" data-url="{{ url('api/get-sub-kegiatan') }}">
                             <option value="">-- Cari Sub Kegiatan --</option>
                             {{-- @foreach ($subKegiatans as $kegiatan)
                                 <option value="{{ $kegiatan->id }}">{{ $kegiatan->sub_kegiatan }}</option>
@@ -92,11 +92,11 @@
                          @enderror
                     </div>
                     <div class="mb-3">
-                        <label class="form-label"><strong>Pagu Melanjutkan Kegiatan</strong></label> 
+                        <label class="form-label"><strong>Pagu SiLPA Melanjutkan</strong></label> 
                         <input type="text" class="form-control format-rupiah"  wire:model="pagu_silpa_melanjutkan">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label"><strong>Pagu Efisiensi Tahun Lalu</strong></label> 
+                        <label class="form-label"><strong>Pagu SiLPA Efisiensi</strong></label> 
                         <input type="text" class="form-control format-rupiah"  wire:model="pagu_silpa_efisiensi">
                     </div>
                     <div class="mb-3">
@@ -127,7 +127,8 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                     </div>
-                    <label class="mt-2" style="color: red;"><span >*</span> <i>Menandakan kolom wajib untuk id isi</i></label>
+                    {{-- <label class="mt-2" style="color: red;"><span >*</span> <i>Menandakan kolom wajib untuk id isi</i></label> --}}
+                   
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
@@ -246,33 +247,48 @@
                     </div>
                 </div>
             </div>
-            <div class="row d-flex justify-content-end mt-3">
-                <div class="col-auto"> 
-                    <button type="button" class="btn btn-danger me-1" > 
-                        <span wire:loading.remove wire:target="reset" wire:click="resetFormAction">
-                            <i class="bi bi-arrow-repeat"></i> Reset
-                        </span>
-                        <span wire:loading wire:target="reset">
-                            <span class="spinner-border spinner-border-sm me-2"></span>
-                            Mereset...
-                        </span>
-                    </button>
-                    <button type="button" class="btn btn-primary"  wire:click="simpan" wire:loading.attr="disabled">
-                        <span wire:loading.remove wire:target="simpan">
-                            <i class="bi bi-save2"></i> Simpan
-                        </span>
-                        <span wire:loading wire:target="simpan">
-                            <span class="spinner-border spinner-border-sm"></span>
-                            Menyimpan...
-                        </span>
-                    </button>
+            <div class="row">
+                <div class="col-9"> 
+                    <div class="card border-info mt-4">
+                        <div class="card-body">
+                        <h6 class="card-title">
+                            <i class="bi bi-info-circle text-info"></i> Informasi
+                                </h6>
+                                    <ul class="mb-0 small">
+                                        <li>Pastikan untuk memilih sub kegiatan yang sesuai dengan rencana kegiatan yang akan diusulkan.</li>
+                                        <li>Perhatikan batasan pagu tahun berjalan yang ditampilkan untuk menghindari pengajuan melebihi batas yang tersedia.</li>
+                                    </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row justify-content-end">
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <button type="button" class="btn btn-danger mt-4 me-1" wire:click="resetFormAction" wire:loading.attr="disabled"> 
+                                <span wire:loading.remove wire:target="resetFormAction">
+                                    <i class="bi bi-arrow-repeat"></i> Reset
+                                </span>
+                                <span wire:loading wire:target="resetFormAction">
+                                    <span class="spinner-border spinner-border-sm me-1"></span>
+                                    Mereset...
+                                </span>
+                            </button>
+                            <button type="button" class="btn btn-primary mt-4"  wire:click="simpan" wire:loading.attr="disabled">
+                                <span wire:loading.remove wire:target="simpan">
+                                    <i class="bi bi-save2"></i> Simpan
+                                </span>
+                                <span wire:loading wire:target="simpan">
+                                    <span class="spinner-border spinner-border-sm"></span>
+                                    Menyimpan...
+                                </span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-    </form>
-    </div>   
-     <div class="mt-4">
+        </form>
+        </div>   
     </div>
-</div>
 </div>
 
 <script>

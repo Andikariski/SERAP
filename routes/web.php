@@ -7,6 +7,7 @@ use App\Livewire\Admin\LWsubKegiatan\SubKegiatan;
 use App\Livewire\Admin\LWopd\Opd;
 use App\Livewire\Admin\LWoperator\Operator;
 use App\Livewire\Admin\LWpagu\PaguOPD;
+use App\Livewire\Admin\LWpagu\PaguDetail;
 use App\Livewire\Admin\LWpagu\PaguGrafik;
 use App\Livewire\Admin\LWpagu\PaguIndukDefinitif;
 use App\Livewire\Admin\LWrap\RapSuperAdmin;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Exports\RapExport;
 use App\Livewire\Admin\LWrap\RapSuperAdminPersentase;
+use App\Livewire\User\LWrap\DetailRap;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Livewire\Volt\Volt;
@@ -51,6 +53,7 @@ Route::get('/', function () {
     Route::get('/kontrol', Kontrol::class)->name('superadmin.kontrol');
     Route::get('/pagu', PaguOPD::class)->name('superadmin.pagu.opd');
     Route::get('/pagu-induk', PaguIndukDefinitif::class)->name('superadmin.pagu.induk');
+    Route::get('/pagu-detail', PaguDetail::class)->name('superadmin.pagu.detail');
     Route::get('/pagu-grafik', PaguGrafik::class)->name('superadmin.pagu.grafik');
 
     // Route RAP Admin
@@ -73,12 +76,20 @@ Route::get('/', function () {
     Route::get('/rap-opd-riwayat', RapOpdRiwayat::class)->name('opd.rap.rapRiwayat');
     Route::get('/rap-opd/create', CreateRap::class)->name('opd.rap.create');
     Route::get('/rap-opd/update/{id}', UpdateRap::class)->name('opd.rap.update');
+    Route::get('/rap-opd/detail/{id}', DetailRap::class)->name('opd.rap.detail');
+
     
 
     Route::redirect('settings', 'settings/profile');
     Volt::route('settings/profile', 'settings.profile')->name('profile.edit');
     Volt::route('settings/password', 'settings.password')->name('password.edit');
     Volt::route('settings/appearance', 'settings.appearance')->name('appearance.edit');
+
+    Volt::route('/forgot-password', 'auth.forgot-password')
+    ->name('password-request');
+
+    Volt::route('/reset-password/{token}', 'auth.reset-password')
+    ->name('password.reset');
 });
 
 require __DIR__.'/auth.php';

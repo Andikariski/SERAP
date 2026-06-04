@@ -159,3 +159,194 @@ body.modal-open {
 .sidebar {
     background-color: #222656;
 }
+
+/*-- =============================================
+     Custom CSS — hanya untuk yang tidak ada
+     di Bootstrap (warna kustom, icon box,
+     amount typography, hover card)
+     ============================================= --}}
+<style>
+/* Card hover */
+
+.otsus-card {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+.otsus-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Amount */
+.otsus-amount {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+    margin: 0;
+}
+
+/* Progress */
+.otsus-progress {
+    height: 6px;
+    border-radius: 99px;
+    background-color: #f1f5f9;
+}
+.otsus-progress .progress-bar {
+    border-radius: 99px;
+}
+
+/* Icon boxes */
+.otsus-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon-blue {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+.icon-purple {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+.icon-green {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+.icon-yellow {
+    background: #fefce8;
+    color: #ca8a04;
+}
+.icon-teal {
+    background: #f0fdfa;
+    color: #0d9488;
+}
+.icon-red {
+    background: #fff1f2;
+    color: #e11d48;
+}
+
+/* Progress bar fills */
+.bg-c-blue {
+    background-color: #3b82f6 !important;
+}
+.bg-c-purple {
+    background-color: #7c3aed !important;
+}
+.bg-c-green {
+    background-color: #22c55e !important;
+}
+.bg-c-yellow {
+    background-color: #eab308 !important;
+}
+.bg-c-teal {
+    background-color: #14b8a6 !important;
+}
+.bg-c-red {
+    background-color: #f43f5e !important;
+}
+
+/* Badges */
+.badge-blue {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+.badge-purple {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+.badge-green {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+.badge-yellow {
+    background: #fefce8;
+    color: #ca8a04;
+}
+.badge-teal {
+    background: #f0fdfa;
+    color: #0d9488;
+}
+.badge-red {
+    background: #fff1f2;
+    color: #e11d48;
+}
+
+/* Buttons outline */
+.btn-outline-c-blue {
+    border: 1.5px solid #93c5fd;
+    color: #3b82f6;
+    background: transparent;
+}
+.btn-outline-c-purple {
+    border: 1.5px solid #c4b5fd;
+    color: #7c3aed;
+    background: transparent;
+}
+.btn-outline-c-green {
+    border: 1.5px solid #86efac;
+    color: #16a34a;
+    background: transparent;
+}
+.btn-outline-c-yellow {
+    border: 1.5px solid #fde68a;
+    color: #ca8a04;
+    background: transparent;
+}
+.btn-outline-c-red {
+    border: 1.5px solid #fda4af;
+    color: #e11d48;
+    background: transparent;
+}
+
+/* Buttons ghost */
+.btn-ghost-blue {
+    background: #eff6ff;
+    color: #3b82f6;
+    border: none;
+}
+.btn-ghost-purple {
+    background: #f5f3ff;
+    color: #7c3aed;
+    border: none;
+}
+.btn-ghost-green {
+    background: #f0fdf4;
+    color: #16a34a;
+    border: none;
+}
+.btn-ghost-yellow {
+    background: #fefce8;
+    color: #ca8a04;
+    border: none;
+}
+.btn-ghost-red {
+    background: #fff1f2;
+    color: #e11d48;
+    border: none;
+}
+
+/* Buttons teal (solid fill) */
+.btn-solid-teal {
+    background: #ccfbf1;
+    color: #0f766e;
+    border: none;
+}
+.btn-filled-teal {
+    background: #14b8a6;
+    color: #fff;
+    border: none;
+}
+
+/* Hover semua custom button */
+[class*="btn-outline-c-"]:hover,
+[class*="btn-ghost-"]:hover,
+.btn-solid-teal:hover,
+.btn-filled-teal:hover {
+    opacity: 0.8;
+}

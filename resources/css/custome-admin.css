@@ -1,0 +1,193 @@
+/*-- =============================================
+     Custom CSS — hanya untuk yang tidak ada
+     di Bootstrap (warna kustom, icon box,
+     amount typography, hover card)
+     ============================================= --}}
+<style>
+/* Card hover */
+
+.otsus-card {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.5s ease;
+}
+
+.otsus-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Amount */
+.otsus-amount {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+    margin: 0;
+}
+
+/* Progress */
+.otsus-progress {
+    height: 10px !important;
+    border-radius: 99px;
+    background-color: #f1f5f9;
+}
+.otsus-progress .progress-bar {
+    border-radius: 99px;
+}
+
+/* Icon boxes */
+.otsus-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon-blue {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+.icon-purple {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+.icon-green {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+.icon-yellow {
+    background: #fefce8;
+    color: #ca8a04;
+}
+.icon-teal {
+    background: #f0fdfa;
+    color: #219ebc;
+}
+.icon-red {
+    background: #fff1f2;
+    color: #d24212;
+}
+
+/* Progress bar fills */
+.bg-c-blue {
+    background-color: #3b82f6 !important;
+}
+.bg-c-purple {
+    background-color: #7c3aed !important;
+}
+.bg-c-green {
+    background-color: #0f9036 !important;
+}
+.bg-c-yellow {
+    background-color: #eab308 !important;
+}
+.bg-c-teal {
+    background-color: #219ebc !important;
+}
+.bg-c-red {
+    background-color: #d24212 !important;
+}
+
+/* Badges */
+.badge-blue {
+    background: #3b82f6;
+    color: #3b82f6;
+}
+.badge-purple {
+    background: #7c3aed;
+    color: #7c3aed;
+}
+.badge-green {
+    background: #16a34a;
+    color: #16a34a;
+}
+.badge-yellow {
+    background: #ca8a04;
+    color: #ca8a04;
+}
+.badge-teal {
+    background: #219ebc;
+    color: #219ebc;
+}
+.badge-red {
+    background: #d24212;
+    color: #d24212;
+}
+
+/* Outline buttons */
+.btn.btn-outline-c-blue {
+    border: 1.5px solid #93c5fd !important;
+    color: #3b82f6 !important;
+    background: transparent !important;
+}
+.btn.btn-outline-c-purple {
+    border: 1.5px solid #c4b5fd !important;
+    color: #7c3aed !important;
+    background: transparent !important;
+}
+.btn.btn-outline-c-green {
+    border: 1.5px solid #86efac !important;
+    color: #16a34a !important;
+    background: transparent !important;
+}
+.btn.btn-outline-c-yellow {
+    border: 1.5px solid #fde68a !important;
+    color: #ca8a04 !important;
+    background: transparent !important;
+}
+.btn.btn-outline-c-red {
+    border: 1.5px solid #fda4af !important;
+    color: #d24212 !important;
+    background: transparent !important;
+}
+.btn.btn-outline-c-teal {
+    border: 1.5px solid #a7f3d0 !important;
+    color: #219ebc !important;
+    background: transparent !important;
+}
+
+/* Ghost buttons */
+.btn.btn-ghost-blue {
+    background: #eff6ff !important;
+    color: #3b82f6 !important;
+    border: none !important;
+}
+.btn.btn-ghost-purple {
+    background: #f5f3ff !important;
+    color: #7c3aed !important;
+    border: none !important;
+}
+.btn.btn-ghost-green {
+    background: #f0fdf4 !important;
+    color: #16a34a !important;
+    border: none !important;
+}
+.btn.btn-ghost-yellow {
+    background: #fefce8 !important;
+    color: #ca8a04 !important;
+    border: none !important;
+}
+.btn.btn-ghost-teal {
+    background: #f0fdfa !important;
+    color: #219ebc !important;
+    border: none !important;
+}
+.btn.btn-ghost-red {
+    background: #fff1f2 !important;
+    color: #d24212 !important;
+    border: none !important;
+}
+
+/* Teal */
+.btn.btn-solid-teal {
+    background: #ccfbf1 !important;
+    color: #0f766e !important;
+    border: none !important;
+}
+.btn.btn-filled-teal {
+    background: #219ebc !important;
+    color: #fff !important;
+    border: none !important;
+}
