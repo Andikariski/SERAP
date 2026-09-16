@@ -164,7 +164,7 @@ document.addEventListener("livewire:init", () => {
         });
     });
 
-    //sweetalert Konfirmasi Kosongkan database
+    //sweetalert Konfirmasi Kosongkan database Sub Kegiatan
     Livewire.on("confirm-empty-database-subKegiatan", (data) => {
         Swal2.fire({
             icon: "question",
@@ -172,10 +172,26 @@ document.addEventListener("livewire:init", () => {
             showCancelButton: true,
             cancelButtonText: "Batal",
             confirmButtonText: "Ya, Kosongkan",
-            footer: '<strong class="text-warning">Data OPD yang di hapus tidak akan bisa dikembalikan!</strong>',
+            footer: '<strong class="text-warning">Data Sub Kegiatan yang di hapus tidak akan bisa dikembalikan!</strong>',
         }).then((result) => {
             if (result.isConfirmed) {
                 Livewire.dispatch("kosongkan-database-SubKegiatan");
+            }
+        });
+    });
+
+    //sweetalert Konfirmasi Kosongkan database Aktivitas Utama
+    Livewire.on("confirm-empty-database-aktivitasUtama", (data) => {
+        Swal2.fire({
+            icon: "question",
+            title: "Yakin ingin mengosongkan database <strong class='text-primary'>Aktivitas Utama</strong>",
+            showCancelButton: true,
+            cancelButtonText: "Batal",
+            confirmButtonText: "Ya, Kosongkan",
+            footer: '<strong class="text-warning">Data Aktivitas Utama yang di hapus tidak akan bisa dikembalikan!</strong>',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.dispatch("kosongkan-database-AktivitasUtama");
             }
         });
     });
@@ -327,6 +343,28 @@ document.addEventListener("livewire:init", () => {
             }
         });
     });
+
+    //sweetalert rap status validasi
+    Livewire.on("confirm-delete-status-rap", (data) => {
+        Swal2.fire({
+            icon: "question",
+            title:
+                "Yakin ingin menghapus Status RAP <strong class='text-primary'>" +
+                data["nama"] +
+                "</strong> ?",
+            showCancelButton: true,
+            cancelButtonText: "Batal",
+            confirmButtonText: "Ya, Hapus Permanen",
+            footer: '<strong class="text-warning">Data Status RAP yang di hapus tidak akan bisa dikembalikan!</strong>',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.dispatch("delete-data-RAPStatus", {
+                    id: data["id"],
+                });
+            }
+        });
+    });
+
     //sweetalert data RAP
     Livewire.on("confirm-delete-data-RAPSG", (data) => {
         Swal2.fire({
@@ -370,7 +408,6 @@ document.addEventListener("livewire:init", () => {
 
     // === Inisialisasi semua Select2 ===
     function initAllSelect2() {
-        // Pastikan jQuery + Select2 sudah siap
         if (typeof $ === "undefined" || typeof $.fn.select2 === "undefined") {
             console.warn("Select2 belum siap. Skip initAllSelect2().");
             return;
@@ -386,13 +423,15 @@ document.addEventListener("livewire:init", () => {
             "#selectSubKegiatan",
             "subKegiatanChanged",
             subKegiatanUrl,
-            "sub_kegiatan",
+            "text", // textField → pakai 'text' karena backend sudah gabungkan
+            "value", // valueField → sub_kegiatan saja yang disimpan
         );
         initSelect2(
             "#selectActivitasUtama",
             "activitasUtamaChanged",
             aktivitasUtamaUrl,
             "aktivitas_utama",
+            null, // tidak perlu valueField
         );
     }
 
@@ -402,17 +441,16 @@ document.addEventListener("livewire:init", () => {
         eventName,
         ajaxUrl = null,
         textField = null,
+        valueField = null, //parameter baru
     ) {
         const $select = $(selector);
         if ($select.length === 0) return;
 
-        // 💡 Aman: hanya destroy kalau memang sudah ada instance Select2
         if ($select.data("select2")) {
             $select.off("change.select2");
             $select.select2("destroy");
         }
 
-        // Tunggu DOM stabil dulu
         setTimeout(() => {
             const config = {
                 width: "100%",
@@ -429,13 +467,14 @@ document.addEventListener("livewire:init", () => {
                         results: data.map((item) => ({
                             id: item.id,
                             text: textField ? item[textField] : item.text,
+                            // ✅ simpan valueField jika ada
+                            value: valueField ? item[valueField] : null,
                         })),
                     }),
                 };
                 config.minimumInputLength = 2;
             }
 
-            // Inisialisasi aman
             $select.select2(config);
 
             $select.on("change.select2", function () {
@@ -443,25 +482,16 @@ document.addEventListener("livewire:init", () => {
                 console.log(`${selector} changed:`, value);
                 Livewire.dispatch(eventName, { id: value });
             });
+
+            // Khusus jika ada valueField, override dispatch pakai value asli
+            if (valueField) {
+                $select.on("select2:select", function (e) {
+                    const data = e.params.data;
+                    console.log(`${selector} value:`, data.value);
+                    // Dispatch ulang dengan value (nama sub kegiatan saja)
+                    Livewire.dispatch(eventName, { id: data.value });
+                });
+            }
         }, 300);
     }
-
-    // function formatRupiah() {
-    //     document.addEventListener("DOMContentLoaded", function () {
-    //         const rupiahInputs = document.querySelectorAll(".format-rupiah");
-    //         rupiahInputs.forEach(function (input) {
-    //             input.addEventListener("input", function (e) {
-    //                 let value = e.target.value;
-
-    //                 // Hapus semua karakter selain angka
-    //                 value = value.replace(/\D/g, "");
-
-    //                 // Format dengan titik pemisah ribuan
-    //                 value = new Intl.NumberFormat("id-ID").format(value);
-
-    //                 e.target.value = value;
-    //             });
-    //         });
-    //     });
-    // }
 });

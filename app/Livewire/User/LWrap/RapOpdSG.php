@@ -65,7 +65,7 @@ class RapOpdSG extends Component
         }
     }
 
-     #[Layout('components.layouts.admin',['pageTitle' => 'Data RAP Spesifik Grand 1,25%'])]
+     #[Layout('components.layouts.admin',['pageTitle' => 'Data RAP Spesifik Grant 1,25%'])]
      public function render()
     {
     $opd = Auth::user()->opd_id;

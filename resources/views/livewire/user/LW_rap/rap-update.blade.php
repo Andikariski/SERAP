@@ -123,7 +123,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                     </div>
-                    <label class="" style="color: red;"><span >*</span> <i>Menandakan kolom wajib untuk id isi</i></label>
+                    {{-- <label class="" style="color: red;"><span >*</span> <i>Menandakan kolom wajib untuk id isi</i></label> --}}
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
@@ -246,6 +246,7 @@
                                 </h6>
                                     <ul class="mb-0 small">
                                         <li>Pastikan data yang dimasukkan sudah benar dan lengkap.</li>
+                                        <li>Tanda bintang (*) menunjukkan kolom yang wajib diisi.</li>
                                         <li>Perhatikan batasan pagu tahun berjalan yang ditampilkan untuk menghindari pengajuan melebihi batas yang tersedia.</li>
                                     </ul>
                         </div>

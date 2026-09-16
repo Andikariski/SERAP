@@ -83,7 +83,7 @@ class RapSuperAdminDetailOPD extends AdminSuperAdminAuth
                     'detailOpd',
                     'rapsBG',
                     'rapsSG',
-                    'rapsDTI'
+                    'rapsDTI','tahunAktif'
                 ));
     }
 }

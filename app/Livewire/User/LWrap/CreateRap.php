@@ -155,6 +155,7 @@ class CreateRap extends Component
             'multiyears'            => 'required',
             'jadwal_awal'           => 'required',
             'jadwal_akhir'          => 'required',
+            'titik_lokasi'          => 'required',
         ];
         return $rules;
     }
@@ -166,14 +167,20 @@ class CreateRap extends Component
             $this->resetForm();
     }
 
-    public function searchSubKegiatan(Request $request){
-        $search = $request->input('q', '');
-            $results = ModelSubKegiatan::query()
-                ->when($search, fn($q) => $q->where('sub_kegiatan', 'like', "%{$search}%"))
-                ->limit(30) // batasi biar ringan
-                ->get(['id', 'sub_kegiatan']);
-        return response()->json($results);
-    }
+   public function searchSubKegiatan(Request $request){
+    $search = $request->input('q', '');
+    $results = ModelSubKegiatan::query()
+        ->where('kewenangan', 'PROV')
+        ->when($search, fn($q) => $q->where('sub_kegiatan', 'like', "%{$search}%"))
+        ->limit(10)
+        ->get(['id', 'kewenangan', 'kode_klasifikasi', 'sub_kegiatan'])
+        ->map(fn($item) => [
+            'id'    => $item->id,        // id asli tetap dipakai
+            'text'  => $item->kewenangan . ' - ' . $item->kode_klasifikasi . ' - ' . $item->sub_kegiatan,
+            'value' => $item->sub_kegiatan,  // untuk disimpan ke kolom
+        ]);
+    return response()->json($results);
+}
 
     public function searchAktivitasUtama(Request $request){
         $search = $request->input('q', '');

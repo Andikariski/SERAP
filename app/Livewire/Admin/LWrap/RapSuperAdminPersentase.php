@@ -18,16 +18,22 @@ class RapSuperAdminPersentase extends AdminSuperAdminAuth
     use WithPagination;
     public $search = '';
 
-  #[Layout('components.layouts.admin',['pageTitle' => 'Data Persentase RAP'])]
+    #[Layout('components.layouts.admin',['pageTitle' => 'Data Persentase RAP'])]
     public function render()
     {
-  
-        // $tahun = 2029;
         $getTahunAktif = ModelPaguInduk::where('status', 'Aktif')->first();
         $tahunAktif = $getTahunAktif->tahun_pagu ?? null;
 
-        // Ambil semua data terlebih dahulu (tanpa paginate)
-        $collection = PaguOpd::with([
+        $collection = $this->getDataCollection($tahunAktif);
+        $data = $collection;
+
+        return view('livewire.admin.LW_rap.rap-super-admin-persentase', compact('data', 'tahunAktif'));
+    }
+
+    // ✅ Pisahkan logic query ke method sendiri agar bisa dipakai ulang
+    private function getDataCollection($tahunAktif)
+    {
+        return PaguOpd::with([
             'opd',
             'opd.rap' => function ($q) use ($tahunAktif) {
                 $q->whereYear('jadwal_awal', $tahunAktif);
@@ -36,7 +42,6 @@ class RapSuperAdminPersentase extends AdminSuperAdminAuth
         ->where('tahun_pagu', $tahunAktif)
         ->get()
         ->map(function ($item) {
-
             $paguBG  = $item->pagu_BG ?? 0;
             $paguSG  = $item->pagu_SG ?? 0;
             $paguDTI = $item->pagu_DTI ?? 0;
@@ -45,12 +50,10 @@ class RapSuperAdminPersentase extends AdminSuperAdminAuth
             $inputSG  = $item->opd->rap->where('sumber_dana', 'Otsus 1,25%')->sum('pagu_tahun_berjalan');
             $inputDTI = $item->opd->rap->where('sumber_dana', 'DTI')->sum('pagu_tahun_berjalan');
 
-            // Persen per kolom
             $item->persen_BG  = $paguBG > 0  ? round(($inputBG  / $paguBG)  * 100, 2) : '-';
             $item->persen_SG  = $paguSG > 0  ? round(($inputSG  / $paguSG)  * 100, 2) : '-';
             $item->persen_DTI = $paguDTI > 0 ? round(($inputDTI / $paguDTI) * 100, 2) : '-';
 
-            // Total persen
             $totalPagu  = ($paguBG > 0 ? $paguBG : 0) + ($paguSG > 0 ? $paguSG : 0) + ($paguDTI > 0 ? $paguDTI : 0);
             $totalInput = ($paguBG > 0 ? $inputBG : 0) + ($paguSG > 0 ? $inputSG : 0) + ($paguDTI > 0 ? $inputDTI : 0);
 
@@ -58,20 +61,23 @@ class RapSuperAdminPersentase extends AdminSuperAdminAuth
 
             return $item;
         })
-        ->sortByDesc('persen_total'); // 🔥 URUTKAN DARI TERTINGGI
-        
-        // ==== MANUAL PAGINATE ====
-        // $perPage = 50;
-        // $page = request()->get('page', 1);
-        // $data = new \Illuminate\Pagination\LengthAwarePaginator(
-        //     $collection->forPage($page, $perPage),
-        //     $collection->count(),
-        //     $perPage,
-        //     $page,
-        //     ['path' => request()->url(), 'query' => request()->query()]
-        // );
-        $data = $collection;
+        ->sortByDesc('persen_total');
+    }
 
-        return view('livewire.admin.LW_rap.rap-super-admin-persentase',compact('data','tahunAktif'));
+    // Method export PDF
+    public function exportPdfPersentaseRAP()
+    {
+        $getTahunAktif = ModelPaguInduk::where('status', 'Aktif')->first();
+        $tahunAktif = $getTahunAktif->tahun_pagu ?? null;
+
+        $data = $this->getDataCollection($tahunAktif);
+
+       $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('exports.pdf.persentase-rap', compact('data', 'tahunAktif'))
+            ->setPaper('a4', 'landscape')
+            ->setOption(['margin_top' => 15, 'margin_bottom' => 15, 'margin_left' => 20, 'margin_right' => 20]);
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, 'Persentase-RAP-' . $tahunAktif . '.pdf');
     }
 }
