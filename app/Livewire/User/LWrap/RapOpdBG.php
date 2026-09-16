@@ -65,7 +65,7 @@ class RapOpdBG extends Component
         }
     }
 
-    #[Layout('components.layouts.admin',['pageTitle' => 'Data RAP Block Grand 1%'])]
+    #[Layout('components.layouts.admin',['pageTitle' => 'Data RAP Block Grant 1%'])]
     public function render()
     {
     $opd = Auth::user()->opd_id;

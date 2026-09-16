@@ -3,7 +3,7 @@
         $label = "Rekapitulasi Persentase Input RAP Tahun $tahunAktif";
         $breadcrumbs = [
             ['name' => $label, 'url' => route('superadmin.opd')],
-            // ['name' => 'Artikel', 'url' => route('admin.posts.index')],
+
         ];
     @endphp
     <x-breadcrumb :items="$breadcrumbs" />
@@ -21,7 +21,7 @@
                 {{-- <button class="btn btn-success disabled-link" wire:click="exportExcelPersentaseRAP">
                     <i class="bi bi-file-earmark-excel" ></i> Cetak Excel
                 </button> --}}
-                <button class="btn btn-danger disabled-link" wire:click="exportPdfPersentaseRAP">
+                <button class="btn btn-danger" wire:click="exportPdfPersentaseRAP">
                     <i class="bi bi-filetype-pdf"></i> Cetak PDF
                 </button>
             </div>
