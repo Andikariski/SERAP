@@ -122,7 +122,7 @@
                         <i class="bi bi-exclamation-diamond me-3" style="font-size: 2.6rem; color:{{ $colorIcon }}"></i>
                     @endif
                     <div>
-                        <h5 class="mb-0 fw-semibold text-truncate" title="Dana Otsus Block Grand">Dana Otsus Spesifik Grand</h5>
+                        <h5 class="mb-0 fw-semibold text-truncate" title="Dana Otsus Block Grand">Dana Otsus Spesifik Grant</h5>
                         <small class="text-dark">
                             Pagu Terinput 
                             <strong style="color:#1a9c00">{{number_format($totalPaguTerinput, 0, ',', '.') }}</strong>,

@@ -2,6 +2,7 @@
      @php
         $label = "Detail RAP OPD ";
         $breadcrumbs = [
+            ['name' => 'Rekapitulasi Persentase Input RAP Tahun ' . $tahunAktif, 'url' => route('superadmin.rap.persentase', ['type' => 'rap-persentase'])],
             ['name' => $label, 'url' => route('superadmin.opd')],
             // ['name' => 'Artikel', 'url' => route('admin.posts.index')],
         ];
@@ -13,11 +14,11 @@
                 <i class="bi bi-crosshair" style="font-size: 25px"></i>
                 <h6 class="mb-0"> {{$detailOpd->nama_opd }}</h6>
             </div>
-            <div class="col-md-4 d-flex justify-content-end">
+            {{-- <div class="col-md-4 d-flex justify-content-end">
                 <button class="btn btn-primary disabled-link" wire:click="exportPdfPersentaseRAP">
                     <i class="bi bi-chevron-double-left"></i> Kembali
                 </button>
-            </div>
+            </div> --}}
         </div>
     </div>   
     <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">

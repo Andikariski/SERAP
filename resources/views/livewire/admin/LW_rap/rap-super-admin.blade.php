@@ -110,7 +110,7 @@
                     <i class="bi bi-info-circle text-info"></i> Informasi
                 </h6>
                 <ul class="mb-0 small">
-                    <li>Sebelum melakukan Export Data RAP, pastikan beberapa hal berikut.</li>
+                    Sebelum melakukan Export Data RAP, pastikan beberapa hal berikut.
                     <li>Jika tidak memilih OPD terlebih dahulu, maka data tidak akan dapat dieksport.</li>
                     <li>Pilih OPD yang akan di Export terlebih dahulu.</li>
                     <li>Pilih Tahun Anggaran yang akan di Export.</li>

@@ -16,17 +16,10 @@
                     <i class="bi bi-trash"></i> Kosongkan Database
                 </button>
                  --}}
-                <button type="button" class="btn btn-warning" wire:click="kosongkanTabel" wire:loading.attr="disabled" wire:target="kosongkanTabel">
-                    {{-- Saat tidak loading --}}
-                    <span wire:loading.remove wire:target="kosongkanTabel" style="color:#fff">
-                        <i class="bi bi-trash"></i> Kosongkan Database
-                    </span>
-
-                    {{-- Saat loading --}}
-                    <span wire:loading wire:target="kosongkanTabel" style="display:none;">
-                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-                        Mengosongkan..
-                    </span>
+               <button wire:click="$dispatch('confirm-empty-database-aktivitasUtama')" class="btn btn-warning">
+                        <span style="color:#fff">
+                            <i class="bi bi-trash"></i> Kosongkan Database
+                        </span>
                 </button>
 
                 <button type="button" class="btn btn-success" wire:click="openImportModal">
